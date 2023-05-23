@@ -1,0 +1,52 @@
+git 규칙
+
+java,jsp,css 파일은 이니셜 꼭 붙여주시길 바랍니다
+(git 꼬임 방지용)
+
+pjs_Controller.java
+pjs_Mainpage.java
+pjs_Mainpage.css
+
+git 관련
+
+맨 처음 받을시
+
+1. 바탕화면에 우클릭
+2. git bash here
+3. git clone https://github.com/HeoJinsSeo/ProjectTeam.git
+
+git push
+
+1. ProjectTeam 폴더 우클릭 git bash
+2. git add .
+3. git commit -m "뭐라도 적기 한글도 가능"
+4. git push
+
+다시 받을 시(두번쨰 부터)
+
+1. ProjectTeam 폴더 우클릭 git bash
+2. git fetch
+3. git pull
+
+
+파일 경로 관련
+혹시 사진이나 css가 안뜬다면 경로 꼭 확인해주세요!!!
+
+java 파일
+src -> main -> java -> com.study.springboot 패키지
+C:/Users/h/Desktop/ProjectTeam/src/main/java/com/study/springboot
+
+csv 파일
+src/main/resource/metadata
+C:/Users/h/Desktop/ProjectTeam/src/main/resources/metadata
+
+css 파일
+src/main/resource/static
+C:/Users/h/Desktop/ProjectTeam/src/main/resources/static
+
+img 파일
+src/main/resource/static/img
+C:/Users/h/Desktop/ProjectTeam/src/main/resources/static/img
+
+
+ 
