@@ -18,6 +18,18 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// JSP 관련
+	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	
+	// CSV 관련
+	implementation 'com.opencsv:opencsv:5.5.2'
+	implementation 'org.springframework:spring-context'
+	
+	// Excel 관련
+	implementation 'org.apache.poi:poi:5.1.0'
+    implementation 'org.apache.poi:poi-ooxml:5.1.0'
 }
 
 tasks.named('test') {
