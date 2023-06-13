@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+/* Reset 기본 스타일 */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+  margin: 0;
+  padding: 0;
+}
+*{text-align: center;}
+
+/* 전체 페이지 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* 버튼 스타일 */
+button,
+input[type="button"],
+input[type="submit"] {
+  display: inline-block;
+  border-radius: 1ex;
+  cursor: pointer;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  background-color: blue;
+}
+
+/* 인풋 스타일 */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* 선택 인풋 스타일 */
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+
+/* 링크 스타일 */
+a {
+	color: rgb(0, 0, 128);
+	text-decoration: none;
+	}
+a:hover {
+	text-decoration: underline;
+	}
+
+
+/* 내비게이션 메뉴 스타일 */
+nav {
+  background-color: #333;
+  padding: 7px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+}
+/* 섹션 스타일 */
+section {
+  padding:0 130px;
+}
+
+
+/*--------------------- Body ----------------------*/
+				.mainHeader{display: flex; display: inline;}
+
+.topNav{display: flex; justify-content: flex-end;}
+
+.headerCenter{display: flex; justify-content: center; align-content: center;}
+	.searchBox{display: flex;  width: 40%; height: 20pxpx; align-items: center; }
+	.logo{margin:10px; width: 150px; height: 150px; }
+	.search{padding:10px;font-size: 16px; outline: none; border:none; }
+	button[type="submit"]{background: transparent; border: none;cursor: pointer; }
+	.welcomeBox{line-height: 400%}
+
+.mainNav{display: flex; justify-content: space-around;}
+	.subNav{display: none;}
+	.a:hover{display: block;}
+
+
+				.mainFooter{display:flex; justify-content: center; width: 100%;}
+.footerContent{flex-grow: 1; height: 20vh}
+
+/*--------------------- fixed ----------------------*/
+.buttonContainer {position: relative;display: inline-block;}
+.subButtons {display: none;position: absolute;top: 100%;left: 0;}
+.mainButton:hover + .sub-buttons {display: flex;}
+.button-container:hover .sub-buttons {display: flex;}
+.wrapper {display: inline-block;}
+
+.enterBox{width: 350px; height: 350px;
+display:flex;  justify-content:center; align-items:center;
+position:fixed; top: -250px; left: 300px;   z-index: 9999;
+transition-property: top; transition-duration: 0.8s;
+animation: spin 2s linear infinite;
+background-image: url("/img/pixed_CD.png");
+background-size: cover;}
+.enterBox:hover{top: -50px;}
+
+.loginBox{width: 350px; height: 350px; border-radius: 50%; background-color:yellow;
+display:none;  justify-content:center; align-items:center;
+position:fixed; top: -250px; left: 300px;   z-index: 9999;
+    transition-property: top; transition-duration: 0.8s;
+	}
+.loginBox:hover{top: -50px;}
+
+
+/* 특수 도구 모음*/
+.hide{visibility: hidden;}
+.none{display: none;}
+.inline{display: inline-block;}
+
+
+/*--------------------- frames ----------------------*/
+
+/*@keyframes spin {
+  0%{transform: rotate(0deg)}
+  100%{transform: rotate(360deg);}
+  }
+*/
+@font-face {
+  font-family: 'CustomFont';
+  src: url('customfont.woff2') format('woff2'),
+       url('customfont.woff') format('woff');
+}
+

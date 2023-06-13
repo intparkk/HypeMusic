@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* -------------------- main ----------------------*/
+.mainSection{height: 800px; display: flex;}
+
+.mainShow{width: 70%; height: 100%;}
+	.stage{height:49%}
+	
+.mainChart{width: 30%;}
