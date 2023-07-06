@@ -1,5 +1,7 @@
 package com.study.springboot.dto;
 
+import java.sql.Date;
+
 public class UserDTO {
 	
 	private int user_id;
@@ -8,6 +10,8 @@ public class UserDTO {
 	private String name;
 	private String email;
 	private String profile_img;
+	private String rank;
+	private Date join_date;
 	
 	public int getUser_id() {
 		return user_id;
@@ -45,11 +49,25 @@ public class UserDTO {
 	public void setProfile_img(String profile_img) {
 		this.profile_img = profile_img;
 	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public Date getJoin_date() {
+		return join_date;
+	}
+	public void setJoin_date(Date join_date) {
+		this.join_date = join_date;
+	}
 	
 	@Override
 	public String toString() {
 		return "UserDTO [user_id=" + user_id + ", id=" + id + ", pw=" + pw + ", name=" + name + ", email=" + email
-				+ ", profile_img=" + profile_img + "]";
+				+ ", profile_img=" + profile_img + ", rank=" + rank + ", join_date=" + join_date + "]";
 	}
+	
+	
 
 }

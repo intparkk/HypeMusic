@@ -11,12 +11,14 @@
 <link rel="stylesheet" href="/login.css">
 <body>
 	<div id="wrap">
+	
 		<header class="pageHeader">
 			<a href="http://localhost:8081/" class="logo">
 				<img width="180px" height="100px" src="/img/logo_ex.jpg">
 			</a>
 		</header>
-	<form id="boxes" method="post" action="login">
+		
+	<form id="boxes" method="post" action="/doLogin">
 		<div id="inputGroup">
 			<div id="input">
 				<div class="label-wrapper">
@@ -26,12 +28,13 @@
 			</div>
 			<div id="input">
 				<div class="label-wrapper">
-					<label for="password" id="lb">비밀번호</label><br>
+					<label for="pw" id="lb">비밀번호</label><br>
 				</div>
-				<input type="password" name="password"><br>
+				<input type="password" name="fpw" onkeyup="updatePw(this.value)"><br>
+				<input type="hidden" name="pw" value="">
 			</div>
-			<c:if test="${param.error ne null}">
-				<span style="color:red">${errMessage }</span>
+			<c:if test="${not empty errMsg}">
+				<p style="color:red">${errMsg }</p>
 			</c:if>
    			<div id="find">
   				<button class="find-a" onclick="location.href='#'">아이디 찾기</button>&nbsp;<a id="divide">|</a>&nbsp;<button class="find-a" onclick="location.href='#'">비밀번호 찾기</button>
@@ -45,12 +48,42 @@
 		</div>
       </form>      
    </div>
-   
-<script>
+   	<!-- SHA-256 알고리즘 cryptoJS 라이브러리 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+	<script>
+		/* 암호화된 비밀번호 가리기위해 fpw에 입력한 값을 hidden 타입 pw에 복사하는 함수 */
+		function updatePw(value) {
+		  let pwField = document.getElementsByName("pw")[0];
+		  pwField.value = value;
+		}
+		
+		document.querySelector("#submit").onclick = () => {
+			
+			/* 아이디 */
+			const id = document.querySelector('input[name="id"]').value.trim();
+			const pw = document.querySelector('input[name="pw"]').value.trim();
 
-</script>
-<footer id="footer">
-	<div class="copyright"> ⓒ HMC HypeMusicStudio Corp. All rights reserved.</div>
-</footer>
+			const hashedPW = CryptoJS.SHA256(pw).toString();
+			console.log(hashedPW);
+			
+			if (id.length === 0) {
+				alert("아이디를 입력해주세요.");
+				event.preventDefault();
+			} else if (pw.length === 0) {
+				alert("비밀번호를 입력해주세요.");
+				event.preventDefault();
+			} 
+			
+			document.querySelector("#boxes").onsubmit = () => {
+				document.querySelector('input[name="pw"]').value = hashedPW;
+				console.log(hashedPW);
+				}
+			
+		}
+	</script>
+	
+	<footer id="footer">
+		<div class="copyright"> ⓒ HMC HypeMusicStudio Corp. All rights reserved.</div>
+	</footer>
 </body>
 </html>

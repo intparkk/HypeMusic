@@ -8,12 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Encryptor {
 	/**
-	 * @author LSC
-	 * @param user_pw
+	 * @author 이승찬
+	 * @param String user_pw
 	 * 
 	 * MessageDigest 라이브러리 사용
 	 * SHA-256 방식으로 비밀번호 암호화 하는 메소드
-	 * 
 	 * 
 	 */
 	public String encryptPassword(String user_pw) {

@@ -5,6 +5,7 @@
 
 <mapper namespace="com.study.springboot.dao.UserDAO">
 	
+	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="UserDTO">
 		INSERT INTO
 			users (
@@ -13,7 +14,9 @@
 				id,
 				pw,
 				email,
-				profile_img
+				profile_img,
+				rank,
+				join_date
 			)
 		VALUES (
 			seq_user_id.nextval,
@@ -21,11 +24,13 @@
 			#{id},
 			#{pw},
 			#{email},
-			null
+			null,
+			'normal',
+			sysdate
 		)
-			
 	</insert>
-	
+
+	<!-- id 중복체크 -->	
 	<select id="idDupCheck" parameterType="UserDTO" resultType="int">
 		SELECT
 			COUNT(*) AS count
@@ -35,14 +40,41 @@
 			id = #{id}
 	</select>
 	
-	<select id="login" parameterType="UserDTO" resultType="int">
-		SELECT 
+	<!-- email 중복체크 -->
+	<select id="emailDupCheck" parameterType="UserDTO" resultType="int">
+		SELECT
 			COUNT(*) AS count
 		FROM
-			users_test
+			USERS
 		WHERE
-			user_id = #{user_id} AND user_pw = #{user_pw}
-			
+			email = #{email}
+	</select>
+	
+	<!-- 로그인 (id와 pw가 모두 일치하는 행 count하여 int로 반환)-->
+	<select id="loginCheck" parameterType="UserDTO" resultType="int">
+		SELECT
+			COUNT(*) AS count
+		FROM
+			users
+		WHERE
+			id = #{id} AND pw = #{pw}
+	</select>
+	
+	<!-- 유저 정보 선택 -->
+	<select id="selectUserInfo" parameterType="UserDTO" resultType="UserDTO">
+		SELECT
+			user_id,
+			id,
+			pw,
+			name,
+			email,
+			profile_img,
+			rank,
+			join_date
+		FROM
+			users
+		WHERE
+			id = #{id} AND pw = #{pw}
 	</select>
 	
 </mapper>

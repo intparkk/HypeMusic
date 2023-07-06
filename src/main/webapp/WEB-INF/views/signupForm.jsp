@@ -25,8 +25,8 @@
 						<label for="id" id="lb">아이디</label><br>
 					</div>
 					<input type="text" name="id"><br>
-					<c:if test="${not empty errMsg}">
-						<p id="err">${errMsg}</p>
+					<c:if test="${not empty idErrMsg}">
+						<p id="err">${idErrMsg}</p>
 					</c:if>
 					<div class="notice">영문과 숫자를 하나 이상 포함하는 4자리 이상 16자리 이하여야 합니다.</div>
 				</div>
@@ -34,7 +34,8 @@
 					<div class="label-wrapper">
 						<label for="pw" id="lb">비밀번호</label><br>
 					</div>
-					<input type="password" name="pw"><br>
+					<input type="password" name="fpw" onkeyup="updatePw(this.value)"><br>
+					<input type="hidden" name="pw"><br>
 					<div class="notice">비밀번호는 영문, 숫자, 특수문자를 최소 한 글자 이상 포함하는</div>
 					<div class="notice">8~16자여야 합니다.</div>
 				</div>
@@ -57,7 +58,10 @@
 					</div>
 					<input type="text" name="email"><br>
 				</div>
-				<br> <br>
+				<c:if test="${not empty emailErrMsg}">
+					<p id="err">${emailErrMsg}</p>
+				</c:if> 
+				<br>
 				<div id="input">
 					<!-- input 타입을 button으로 하면 웹에서 Js를 비활성화 해도 버튼이 동작하지 않음 -->
 					<input type="submit" id="submit" value="회원가입">
@@ -69,6 +73,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 	<!-- 폼 제출 -->
 	<script>
+	
+		/* 암호화된 비밀번호 가리기위해 fpw에 입력한 값을 hidden 타입 pw에 복사하는 함수 */
+		function updatePw(value) {
+		  let pwField = document.getElementsByName("pw")[0];
+		  pwField.value = value;
+		}
+	
 		document.querySelector("#submit").onclick = () => {
 
 			/* 이름 */
