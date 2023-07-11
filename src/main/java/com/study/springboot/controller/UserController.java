@@ -1,7 +1,6 @@
 package com.study.springboot.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.UserDTO;
 import com.study.springboot.service.UserService;
 
@@ -23,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
  * 	
  * 	:: 비밀번호 암호화 순서 ::
  *  1. 뷰(signupForm)의 form에서 전달받은 비밀번호를 CryptoJS(JavaScript 라이브러리)를 사용해 
- *     SHA-256 알고리즘으로 암호화(해쉬화)합니다.
+ *     SHA-256 알고리즘으로 암호화(해쉬화)하여 서버로 전달합니다.
  *     
  * 	2. Encryptor 패키지에서 MessageDigest 라이브러리로 뷰에서 넘어온 암호화된 비밀번호를
  * 	   SHA-256 알고리즘으로 한 번 더 암호화하여 DB에 저장합니다. 
@@ -42,7 +46,6 @@ import jakarta.servlet.http.HttpSession;
  *  	    - 내 정보 수정
  *  			- 비밀번호 변경
  *  				- 비밀번호 확인 후 변경하게
- *  			- 사진 업데이트
  *			- 내가 쓴 댓글 확인/삭제
  *			- 회원 탈퇴  	   
  *			- 이용권 사면 등급 올라가게
@@ -60,8 +63,6 @@ public class UserController {
 	@RequestMapping("/test-main")
 	public String main(
 			HttpServletRequest req,
-			@ModelAttribute
-			UserDTO userDTO,
 			Model model
 			) {
 		HttpSession session = req.getSession();
@@ -69,11 +70,12 @@ public class UserController {
 		// 로그인할 때 userInfo 라는 key 에 저장한 dto 가져오기
 		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
 		System.out.println("[/] UserDTO : " + dto);
+		System.out.println("[/]is Logged In? : " + session.getAttribute("isLoggedIn"));
 		
 		// jsp에 dto 라는 key 값으로 dto 전달
 		model.addAttribute("dto", dto);
 		
-		return "lsc_main_test";
+		return "lsc_main_test2";
 	}
 	
 	// 로그인 폼
@@ -102,7 +104,7 @@ public class UserController {
 		if(countAcc == 1) {
 			// 계정 있음
 			HttpSession session = req.getSession();
-//			session.setAttribute("login", "ok");
+			session.setAttribute("isLoggedIn", "ok");
 			
 			if(userInfo != null) {
 				
@@ -178,8 +180,166 @@ public class UserController {
 			
 			return "error2";
 		}
+				
+	}
+	
+	// 내 정보 페이지
+	@RequestMapping("/myInfo")
+	public String myInfo(
+			HttpServletRequest req,
+			Model model) {
 		
+		HttpSession session = req.getSession();
+		session.getAttribute("isLoggedIn");
 		
+		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("dto", dto);
+		
+		System.out.println("[/myInfo]Dto : " + dto);
+		
+		return "myInfo";
+	}
+	
+	// 비밀번호 변경 전 비밀번호 확인 페이지
+	@RequestMapping("/myInfo/checkPw")
+	public String checkPw(
+			HttpServletRequest req,
+			Model model
+			) {
+		
+		HttpSession session = req.getSession();
+		session.getAttribute("isLoggedIn");
+
+		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("dto", dto);
+		System.out.println("[./checkPw]" + dto);
+		
+		return "checkPw";
+	}
+	
+	// 비밀번호 확인 수행
+	@RequestMapping(value="/doCheckPw", method=RequestMethod.POST)
+	public String doCheckPw(
+			HttpServletRequest req,
+			@ModelAttribute
+			UserDTO userDTO,
+			Model model
+			) {
+		
+		HttpSession session = req.getSession();
+        session.getAttribute("isLoggedIn");
+        
+        int count = userService.pwCheck(userDTO);
+        System.out.println("[/doCheckPw]Count : " + count);
+        if (count == 1) {
+        	// 비밀번호 일치
+        	System.out.println("비밀번호 일치");
+        	return "redirect:/myInfo/updatePw";
+        } else {
+        	System.out.println("실패");
+        	String errMsg = "비밀번호가 일치하지 않습니다.";
+        	model.addAttribute("errMsg", errMsg);
+        	return "redirect:/myInfo/checkPw";
+        }        
+	}
+	
+	// 비밀번호 변경 페이지
+	@RequestMapping("/myInfo/updatePw")
+	public String updatePw(
+			HttpServletRequest req,
+			Model model
+			) {
+		
+		HttpSession session = req.getSession();
+		System.out.println("[./updatePw]" + session.getAttribute("isLoggedIn"));
+		
+		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("dto", dto);
+		System.out.println("[./udpatePw]Dto : " + dto);
+		
+		return "updatePw";
+	}
+	
+	// 비밀번호 변경 수행
+	@RequestMapping("/doUpdatePw")
+	public String doUpdatePw (
+			HttpServletRequest req,
+			@ModelAttribute
+			UserDTO userDTO,
+			Model model
+			) {
+		System.out.println("업데이트 하러 들어옴");
+		HttpSession session = req.getSession();
+		System.out.println("DAO호출 직전임");
+		int count = userService.updatePw(userDTO);
+		System.out.println("[/doUpdatePw] count : " + count );
+		try {
+			if (count == 1) {
+				// 변경 성공
+				return "redirect:/myInfo";
+			} else {
+				
+				return "redirect:/error2";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/myInfo";
+		}
+		
+	}
+	
+	// 프로필 사진 업로드
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@ResponseBody
+	public String uploadProfileImg(
+			@RequestParam("file") MultipartFile file,
+			RedirectAttributes redirectAttributes,
+			HttpSession session,
+			Model model
+			) {
+
+//		System.out.println("/upload 접속");
+//		System.out.println("/ : "+ file.isEmpty());
+		
+		if (!file.isEmpty()) {
+			try {
+				
+				String filePath = "C:\\Users\\User\\Desktop\\HypeMusic\\src\\main\\resources\\static\\user_profile_img";
+				String fileName = file.getOriginalFilename();
+				String fullFilePath = filePath + "\\" + fileName;
+		
+				File destination = new File(fullFilePath);
+				file.transferTo(destination);
+				
+				// 이미지 주소 반환
+				String imageUrl = "/user_profile_img/" + fileName;
+				
+				// 데이터베이스에 이미지 주소 업데이트
+				UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+				userDTO.setProfile_img(imageUrl);
+				userService.updateProfileImg(userDTO);
+				
+				redirectAttributes.addFlashAttribute("imageUrl", imageUrl);
+				return imageUrl;
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			  }
+		}
+		
+		return "redirect:/myInfo";
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

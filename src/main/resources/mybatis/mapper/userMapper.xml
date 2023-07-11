@@ -24,7 +24,7 @@
 			#{id},
 			#{pw},
 			#{email},
-			null,
+			'/public/user_profile.png',
 			'normal',
 			sysdate
 		)
@@ -77,4 +77,43 @@
 			id = #{id} AND pw = #{pw}
 	</select>
 	
+	<!-- 비밀번호 변경 - 비밀번호 체크 -->
+	<select id="pwCheck" parameterType="UserDTO" resultType="int">
+		SELECT
+			COUNT(*) AS count
+		FROM
+			users
+		WHERE
+			id = #{id} AND pw = #{pw}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="UserDTO" >
+		UPDATE
+			users
+		SET
+			pw = #{pw}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- 프로필 사진 업데이트 -->
+	<update id="updateProfileImg" parameterType="UserDTO">
+		UPDATE
+			users
+		SET
+			profile_img = #{profile_img}
+		WHERE
+			id = #{id}
+	</update>
+	
+	
+	
 </mapper>
+
+
+
+
+
+
+

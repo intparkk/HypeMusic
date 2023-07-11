@@ -13,7 +13,7 @@
 	<div id="wrap">
 	
 		<header class="pageHeader">
-			<a href="http://localhost:8081/" class="logo">
+			<a href="http://localhost:8081/test-main" class="logo">
 				<img width="180px" height="100px" src="/img/logo_ex.jpg">
 			</a>
 		</header>
@@ -24,14 +24,14 @@
 				<div class="label-wrapper">
 					<label for="id" id="lb">아이디</label><br>
 				</div>
-				<input type="text" name="id"><br>	
+				<input type="text" name="id" value="admin"><br>	
 			</div>
 			<div id="input">
 				<div class="label-wrapper">
 					<label for="pw" id="lb">비밀번호</label><br>
 				</div>
-				<input type="password" name="fpw" onkeyup="updatePw(this.value)"><br>
-				<input type="hidden" name="pw" value="">
+				<input type="password" name="fpw" value="1234" onkeyup="updatePw(this.value)"><br>
+				<input type="text" name="pw" value="1234">
 			</div>
 			<c:if test="${not empty errMsg}">
 				<p style="color:red">${errMsg }</p>
@@ -53,8 +53,8 @@
 	<script>
 		/* 암호화된 비밀번호 가리기위해 fpw에 입력한 값을 hidden 타입 pw에 복사하는 함수 */
 		function updatePw(value) {
-		  let pwField = document.getElementsByName("pw")[0];
-		  pwField.value = value;
+			let pwField = document.getElementsByName("pw")[0];
+			pwField.value = value;
 		}
 		
 		document.querySelector("#submit").onclick = () => {
@@ -64,7 +64,6 @@
 			const pw = document.querySelector('input[name="pw"]').value.trim();
 
 			const hashedPW = CryptoJS.SHA256(pw).toString();
-			console.log(hashedPW);
 			
 			if (id.length === 0) {
 				alert("아이디를 입력해주세요.");
@@ -76,9 +75,7 @@
 			
 			document.querySelector("#boxes").onsubmit = () => {
 				document.querySelector('input[name="pw"]').value = hashedPW;
-				console.log(hashedPW);
-				}
-			
+				}	
 		}
 	</script>
 	

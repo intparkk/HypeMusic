@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.PlaylistDAO">
+	
+	
+	<!-- 새 재생목록 만들기 -->
+	<insert id="createNewPlaylist" parameterType="MyPlaylistDTO" useGeneratedKeys="false">
+	
+		INSERT INTO
+			my_playlist (
+				playlist_id,
+				playlist_name,
+				track_count,
+				user_id
+			)
+		VALUES 
+			(
+			seq_playlist_id.nextval,
+			'새 재생목록',
+			null,
+			#{user_id}
+			)
+	<!-- <selectKey keyProperty="리턴 받을 변수명" resultType="반환타입"
+					order="BEFORE(쿼리문 전에 실행할 경우), AFTER(쿼리문 이후에 실행할 경우)" -->
+		<selectKey keyProperty="playlist_id" resultType="int" order="AFTER">
+			SELECT 
+				seq_playlist_id.currval
+			FROM 
+				dual
+		</selectKey>
+	</insert>
+	
+	<select id="selectPlaylistName" parameterType="MyPlaylistDTO" resultType="String">
+		SELECT
+			playlist_name
+		FROM
+			my_playlist
+		WHERE
+			playlist_id = #{playlist_id}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+

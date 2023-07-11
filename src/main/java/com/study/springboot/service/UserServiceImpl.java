@@ -70,6 +70,37 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// 비밀번호 변경 - 비밀번호 체크
+	@Override
+	public int pwCheck(UserDTO userDTO) {
+		
+		String encPw = encryptor.encryptPassword(userDTO.getPw());
+		userDTO.setPw(encPw);
+		
+		return userDAO.pwCheck(userDTO);
+	}
+
+	// 비밀번호 변경
+	@Override
+	public int updatePw(UserDTO userDTO) {
+		
+		String encPw = encryptor.encryptPassword(userDTO.getPw());
+		userDTO.setPw(encPw);
+		
+		int result = userDAO.updatePw(userDTO);
+		
+		return result;
+	}
+	
+	// 프로필 사진 업데이트
+	@Override
+	public int updateProfileImg(UserDTO userDTO) {
+		
+		int result = userDAO.updateProfileImg(userDTO);
+		
+		return result;
+	}
+
 
 
 }

@@ -22,4 +22,14 @@ public interface UserDAO {
 	
 	// 이메일 중복체크
 	int emailDupCheck(UserDTO userDTO);
+	
+	// 비밀번호 변경 - 비밀번호 확인
+	int pwCheck(UserDTO userDTO);
+	
+	// 비밀번호 변경 수행
+	int updatePw(UserDTO userDTO);
+	
+	
+	// 프로필 사진 업데이트
+	int updateProfileImg(UserDTO userDTO);
 }
