@@ -32,7 +32,7 @@
 				dual
 		</selectKey>
 	</insert>
-	
+	 
 	<select id="selectPlaylistName" parameterType="MyPlaylistDTO" resultType="String">
 		SELECT
 			playlist_name

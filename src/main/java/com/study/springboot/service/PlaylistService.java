@@ -8,3 +8,4 @@ public interface PlaylistService {
 	
 	int createNewPlaylist(MyPlaylistDTO myPlaylistDTO);
 }
+ 

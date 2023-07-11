@@ -38,7 +38,7 @@ public class MyPlaylistDTO {
 	public void setTrack_id(int track_id) {
 		this.track_id = track_id;
 	}
-	
+	 
 	@Override
 	public String toString() {
 		return "MyPlaylistDTO [playlist_id=" + playlist_id + ", playlist_name=" + playlist_name + ", playlist_quantity="
