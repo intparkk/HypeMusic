@@ -12,7 +12,7 @@
 	<div id="wrap">
 		<!-- 헤더 -->
 		<header class="pageHeader">
-			<a href="http://localhost:8081/" class="logo"> <img width="180px"
+			<a href="http://localhost:8081/test-main" class="logo"> <img width="180px"
 				height="100px" src="/img/logo_ex.jpg">
 			</a>
 		</header>
@@ -76,10 +76,10 @@
 	
 		/* 암호화된 비밀번호 가리기위해 fpw에 입력한 값을 hidden 타입 pw에 복사하는 함수 */
 		function updatePw(value) {
-		  let pwField = document.getElementsByName("pw")[0];
-		  pwField.value = value;
+			let pwField = document.getElementsByName("pw")[0];
+			pwField.value = value;
 		}
-	
+		
 		document.querySelector("#submit").onclick = () => {
 
 			/* 이름 */
@@ -96,7 +96,7 @@
 			/* 비밀번호 */
 			/* 영문,숫자,특수문자 최소 하나씩 포함하는 최소 8자리 이상 16자리 이하인 정규식 */
 			const pw = document.querySelector('input[name="pw"]').value.trim();
-			const pw_confirm = document.querySelector('input[name="pw-confirm"]').value.trim();
+			const pwConfirm = document.querySelector('input[name="pw-confirm"]').value.trim();
 			const pwRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W)(?!.*\s).{8,16}$/;
 			
 			/* 이메일 */
@@ -121,7 +121,7 @@
 			} else if (!pw.match(pwRegex)) {
 				alert("비밀번호 형식이 올바르지 않습니다.");
 				event.preventDefault();
-			} else if (pw !== pw_confirm) {
+			} else if (pw !== pwConfirm) {
 				alert("비밀번호가 일치하지 않습니다.");
 				event.preventDefault();
 			} else if (name.length === 0) {

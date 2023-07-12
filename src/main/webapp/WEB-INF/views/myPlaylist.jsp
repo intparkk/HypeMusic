@@ -91,14 +91,67 @@
 			})
 		}
 		
+		// 재생목록 불러오기
 		const loadPlaylist = () => {
-			fetch("/myPlaylist/loadPlaylist")
-				.then((response) => response.json())
-				.then((data) => {
+			// ajax 요청 보내기
+			fetch("/myPlaylist/loadPlaylist", {
+				method : "GET"
+			})
+			.then((response) => {
+			
+				return response.json();
+			})
+			.then((data) => {
+				console.log("로드 완료", data);
+				
+				// JSON 문자열을 객체로 변환
+				const playlistData = data;
+				
+				// data에서 받아온 재생목록 배열을 순회
+				data.forEach((playlistData) => {
+					// playlistData에서 필요한 값 꺼내서 사용
+					const playlistId = playlistData.playList_id;
+					const playlistName = playlistData.playList_name;
+					const playlistImage = playlistData.playList_img;
 					
-				})
-			 
+					// 새로운 playlist 요소 생성
+					const playlistWrapper = document.createElement("div");
+					playlistWrapper.classList.add("playlist-wrapper");
+					
+					const playlistImgWrapper = document.createElement("div");
+					playlistImgWrapper.classList.add("playlist-img-wrapper");
+					
+					const playlistLink = document.createElement("a");
+					playlistLink.classList.add("playlist-link");
+					playlistLink.href = "/myPlaylist/playlist?playlist_id=" + playlistId;
+					
+					const playlistImg = document.createElement("img");
+					playlistImg.id = "playlist-img";
+					playlistImg.src = "/public/playlist_img.svg";
+					
+					playlistLink.appendChild(playlistImg);
+					playlistImgWrapper.appendChild(playlistLink);
+					playlistWrapper.appendChild(playlistImgWrapper);
+					
+					const playlistTitleWrapper = document.createElement("div");
+					playlistTitleWrapper.classList.add("playlist-title-wrapper");
+					
+					const playlistTitleLink = document.createElement("a");
+					playlistTitleLink.classList.add("playlist-title");
+					playlistTitleLink.href = "//myPlaylist/playlist?playlist_id=" + playlistId;
+					playlistTitleLink.textContent = playlistName;
+					
+					playlistTitleWrapper.appendChild(playlistTitleLink);
+					playlistWrapper.appendChild(playlistTitleWrapper);
+					
+					document.querySelector("#list-wrapper").appendChild(playlistWrapper);
+				});
+			})
+			.catch((error) => {
+				console.error("Error", error);
+			});
 		}
+
 		
 		// 재생목록 생성 & html 동적 생성
 		const createNewPlaylist = () => {
@@ -134,7 +187,7 @@
 				// <a> 태그 생성
 				const playlistLink = document.createElement("a");
 				playlistLink.classList.add("playlist-link");
-				playlistLink.href = "/myPlaylist?id=" + playlistId;
+				playlistLink.href = "//myPlaylist/playlist?playlist_id=" + playlistId;
 				
 				// <img> 태그 생성
 				const playlistImg = document.createElement("img");
@@ -154,7 +207,7 @@
 				
 				const playlistTitleLink = document.createElement("a");
 				playlistTitleLink.classList.add("playlist-title");
-				playlistTitleLink.href = "/myPlaylist?id=" + playlistId;
+				playlistTitleLink.href = "//myPlaylist/playlist?playlist_id=" + playlistId;
 				playlistTitleLink.textContent = playlistName;// 새로운 playlist 제목 설정
 
 /* 				const addBtn = document.createElement("button");

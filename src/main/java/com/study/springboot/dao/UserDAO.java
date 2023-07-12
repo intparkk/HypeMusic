@@ -13,7 +13,7 @@ public interface UserDAO {
 	// 입력받은 id와 pw가 모두 일치하는 유저 정보를 모두 선택합니다.
 	// UserServiceImpl - Map login() 내부에서 사용
 	UserDTO selectUserInfo(UserDTO userDTO);
-	
+	 
 	// 회원가입
 	int joinUser(UserDTO userDTO);
 	

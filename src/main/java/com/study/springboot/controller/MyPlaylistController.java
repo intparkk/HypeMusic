@@ -1,13 +1,17 @@
 package com.study.springboot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.springboot.dao.PlaylistDAO;
 import com.study.springboot.dto.MyPlaylistDTO;
 import com.study.springboot.dto.UserDTO;
@@ -95,7 +99,59 @@ public class MyPlaylistController {
 		return myPlaylistDTO;
 	}
 	
-	 
+	// 재생목록 불러오기
+	@RequestMapping("/myPlaylist/loadPlaylist")
+	@ResponseBody
+	public String loadPlaylist(
+			HttpServletRequest req,
+			@ModelAttribute
+			MyPlaylistDTO myPlaylistDTO,
+			Model model
+			) {
+		
+		HttpSession session = req.getSession();
+		// 세션에서 유저 정보 불러오기
+		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+		
+		// 유저ID 추출
+		int user_id = userDTO.getUser_id();
+		System.out.println("user id :" + user_id);
+
+		// 재생목록DTO에 유저ID 설정
+		myPlaylistDTO.setUser_id(user_id);
+		
+		List<MyPlaylistDTO> playlist = playlistService.loadPlaylist(myPlaylistDTO);
+		System.out.println("playlist : " + playlist);
+		
+		// JSON 으로 파싱
+		String jsonPlaylist = parseToJson(playlist);
+		System.out.println("JSON : " + jsonPlaylist);
+		
+		return jsonPlaylist;
+	}
+	
+	// Object 리스트를 JSON 문자열로 파싱하는 메소드
+	private String parseToJson(List<MyPlaylistDTO> playlist) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try {
+			return objectMapper.writeValueAsString(playlist);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping("/myPlaylist/playlist")
+	public String loadPlaylistById(
+			@RequestParam("playlist_id") int playlistId,
+			Model model
+			) {
+		
+//		MyPlaylistDTO playlist = playlistService.getPlaylistById(playlist)
+		
+		return "playlist";
+	}
 
 	
 }
