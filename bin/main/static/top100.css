@@ -1,0 +1,159 @@
+@charset "EUC-KR";
+
+
+body {
+	
+	width:85%;
+	display: inline-block;
+	margin-left: 120px;
+}
+
+h1 {
+	color:gray;
+	margin-left:40px;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+h2 {
+	text-align:center;
+	color:gray;
+	margin:0;
+	padding:0;
+}
+.section_3 {
+	margin-top:0;
+	margin-bottom:0;
+}
+
+.music_btn {
+	display:flex;
+	gap:10px;
+    background-color: white;
+    color: gray;
+    padding: 15px 15px;
+    font-size: 20px;
+    margin-top:0;
+    margin-bottom:0;
+  
+    
+}
+.suffle_listen,
+.all_listen,
+.listen,
+.put,
+.down,
+.FLAC,
+.present
+{
+	width: 75px;
+	height:35px;
+	border: 1px solid gray;
+	border-radius: 20px;
+	color: gray;
+	background-color: white;
+	font-size: 13px;
+	
+}
+
+.suffle_listen:hover,
+.all_listen:hover,
+.listen:hover,
+.put:hover,
+.down:hover,
+.FLAC:hover,
+.present:hover
+ {
+    background-color:#04aa6d;
+    color: white;
+    cursor: pointer;
+}	
+table{
+	border-collapse:collapse;
+	
+}
+
+table,th, td{
+	border: none;
+	border-bottom: 1px solid lightgray;
+	border-top: 1px solid lightgray;
+}
+th, td{
+	padding-left: 20px;
+	padding-right: 20px;
+	color: gray;
+	
+	
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #eee;
+}
+
+.checkmark::after {
+    content: '';   
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;  /* top right bottom left */
+    transform: rotate(45deg);
+    color: #04aa6d;
+}
+
+
+.track {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	margin:12px 12px 12px 12px;
+	
+}
+
+.track img{
+	width: 100px;
+	height: 100px;
+	margin:0px 5px 8px 1px;
+	
+}
+
+.track .caption {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding:0;
+    margin:0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+} 
+.track .caption p{
+	font-size: 10px;
+	margin-top:15px;
+	padding:5px;
+	padding-top:0;
+}       
+.track:hover .caption {
+    opacity: 1;
+} 
+
+.logo1,
+.logo2,
+.logo3,
+.logo4
+ {
+	width:45px;
+	height:45px;
+}
+

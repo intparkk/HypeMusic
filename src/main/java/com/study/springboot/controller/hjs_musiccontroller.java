@@ -59,8 +59,9 @@ public class hjs_musiccontroller {
 	@RequestMapping("/ExcelToDB")
 	public String music2() {
 		 // 엑셀파일 경로(각자의 PC환경에 맞게 바꾸셔야 합니다. 이미 아시겠지만요.~)	
-		 String filePath = "C:\\Users\\82109\\OneDrive\\바탕 화면\\HypeMusic\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
-
+		 //String filePath = "C:\\Users\\82109\\OneDrive\\바탕 화면\\HypeMusic\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
+		// 박정수 경로 오류날 시 제꺼 주석처리 후 사용 부탁드리겠습니다
+		 String filePath = "C:\\Users\\h\\Desktop\\HypeMusic_230712\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
 		 
 		 DataFormatter dataFormatter = new DataFormatter();
 		    // 엑셀 파일을 java로 불러오기
@@ -235,7 +236,6 @@ public class hjs_musiccontroller {
 		return "hjs_main_test";
 	}
 	
-
 	@RequestMapping("/music_info")
 	public String music_info(
 			Model model,

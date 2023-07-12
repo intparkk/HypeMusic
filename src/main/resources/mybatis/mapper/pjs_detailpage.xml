@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.pjs_detailpageDAO">
+	
+	<!-- 곡 상세페이지 track_id 를 전달하면 track_id에 대한 곡 정보를 부름 -->
+	<select id = "musicinfo" resultType="trackinfoDTO">
+		WITH deduplicated_tracks AS (
+		  SELECT
+		    t.album_id,
+		    t.track_id,
+		    t.artist_id,
+		    t.title,
+		    t.lyrics,
+		    t.like_count,
+		    t.youtube_url,
+		    t.genre,
+		    a.artist,
+		    al.album_name,
+		    al.release_date,
+		    al.album_img,
+		    ROW_NUMBER() OVER (PARTITION BY t.track_id ORDER BY t.album_id) AS rn
+		  FROM
+		    tracks t
+		  LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		  LEFT JOIN
+		    ALBUMS al ON t.album_id = al.album_id
+		)
+		SELECT
+		  album_id,
+		  track_id,
+		  artist_id,
+		  title,
+		  lyrics,
+		  like_count,
+		  youtube_url,
+		  genre,
+		  artist,
+		  album_name,
+		  release_date,
+		  album_img
+		FROM
+		  deduplicated_tracks
+		WHERE
+		  track_id = #{track_id}
+		  AND rn = 1
+	</select>
+	
+	<!-- 아티스트 상세페이지에 artist_id 를 전달하면 해당 artist_id에 대한 정보를 부름 -->
+	<select id = "artistinfo" resultType = "trackinfoDTO">
+		WITH deduplicated_tracks AS (
+		  SELECT
+		    t.artist_id,
+		    t.album_id,
+		    t.track_id,
+		    t.title,
+		    al.album_img,
+		    a.artist,
+		    a.artist_img,
+		    a.artist_brief,
+		    ROW_NUMBER() OVER (PARTITION BY t.track_id ORDER BY t.album_id) AS rn
+		  FROM
+		    tracks t
+		  LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		  LEFT JOIN
+		    Albums al ON t.album_id = al.album_id
+		  WHERE
+		    t.artist_id = #{artist_id}
+		)
+		SELECT
+		    artist_id,
+		    album_id,
+		    track_id,
+		    title,
+		    album_img,
+		    artist,
+		    artist_img,
+		    artist_brief
+		FROM
+		    deduplicated_tracks
+		WHERE
+		    rn = 1
+		ORDER BY
+		    album_id
+	</select>
+	
+	<!-- 앨범 상세페이지에 album_id를 전달하면 해당 album_id 에 대한 정보를 부름 -->
+	<select id = "albuminfo" resultType = "trackinfoDTO">
+		SELECT
+		  track_id,
+		  artist_id,
+		  album_id,
+		  title,
+		  like_count,
+		  youtube_url,
+		  artist,
+		  album_name,
+		  release_date,
+		  album_img,
+		  album_brief
+		FROM (
+		  SELECT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    t.title,
+		    t.like_count,
+		    t.youtube_url,
+		    a.artist,
+		    al.album_name,
+		    al.release_date,
+		    al.album_img,
+		    al.album_brief,
+		    ROW_NUMBER() OVER (PARTITION BY t.track_id ORDER BY t.track_id) AS rn
+		  FROM
+		    tracks t
+		  LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		  LEFT JOIN
+		    ALBUMS al ON t.album_id = al.album_id
+		  WHERE
+		    al.album_id = #{album_id}
+		) subquery
+		WHERE
+		  rn = 1
+	</select>
+
+	<!-- 아티스트와 관련된 아티스트를 호출하는 쿼리문 -->
+	<select id = "relativeartist" resultType = "trackinfoDTO">
+		SELECT *
+		FROM (
+		    SELECT
+		        t.track_id,
+		        t.artist_id,
+		        t.album_id,
+		        a.artist,
+		        a.artist_img,
+		        ROW_NUMBER() OVER (PARTITION BY t.artist_id ORDER BY t.track_id) AS rn
+		    FROM
+		        tracks t
+		    LEFT JOIN
+		        Artists a ON t.artist_id = a.artist_id
+		    WHERE
+		        LOWER(t.title) LIKE LOWER('%' || #{keyword} || '%')
+		) sub
+		WHERE
+		    rn = 1;
+	</select>
+</mapper>

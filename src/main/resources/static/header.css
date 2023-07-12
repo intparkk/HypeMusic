@@ -1,0 +1,166 @@
+/*@charset "EUC-KR";*/
+
+    .buy_ticket_btn,
+    .login_btn,
+    .logout_btn,
+    .myInfo_btn,
+    .signup_btn,
+    .music_chart_btn,
+    .new_music_btn,
+    .genre_music_btn,
+    .star_magazine_btn,
+    .popular_music_video_btn,
+    .music_4u_btn,
+    .board_btn,
+    .my_music_btn,
+    .Mainpage_genre_btn,
+    .admin_btn
+     {
+        background-color: white;
+        border: none;
+        color: gray;
+        padding: 8px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }  
+    
+    .buy_ticket_btn:hover,
+    .login_btn:hover,
+    .logout_btn:hover,
+    .myInfo_btn:hover,
+    .signup_btn:hover,
+    .music_chart_btn:hover,
+    .new_music_btn:hover,
+    .genre_music_btn:hover,
+    .star_magazine_btn:hover,
+    .popular_music_video_btn:hover,
+    .music_4u_btn:hover,
+    .board_btn:hover,
+    .my_music_btn:hover,
+    .Mainpage_genre_btn:hover
+    .admin_btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+	}
+	
+	#header {
+	  display: flex;
+	  flex-direction: column;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+	  width: 1000px;
+	}
+	
+	.head_top {
+      display: flex;
+      height: 45px;
+    }
+    
+    .head_top_left {
+    	display: flex;
+		justify-self: flex-start;
+		margin-top: auto;
+    }
+
+    .head_top_right {
+    	display: flex;
+		justify-self: flex-end;
+		margin-left: auto;
+		line-height: 45px;
+    }
+    
+    .head_middle {
+    	display:flex;
+    	justify-content: center;
+    	align-items: center;
+    	position: relative;
+	    width: 80%;
+	    margin: 0 auto;
+	}	
+	
+    .head_bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap; 
+  	  overflow-x: auto; 
+    }    
+    
+    .head_bottom_left {
+    	display: flex;
+    	justify-self: flex-start;
+        justify-content: space-between;
+        /*float: left;*/
+    }
+
+    .head_bottom_right {
+        display: flex;
+        justify-self: flex-end;
+        justify-content: space-between;
+        /*float: right;*/
+    }  
+
+    .user_states {
+        font-weight: bold;
+    }
+
+	.logo {
+	    
+	    width: 200px;
+	    height: 100px;
+	}
+	form {
+		width: 100%;
+	}
+	.search-input-container {
+	 	flex-direction: row-reverse;
+		display: flex;
+		position: relative;
+		width: 400px;
+		margin-left: 40px;
+		margin-right: auto;
+		position: relative;
+	}
+	
+	.search_box {
+		width: 100%;
+		top: 10px;
+		margin-top: 40px;
+		margin-left: -30px;
+  		height: 30px;
+  		border-radius: 5px;
+  		border: 2px solid grey;
+  		padding: 5px 10px;
+  		font-size: 16px;
+	}
+	
+	.search-icon-container {
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		width: 40px;
+		margin-left: 50px;
+	}
+	
+	.search-btn {
+		background: transparent;
+		border: 0px;
+		
+	}
+	
+	.search-btn:hover {
+		cursor: pointer;
+	}
+	
+	.search-btn-img {
+		position: absolute;
+  		top: 43px;
+  		right: 15px;  		
+	}		
+

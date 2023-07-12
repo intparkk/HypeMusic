@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.springboot.dao.pjs_newsDAO">
+    
+    <resultMap id="newsResultMap" type="newsDTO">
+        <id property="news_title" column="news_title" />
+        <result property="news_brief" column="news_brief" />
+        <result property="news_img" column="news_img" />
+        <result property="news_url" column="news_url" />
+    </resultMap>
+    
+    <select id="getNewsList" resultMap="newsResultMap">
+        SELECT * FROM news where news_title is not null
+    </select>   
+    
+    
+</mapper>

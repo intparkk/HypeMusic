@@ -44,7 +44,4 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 		int result = hjsmusicDAO.updateDao(musicDto);
 		return result;
 	}
-
-	
-
 }

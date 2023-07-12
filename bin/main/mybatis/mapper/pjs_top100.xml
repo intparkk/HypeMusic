@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.springboot.dao.pjs_top100DAO">
+    
+    <resultMap id="top100ResultMap" type="trackinfoDTO">
+        <id property="track_id" column="track_id" />
+        <result property="title" column="title" />
+        <result property="like_count" column="like_count" />
+        <result property="artist_id" column="artist_id" />
+    	<result property="album_id" column="album_id" />
+        <result property="artist" column="artist" />
+        <result property="youtube_url" column="youtube_url" />
+        <result property="album_name" column="album_name" />
+        <result property="album_img" column="album_img" />
+    </resultMap>
+    
+    <!-- TOP 100 트랙 조회 -->
+    <select id="getTop100Tracks" resultMap="top100ResultMap">
+		SELECT
+		    t.track_id,
+		    t.title,
+		    t.like_count,
+		    t.artist_id,
+		    t.album_id,
+		    a.artist,
+		    t.youtube_url,
+		    al.album_name,
+		    al.album_img
+		FROM
+		    tracks t
+		JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		JOIN
+		    ALBUMS al ON t.album_id = al.album_id
+		GROUP BY
+		    t.track_id,
+		    t.title,
+		    t.like_count,
+		    t.artist_id,
+		    t.album_id,
+		    a.artist,
+		    t.youtube_url,
+		    al.album_name,
+		    al.album_img
+		ORDER BY
+		    t.like_count DESC
+    </select>
+    
+    
+</mapper>
