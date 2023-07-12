@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.HjscommentDAO">
+<resultMap id="commentResult" type="HjscommentDTO">
+		<result column="track_id" property="track_id" />
+		<result column="comment_id" property="comment_id" />
+</resultMap>
+<select id="listDao" resultType="com.study.springboot.dto.HjscommentDTO">
+	select * from tb_comment where track_id=#{track_id}
+</select>
+ 
+ 
+<select id="viewDao" resultType="com.study.springboot.dto.HjscommentDTO">
+	select * from tb_comment where comment_id = #{param1}
+</select>
+
+<insert id="writeDao" parameterType="com.study.springboot.dto.HjscommentDTO">
+	insert into tb_comment (
+	track_id,  
+    comment_id,  
+    member_id,  
+    comment_content,  
+    comment_time, 
+    parent_id  
+	)
+	values (
+	#{track_id},
+	comment_id_seq.nextval,
+	#{member_id},
+	#{comment_content},
+	sysdate,
+	#{parent_id}
+	)
+</insert> 
+
+<delete id="deleteDao" parameterType="com.study.springboot.dto.HjscommentDTO">
+	delete from tb_comment where comment_id=#{param1}
+</delete>
+
+ <update id="updateDao" parameterType="com.study.springboot.dto.HjscommentDTO">
+	update tb_comment
+	set 
+    	comment_content = #{comment_content}
+    where comment_id=#{comment_id}  
+</update>
+
+ 
+ </mapper>
