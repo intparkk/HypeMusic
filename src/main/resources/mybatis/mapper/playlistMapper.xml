@@ -42,6 +42,17 @@
 			playlist_id = #{playlist_id}
 	</select>
 	
+	<select id="loadPlaylist" parameterType="MyPlaylistDTO" resultType="MyPlaylistDTO">
+		SELECT
+			playlist_id,
+			playlist_name,
+			playlist_img,
+			user_id
+		FROM
+			my_playlist
+		WHERE
+			user_id = #{user_id}
+	</select>
 </mapper>
 
 
