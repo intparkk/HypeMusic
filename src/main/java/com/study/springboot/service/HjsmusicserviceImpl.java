@@ -44,4 +44,10 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 		int result = hjsmusicDAO.updateDao(musicDto);
 		return result;
 	}
+
+	@Override
+	public List testIf(HjsmusicDTO musicDto) {
+		List result = hjsmusicDAO.testIf(musicDto);
+		return result;
+	}
 }

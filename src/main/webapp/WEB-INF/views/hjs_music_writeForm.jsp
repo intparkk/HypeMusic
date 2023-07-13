@@ -22,6 +22,9 @@ border: 1px solid lightgray;
 
 </style>
 </head>
+<header>
+<jsp:include page="header.jsp"></jsp:include> 
+</header>
 <body>
 ${dto.track_id}<br>
 <img src="${dto.album_img}" alt="album_img" style="width: 100px;height: 100px;"><br>

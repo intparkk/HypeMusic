@@ -76,26 +76,21 @@
 	</update>
 	
 	<!-- 추후 검색 기능을 위해 남겨둡니다.  -->
-<!--  	
+  	
 	<select id="testIf"
-		parameterType="HjsmusicDTO"
-		resultType="HjsmusicDTO">
+		parameterType="com.study.springboot.dto.HjsmusicDTO"
+		resultType="com.study.springboot.dto.HjsmusicDTO">
 		select * from tb_music
-		<where>
-			<if test=" title != null and title !='' ">
-				AND title LIKE '%'||#{title}||'%'
-			</if>
-			<if test=" artist != null and artist != '' ">
-				AND artist LIKE '%'||#{artist}||'%'
-			</if>
-			<if test=" genre != null and genre != '' ">
+<!-- 		<where>
+	 		<if test=" genre != null and genre !='' ">
 				AND genre LIKE '%'||#{genre}||'%'
 			</if>
-		</where>
-		order by 
-			track_id desc
-			
+ 		</where>
+ -->		
+ 			where genre Like '%'||#{genre}||'%'
+ 			order by 
+			release_date desc
 	</select>
 
- -->
+
 </mapper>

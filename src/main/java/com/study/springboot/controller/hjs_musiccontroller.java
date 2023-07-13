@@ -42,6 +42,7 @@ public class hjs_musiccontroller {
 	@Autowired
 	HjscommentDAO hjscommentDAO;
 	
+		
 	@RequestMapping("/hjs_main_test")
 	public String test1() {
 		
@@ -59,9 +60,9 @@ public class hjs_musiccontroller {
 	@RequestMapping("/ExcelToDB")
 	public String music2() {
 		 // 엑셀파일 경로(각자의 PC환경에 맞게 바꾸셔야 합니다. 이미 아시겠지만요.~)	
-		 //String filePath = "C:\\Users\\82109\\OneDrive\\바탕 화면\\HypeMusic\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
+		 String filePath = "C:\\Users\\82109\\OneDrive\\바탕 화면\\HypeMusic\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
 		// 박정수 경로 오류날 시 제꺼 주석처리 후 사용 부탁드리겠습니다
-		 String filePath = "C:\\Users\\h\\Desktop\\HypeMusic_230712\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
+		// String filePath = "C:\\Users\\h\\Desktop\\HypeMusic_230712\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
 		 
 		 DataFormatter dataFormatter = new DataFormatter();
 		    // 엑셀 파일을 java로 불러오기
@@ -369,6 +370,25 @@ public class hjs_musiccontroller {
 	}
 	
 	
+	@RequestMapping("/hjs_music_genre")
+	public String genrechoice(
+			Model model,
+			HttpServletRequest req,
+			@ModelAttribute HjsmusicDTO musicDto
+			) {
+		
+		// 웹 페이지의 전달 내용을 받아옴
+		String preference = req.getParameter("preference"); // 곡의 장르 값을 가져옴
+		System.out.println(preference);
+		
+		// DTO에 곡의 장르 값을 설정
+		musicDto.setGenre(preference); 
+		
+		List list = hjsmusicDAO.testIf(musicDto);
+		model.addAttribute("list", list);
+		
+		return "hjs_music_genre";
+	}
 	
 		
 }
