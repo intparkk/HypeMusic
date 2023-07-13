@@ -234,7 +234,7 @@ public class hjs_musiccontroller {
 		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
 		model.addAttribute("list",list);
 		System.out.println(list);
-		return "hjs_main_test";
+		return "hjs_music_top100";
 	}
 	
 	@RequestMapping("/music_info")
@@ -369,6 +369,13 @@ public class hjs_musiccontroller {
 		return "redirect:/music_info?track_id="+track_id;
 	}
 	
+	
+	/*
+	 *장르 음악은 초기화면 로딩 속도가 느립니다. 
+	 *다른 페이지는 DB에서 100개의 데이터만 가져오는데, 
+	 *장르 음악은 모든 곡을 로딩해오기 때문인것 같습니다. 
+	 * 
+	 */
 	
 	@RequestMapping("/hjs_music_genre")
 	public String genrechoice(
