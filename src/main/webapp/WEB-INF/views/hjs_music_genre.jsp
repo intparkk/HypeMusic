@@ -1,4 +1,3 @@
-<%@page import="com.study.springboot.dto.HjsmusicDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,10 +12,27 @@
 <meta charset="UTF-8">
 <title>장르음악</title>
 <style>
-table,th,td {
-border: 1px solid lightgray;
+table{
+	border-collapse:collapse;
+	margin: auto;
 }
-
+table,th, td{
+	border: none;
+	border-bottom: 1px solid lightgray;
+	border-top: 1px solid lightgray;
+}
+table {
+margin: auto;
+}
+h1 {
+text-align: center;
+}
+#genreForm {
+  text-align: center;
+}
+#preference {
+  margin: 0 auto;
+}
 </style>
 </head>
 <header>
@@ -76,4 +92,7 @@ function submitForm(){
 
 </script>
 </body>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include> 
+</footer>
 </html>

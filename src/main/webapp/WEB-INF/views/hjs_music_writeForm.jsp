@@ -45,4 +45,7 @@ ${dto.lyrics }<br><br>
 <a href="/hjs_music_top100">목록으로</a><br><br>
 
 </body>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include> 
+</footer>
 </html>
