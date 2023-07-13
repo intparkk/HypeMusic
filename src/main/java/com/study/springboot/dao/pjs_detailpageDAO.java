@@ -12,5 +12,7 @@ public interface pjs_detailpageDAO
 	List<trackinfoDTO> musicinfo(int track_id);
 	List<trackinfoDTO> artistinfo(int artist_id);
 	List<trackinfoDTO> albuminfo(int album_id);
-	List<trackinfoDTO> relativeartist(String artist_name);
+	List<trackinfoDTO> relativeartist(int album_id);
+	
+	public String artistNameById(int artist_id);
 }

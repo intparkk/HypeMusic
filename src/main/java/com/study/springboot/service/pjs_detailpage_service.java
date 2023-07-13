@@ -1,5 +1,10 @@
 package com.study.springboot.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +36,6 @@ public class pjs_detailpage_service
 		
 	    List<trackinfoDTO> trackInfoList = detailpageDao.musicinfo(track_id);
 	    
-	    if (!trackInfoList.isEmpty()) {
-	    	// 결과 확인용
-	        /*for (trackinfoDTO trackInfo : trackInfoList) {
-	            System.out.println("album_id: " + trackInfo.getAlbum_id());
-	            System.out.println("track_id: " + trackInfo.getTrack_id());
-	            System.out.println("artist_id: " + trackInfo.getArtist_id());
-	            System.out.println("title: " + trackInfo.getTitle());
-	            //System.out.println("lyrics: " + trackInfo.getLyrics());
-	            System.out.println("like_count: " + trackInfo.getLike_count());
-	            System.out.println("youtube_url: " + trackInfo.getYoutube_url());
-	            System.out.println("genre: " + trackInfo.getGenre());
-	            System.out.println("artist: " + trackInfo.getArtist());
-	            System.out.println("album_name: " + trackInfo.getAlbum_name());
-	            System.out.println("release_date: " + trackInfo.getRelease_date());
-	            System.out.println("album_img: " + trackInfo.getAlbum_img());
-	        }*/
-	    }
 	    return trackInfoList;
 	}
 	
@@ -55,45 +43,51 @@ public class pjs_detailpage_service
 	public List<trackinfoDTO> artistinfo(int artist_id) {
 	    List<trackinfoDTO> artistInfoList = detailpageDao.artistinfo(artist_id);
 
-	    /*if (!artistInfoList.isEmpty()) {
-	        for (trackinfoDTO artistInfo : artistInfoList) {
-	            System.out.println("artist_id: " + artistInfo.getArtist_id());
-	            System.out.println("album_id: " + artistInfo.getAlbum_id());
-	            System.out.println("track_id: " + artistInfo.getTrack_id());
-	            System.out.println("title: " + artistInfo.getTitle());
-	            System.out.println("album_img: " + artistInfo.getAlbum_img());
-	            System.out.println("artist: " + artistInfo.getArtist());
-	            System.out.println("artist_img: " + artistInfo.getArtist_img());
-	            System.out.println("artist_brief: " + artistInfo.getArtist_brief());
-	        }
-	    }*/
 		System.out.println("아티스트 관련 정보 불러오기 성공");
 
 	    return artistInfoList;
 	}
 	
-	// artist_id 입력시 artist 데이터 리턴하는 메서드
+	// album_id 입력시 album 데이터 리턴하는 메서드
 	public List<trackinfoDTO> albuminfo(int album_id) {
 	    List<trackinfoDTO> albumInfoList = detailpageDao.albuminfo(album_id);
 	    
-	        /*for (trackinfoDTO albumInfo : albumInfoList) {
-	            System.out.println("앨범 아티스트: " + albumInfo.getArtist());
-	            System.out.println("앨범 제목: " + albumInfo.getAlbum_name());
-	            System.out.println("앨범 발매일: " + albumInfo.getRelease_date());
-	            System.out.println("앨범 이미지: " + albumInfo.getAlbum_img());
-	            System.out.println("앨범 소개: " + albumInfo.getAlbum_brief());
-	        }*/
+	    // release_date를 기준으로 내림차순 정렬
+	    Collections.sort(albumInfoList, new Comparator<trackinfoDTO>() {
+	        @Override
+	        public int compare(trackinfoDTO track1, trackinfoDTO track2) {
+	            Date releaseDate1 = track1.getRelease_date();
+	            Date releaseDate2 = track2.getRelease_date();
+	            return releaseDate2.compareTo(releaseDate1);
+	        }
+	    });
+	    
 		System.out.println("앨범 관련 정보 불러오기 성공");
 
 	    return albumInfoList;
 	}
 	
 	// 관련 아티스트를 추천하는 메서드
-	public List<trackinfoDTO> relativeartist(String artist_name)
-	{
-		List<trackinfoDTO> relativeArtistList = detailpageDao.relativeartist(artist_name);
-		
-		return relativeArtistList;
+	public List<trackinfoDTO> relativeartist(int artist_id) {
+	    List<trackinfoDTO> relativeArtistList = detailpageDao.relativeartist(artist_id);
+
+	    List<Integer> processedArtistIds = new ArrayList<>();
+	    List<trackinfoDTO> filteredList = new ArrayList<>();
+
+	    // 중복 처리
+	    for (trackinfoDTO artist : relativeArtistList) {
+	        int currentArtistId = artist.getArtist_id();
+
+	        // 중복된 artist_id인 경우 건너뛰기
+	        if (processedArtistIds.contains(currentArtistId)) {
+	            continue;
+	        }
+
+	        processedArtistIds.add(currentArtistId);
+	        filteredList.add(artist);
+	    }
+
+	    return filteredList;
 	}
 
 }

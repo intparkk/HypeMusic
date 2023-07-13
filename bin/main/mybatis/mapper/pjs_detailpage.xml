@@ -57,7 +57,10 @@
 		    t.album_id,
 		    t.track_id,
 		    t.title,
+		    t.youtube_url,
 		    al.album_img,
+		    al.release_date,
+		    al.album_name,
 		    a.artist,
 		    a.artist_img,
 		    a.artist_brief,
@@ -76,7 +79,10 @@
 		    album_id,
 		    track_id,
 		    title,
+		    youtube_url,
 		    album_img,
+		    release_date,
+		    album_name,
 		    artist,
 		    artist_img,
 		    artist_brief
@@ -85,7 +91,7 @@
 		WHERE
 		    rn = 1
 		ORDER BY
-		    album_id
+		    album_id DESC
 	</select>
 	
 	<!-- 앨범 상세페이지에 album_id를 전달하면 해당 album_id 에 대한 정보를 부름 -->
@@ -130,24 +136,59 @@
 	</select>
 
 	<!-- 아티스트와 관련된 아티스트를 호출하는 쿼리문 -->
+	<!-- 1. artist_id 를 keyword로 입력받는다.
+		 2. artist_id 에 해당하는 artist 값을 배열로 저장한다
+		 3. artist 값을 저장한 값들을 title 로 검색한다
+		 4. 나온 결과를 저장한다 -->
+		 
 	<select id = "relativeartist" resultType = "trackinfoDTO">
-		SELECT *
-		FROM (
-		    SELECT
-		        t.track_id,
-		        t.artist_id,
-		        t.album_id,
-		        a.artist,
-		        a.artist_img,
-		        ROW_NUMBER() OVER (PARTITION BY t.artist_id ORDER BY t.track_id) AS rn
-		    FROM
-		        tracks t
-		    LEFT JOIN
-		        Artists a ON t.artist_id = a.artist_id
-		    WHERE
-		        LOWER(t.title) LIKE LOWER('%' || #{keyword} || '%')
-		) sub
-		WHERE
-		    rn = 1;
+		WITH artist_ids AS (
+		  SELECT DISTINCT artist_id
+		  FROM Artists
+		  WHERE artist_id = #{keyword}
+		),
+		matching_artists AS (
+		  SELECT DISTINCT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    a.artist,
+		    a.artist_img
+		  FROM
+		    tracks t
+		  LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		  INNER JOIN
+		    artist_ids ai ON t.artist_id = ai.artist_id
+		),
+		matching_tracks AS (
+		  SELECT DISTINCT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    a.artist,
+		    a.artist_img
+		  FROM
+		    tracks t
+		  LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		  INNER JOIN
+		    matching_artists ma ON t.title LIKE '%' || ma.artist || '%'
+		),
+		final_results AS (
+		  SELECT *
+		  FROM matching_artists
+		  UNION
+		  SELECT *
+		  FROM matching_tracks
+		)
+		SELECT
+		  t.track_id,
+		  t.artist_id,
+		  t.album_id,
+		  t.artist,
+		  t.artist_img
+		FROM
+		  final_results t
 	</select>
 </mapper>

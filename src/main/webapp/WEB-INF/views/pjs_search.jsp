@@ -11,101 +11,98 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${keyword }에 대한 검색결과</title>
-<link rel="stylesheet" href="/Mainpage.css?after">
+<title>HYPEMUSIC : ${keyword }에 대한 검색결과</title>
+<link rel="stylesheet" href="/search.css?after">
 </head>
 <header>
 <jsp:include page="header.jsp"></jsp:include>         
 </header>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
-
-    h1 {
-        margin: 20px;
-        font-size: 24px;
-    }
-
-    #search_track_result {
-        margin: 20px;
-    }
-    
-    #search_artist_result {
-        margin: 20px;
-    }
-
-    h2 {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    #artist_ul {
-    	display : flex;
-        flex-direction: row;
-    }
-
-    li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    #album_img {
-        width: 80px;
-        height: 80px;
-        margin-right: 10px;
-    }
-    
-    #artist_img {
-        width: 120px;
-        height: 120px;
-        margin-right: 10px;
-    }
-
-</style>
-
 <body>
+	<div id = "search_body">
 	<h1 id="ment">"${keyword }"&nbsp에 대한 검색결과입니다.</h1>
+	<!-- 트랙 검색결과 섹션 -->
 	<section id ="search_track_result">
 		<h2>관련 트랙</h2>
 		<ul>
-	        <c:forEach var="track" items="${searchbytrack}">
+	        <c:forEach var="track" items="${search_all}">
 	            <li>
-	                <img id = "album_img" src="${track.album_img}">
-	                ${track.title} - ${track.artist} - ${track.album_name } - ${track.release_date } - ${track.like_count }
-	                <button type="button" title="재생" class="btn">
-	                    <span class="cnt">재생</span>
-	                </button>    
-		            <button type="button" title="담기" class="btn">
-	                    <span class="cnt">담기</span>
-	                </button>
+	             	<a href="/musicinfo/${track.track_id}">
+	                <img id = "track_img" src="${track.album_img}">
+	                </a>
+		            <a href="/musicinfo/${track.track_id}">
+	                    ${track.title}
+	                </a>
+	                -
+	                <a href="/artistinfo/${track.artist_id}">
+	                    ${track.artist}
+	                </a>
+	                -
+	                <a href="/albuminfo/${track.album_id}">
+	                    ${track.album_name}
+	                </a>
+	                - ${track.release_date } - ${track.like_count }
+		            <button type="button" title="재생" class="btn play-btn">
+		                <img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;">
+		            </button>
+		            &nbsp;
+		            <button type="button" title="담기" class="btn add-btn">
+		                <img src="/img/hjs_put.png" alt="담기" style="width: 30px; height: 30px;">
+		            </button>
 	            </li>
 	        </c:forEach>
 	    </ul>
 	</section>
-	
-		<section id ="search_artist_result">
-		<h2>관련 아티스트</h2>
-		<ul id = "artist_ul">
-	        <c:forEach var="artist" items="${searchbyartist}">
+	<!--  아티스트 검색결과 섹션 -->
+	<section id="search_artist_result">
+	    <h2>관련 아티스트</h2>
+	    <ul id="artist_ul">
+	        <c:set var="previousArtistId" value="" />
+	        <c:forEach var="artist" items="${search_all}">
+	            <c:if test="${artist.artist_id ne previousArtistId}">
+	                <c:set var="previousArtistId" value="${artist.artist_id}" />
+	                <div id = "artist_package">
+	                <li>
+	                    <a href="/artistinfo/${artist.artist_id}">
+	                        <img id="artist_img" src="${artist.artist_img}">
+	                    </a>
+	                </li>
+	                <li id="artist_name_ul">
+	                    ${artist.artist}
+	                </li>
+	                </div>
+	            </c:if>
+	        </c:forEach>
+	    </ul>
+	</section>
+			
+	<!--  앨범 검색결과 섹션 -->
+	<section id ="search_album_result">
+		<h2>관련 앨범</h2>
+		<ul id = "album_ul">
+	        <c:set var="previousAlbumId" value="" />
+	        <c:forEach var="album" items="${search_all}">
+	        	<c:if test="${album.album_id ne previousAlbumId}">
+	        	<c:set var="previousAlbumId" value="${album.album_id}" />
+	        	<div id = "album_package">
 	            <li>
-	                <img id="artist_img" src="${artist.artist_img}" >
+	            <a href="/albuminfo/${album.album_id}">
+	                <img id="album_img" src="${album.album_img}" >
 	            </li>
+	            <ul id = "album_name_ul">
+	            	${album.album_name }
+	            </a>
+	            </ul>       
 	            <ul id = "artist_name_ul">
-	            	${artist.artist }
-	            </ul>	            
+	            <a href="/artistinfo/${album.artist_id}">	            
+	            	${album.artist }
+				</a>
+	            </ul>
+	            </div>
+	        </c:if>
 	        </c:forEach>
 	    </ul>
 	</section>
+	</div>
 </body>
 <jsp:include page="footer.jsp"></jsp:include>  
 </html>

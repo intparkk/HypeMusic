@@ -5,56 +5,75 @@
 
 <mapper namespace="com.study.springboot.dao.pjs_searchDAO">
 
-	<!-- 곡 정보 조회 -->
+	<!-- 곡 정보 조회(타이틀)  -->
 	<select id="searchbytrack" resultType="trackinfoDTO">
-		SELECT *
-		FROM (
-		    SELECT
-		        t.track_id,
-		        t.artist_id,
-		        t.album_id,
-		        t.title,
-		        t.like_count,
-		        t.youtube_url,
-		        a.artist,
-		        al.album_name,
-		        al.album_img,
-		        al.release_date,
-		        ROW_NUMBER() OVER (PARTITION BY t.album_id ORDER BY t.track_id) AS rn
-		    FROM
-		        tracks t
-		    LEFT JOIN
-		        Artists a ON t.artist_id = a.artist_id
-		    LEFT JOIN
-		        Albums al ON t.album_id = al.album_id
-		    WHERE
-		        LOWER(t.title) LIKE LOWER('%' || #{keyword} || '%')
-		) sub
+		SELECT DISTINCT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    t.title,
+		    t.like_count,
+		    t.youtube_url,
+		    a.artist,
+		    a.artist_img,
+		    al.album_name,
+		    al.album_img,
+		    al.release_date
+		FROM
+		    tracks t
+		LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		LEFT JOIN
+		    Albums al ON t.album_id = al.album_id
 		WHERE
-		    rn = 1
+		    LOWER(t.title) LIKE LOWER('%' || #{keyword} || '%')
 	</select>
 	
 	<!-- 아티스트 정보 조회 -->
 	<select id="searchbyartist" resultType="trackinfoDTO">
-		SELECT *
-		FROM (
-		    SELECT
-		        t.track_id,
-		        t.artist_id,
-		        t.album_id,
-		        a.artist,
-		        a.artist_img,
-		        ROW_NUMBER() OVER (PARTITION BY t.artist_id ORDER BY t.track_id) AS rn
-		    FROM
-		        tracks t
-		    LEFT JOIN
-		        Artists a ON t.artist_id = a.artist_id
-		    WHERE
-		        LOWER(a.artist) LIKE LOWER('%' || #{keyword} || '%')
-		) sub
+		SELECT DISTINCT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    t.title,
+		    t.like_count,
+		    t.youtube_url,
+		    a.artist,
+		    a.artist_img,
+		    al.album_name,
+		    al.album_img,
+		    al.release_date
+		FROM
+		    tracks t
+		LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		LEFT JOIN
+		    Albums al ON t.album_id = al.album_id
 		WHERE
-		    rn = 1
+		    LOWER(a.artist) LIKE LOWER('%' || #{keyword} || '%')
 	</select>
-
-
+	
+	<!--  앨범 정보 조회 -->
+	<select id="searchbyalbum" resultType="trackinfoDTO">
+		SELECT DISTINCT
+		    t.track_id,
+		    t.artist_id,
+		    t.album_id,
+		    t.title,
+		    t.like_count,
+		    t.youtube_url,
+		    a.artist,
+		    a.artist_img,
+		    al.album_name,
+		    al.album_img,
+		    al.release_date
+		FROM
+		    tracks t
+		LEFT JOIN
+		    Artists a ON t.artist_id = a.artist_id
+		LEFT JOIN
+		    Albums al ON t.album_id = al.album_id
+		WHERE
+		    LOWER(al.album_name) LIKE LOWER('%' || #{keyword} || '%')
+	</select> 
 </mapper>

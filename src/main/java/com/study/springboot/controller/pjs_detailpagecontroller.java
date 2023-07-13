@@ -35,10 +35,13 @@ public class pjs_detailpagecontroller
     // 아티스트 상세페이지
     @GetMapping("/artistinfo/{artistId}")
     public String getArtistInfo(@PathVariable int artistId, Model model) {
-        List<trackinfoDTO> artistInfo = detailpageService.artistinfo(artistId);
-        List<trackinfoDTO> relativeArtistInfo = detailpageService.relativeartist(null);
-        
+    	
+    	List<trackinfoDTO> artistInfo = detailpageService.artistinfo(artistId);
+    	List<trackinfoDTO> relativeArtistInfo = detailpageService.relativeartist(artistId); 
+      
         model.addAttribute("artistInfo", artistInfo);
+        model.addAttribute("relativeArtistInfo",relativeArtistInfo);
+        
         System.out.println("아티스트 상세페이지 진입");
         
         return "/pjs_artistinfo";
