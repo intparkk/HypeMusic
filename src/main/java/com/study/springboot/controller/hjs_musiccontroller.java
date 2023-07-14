@@ -442,6 +442,7 @@ public class hjs_musiccontroller {
 		List<HjsmusicDTO> list = hjsmusicDAO.listDao2(musicDto2);
 		model.addAttribute("list", list);
 		System.out.println(list);
+		System.out.println("list");
 		
 		return "hjs_music_viewtest";
 	}

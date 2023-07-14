@@ -60,7 +60,7 @@ text-align: center;
 </c:forEach>
 	
 </table>
-
+<br><br><br>
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 
