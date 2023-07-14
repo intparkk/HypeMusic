@@ -29,6 +29,7 @@ text-align: center;
 </header>
 <body>
 <table>
+
 	<tr>
 		<th>♡</th>
 		<th>track_id</th>
@@ -59,6 +60,7 @@ text-align: center;
 </c:forEach>
 	
 </table>
+
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 
