@@ -20,6 +20,7 @@
 </header>
 <body>
 테스트용 페이지입니다. 
+
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 

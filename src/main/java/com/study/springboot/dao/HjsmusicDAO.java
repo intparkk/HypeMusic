@@ -15,8 +15,10 @@ import jakarta.annotation.PostConstruct;
 public interface HjsmusicDAO {
 
 	public abstract List<HjsmusicDTO> listDao(HjsmusicDTO musicDto);
+	public abstract List<HjsmusicDTO> listDao2(HjsmusicDTO musicDto2);
 	
 	public abstract int writeDao(HjsmusicDTO musicDto);
+	public abstract int writeDao2(HjsmusicDTO musicDto2);
 	abstract HjsmusicDTO viewDao(String track_id);
 	abstract int deleteDao(String track_id);
 	abstract int updateDao(HjsmusicDTO musicDto);

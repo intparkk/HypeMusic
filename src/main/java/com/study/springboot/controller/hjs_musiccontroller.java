@@ -397,5 +397,53 @@ public class hjs_musiccontroller {
 		return "hjs_music_genre";
 	}
 	
+	@RequestMapping("/hjs_music_admintest")
+	public String admintest() {
+		return "hjs_music_admintest";
+	}
+	
+	
+	@RequestMapping("/hjs_music_admininsert")
+	public String admintest(
+			HjsmusicDTO musicDto2,
+			Model model,
+			HttpServletRequest req
+			) {
+
+		 String track_id = musicDto2.getTrack_id(); 
+		 String artist_id = musicDto2.getArtist_id(); 
+		 String album_img = musicDto2.getAlbum_img();
+		 String title = musicDto2.getTitle(); 
+		 String artist = musicDto2.getArtist(); 
+		 String album_name = musicDto2.getAlbum_name();
+		 int like_count = musicDto2.getLike_count(); 
+		 String genre = musicDto2.getGenre(); 
+		 String release_date = musicDto2.getRelease_date();
+		 String lyrics = musicDto2.getLyrics();
+		
+		 System.out.println("track_id : "+ track_id);
+		 
+		 int result = hjsmusicDAO.writeDao2(musicDto2);
+		
+		 System.out.println("writeDao2 result : "+ result);
+		 
+		return "hjs_music_admintest";
+	}
+	
+	@RequestMapping("/hjs_music_viewtest")
+	public String viewtest(
+			HjsmusicDTO musicDto2,
+			Model model,
+			HttpServletRequest req
+			
+			) {
+		HjsmusicDTO newmusic = musicDto2;
+		
+		List<HjsmusicDTO> list = hjsmusicDAO.listDao2(musicDto2);
+		model.addAttribute("list", list);
+		System.out.println(list);
+		
+		return "hjs_music_viewtest";
+	}
 		
 }
