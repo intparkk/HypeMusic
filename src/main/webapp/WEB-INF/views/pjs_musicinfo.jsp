@@ -94,10 +94,7 @@
                     <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
                 	</button> &nbsp;
                 	<span id ="icon_nextword">듣기</span> &nbsp; 
-                    <button type="button" title="담기" class="btn add-btn" >
-                    <img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
-                	</button>
-                	<span id ="icon_nextword">담기</span>  
+					<jsp:include page = "addbutton.jsp"></jsp:include>
                 	</dt>         
                 </dl>   
 </section>
