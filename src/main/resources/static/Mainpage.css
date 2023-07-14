@@ -1,0 +1,72 @@
+@charset "EUC-KR";
+
+	#mainpage_body {
+        margin: 20px 120px;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: #3f3f3f;
+    }
+    
+    #blackword{
+    	color: black;
+    }
+    
+    #boldword{
+    	 font-weight: bold;
+    }
+	#body_top_section {
+		display : flex;
+		flex-direction : row;
+		justify-content: space-between;	
+	}	
+	#top10_chart ol {
+	    border: 1px solid #ccc;
+	    padding: 10px;
+	    margin: 0;
+	    list-style: none;	    
+	}
+
+	#top10_chart ol li {
+	    padding: 5px;
+	    margin-bottom: 5px;
+	    border-bottom: 1px solid #ccc;
+	    white-space: nowrap;
+    	transition: transform 0.3s ease-in-out;
+    	overflow: hidden;
+	    text-overflow: ellipsis;
+	    width: 300px;
+	}
+
+	#top10_chart ol li:hover {
+	    transform: scale(1.1);
+	}
+
+	#top10_chart ol li:hover img {
+	    display: block;
+	}
+
+	#top10_chart ol li img {
+	    display: none;
+	    width: 50px;
+	    height: 50px;
+	}
+	
+	#top10_title {
+    float: left;
+   	overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+	}	
+	#top10_artist {
+	    float: right;
+	}
+	
+	#top10_chart a {
+    color: gray;
+    text-decoration: none;
+	}
+	
+	#top10_chart a:hover {
+    color: black;
+    text-decoration: none;
+	}
