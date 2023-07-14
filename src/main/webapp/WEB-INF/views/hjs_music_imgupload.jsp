@@ -20,12 +20,23 @@
 		<tr>
 			<th>마이프로필</th>
 		</tr>
+		
+ 
+<c:set var="lastFile" value="${fileList[fileList.size() - 1]}" />
+
+<tr>
+    <td><img src="/hjs_readMail?id=${lastFile.name}"></td>
+</tr>
+
+<%-- 	
 	<c:forEach var="map" items="${fileList}">
 		<tr>
 			<td><img src="/hjs_readMail?id=${map.name }"></td>
 		</tr>
 	</c:forEach>
-	</table>
+	
+--%>
+</table>
 		
 </body>
 </html>
