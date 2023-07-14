@@ -17,7 +17,7 @@ public interface HjsmusicService {
 	abstract int updateDao(HjsmusicDTO musicDto);
 
 	List<HjsmusicDTO> listDao(HjsmusicDTO musicDto);
-	
+	// 업데이트 테스트
 	// 검색기능 만들때에 필요할 수도 있어서 남깁니다. 
 	List testIf(HjsmusicDTO musicDto);
 //	List testForeach(HjsmusicDTO musicDto);

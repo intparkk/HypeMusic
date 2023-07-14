@@ -58,7 +58,7 @@ text-align: center;
 		<td>${dto.lyrics }</td>
 	</tr>
 </c:forEach>
-	
+	<!-- 업데이트 테스트 -->
 </table>
 <br><br><br>
 </body>

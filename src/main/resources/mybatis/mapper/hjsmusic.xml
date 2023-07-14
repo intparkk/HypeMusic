@@ -69,7 +69,7 @@
 		#{lyrics}  
 		)
 	</insert>
-
+<!-- 업데이트 test-->
    <!-- 관리자 음악 insert위해 생성 -->
 	<insert id="writeDao2" parameterType="com.study.springboot.dto.HjsmusicDTO">
 		insert into tb_music_test (

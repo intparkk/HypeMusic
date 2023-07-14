@@ -44,6 +44,6 @@ public class HjscommentServiceImpl implements HjscommentService{
 		return list;
 	}
 
-	
+	// 업데이트 테스트
 
 }
