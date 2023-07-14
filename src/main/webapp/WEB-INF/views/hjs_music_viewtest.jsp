@@ -59,6 +59,7 @@ text-align: center;
 	</tr>
 </c:forEach>
 	<!-- 업데이트 테스트 -->
+	<!-- 업데이트 테스트 -->
 </table>
 <br><br><br>
 </body>
