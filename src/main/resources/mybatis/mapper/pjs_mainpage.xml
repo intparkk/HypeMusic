@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.pjs_mainpageDAO">
+	
+	<!-- 메인페이지 Top10 트랙 -->
+	<select id="gettop10tracks" resultType="trackinfoDTO">
+	    SELECT *
+	    FROM (
+	        SELECT
+	            t.track_id, 
+	            t.artist_id, 
+	            t.title, 
+	            a.artist, 
+	            al.release_date, 
+	            t.like_count, 
+	            al.album_img
+	        FROM tracks t
+	        JOIN artists a ON t.artist_id = a.artist_id
+	        JOIN albums al ON t.album_id = al.album_id
+	        ORDER BY t.like_count DESC
+	    )
+	    WHERE ROWNUM &lt;= 10
+	</select>
+	
+	<!-- 메인페이지 Top 10 아티스트(우선 보류) -->
+	<select id="gettop100artists" resultType="trackinfoDTO">		
+	</select>
+	
+	<!-- 메인페이지 정면 그리드  -->
+	<select id="getgridtracks" resultType="trackinfoDTO">
+		SELECT
+		    t.track_id, 
+		    t.artist_id, 
+		    t.title, 
+		    a.artist, 
+		    al.release_date, 
+		    al.album_img
+		FROM
+		    tracks t
+		JOIN
+		    artists a ON t.artist_id = a.artist_id
+		JOIN
+		    albums al ON t.album_id = al.album_id
+		WHERE
+		    al.release_date &gt;= TO_DATE('2021-01-01', 'YYYY-MM-DD')
+	</select>	
+</mapper>
