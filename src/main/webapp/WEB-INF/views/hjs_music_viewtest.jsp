@@ -12,7 +12,6 @@
 table{
 	border-collapse:collapse;
 	margin: auto;
-	margin: auto;
 }
 table,th, td{
 	border: 1px solid lightgray;
