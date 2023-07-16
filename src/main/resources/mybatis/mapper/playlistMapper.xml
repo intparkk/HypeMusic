@@ -32,7 +32,8 @@
 				dual
 		</selectKey>
 	</insert>
-	 
+	
+	<!-- 재생목록 이름 불러오기 -->
 	<select id="selectPlaylistName" parameterType="MyPlaylistDTO" resultType="String">
 		SELECT
 			playlist_name
@@ -42,6 +43,27 @@
 			playlist_id = #{playlist_id}
 	</select>
 	
+	<!-- 재생목록 곡 수 불러오기 -->
+	<select id="countTracksFromPlaylist" parameterType="MyPlaylistDTO" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			playlist
+		WHERE
+			playlist_id = #{playlist_id}
+	</select>
+	
+	<!-- 재생목록 이미지 불러오기 -->
+	<select id="selectPlaylistImg" parameterType="MyPlaylistDTO" resultType="String">
+		SELECT
+			playlist_img
+		FROM
+			my_playlist
+		WHERE
+			playlist_id = #{playlist_id}
+	</select>
+	
+	<!-- 유저 재생목록 목록 불러오기 -->
 	<select id="loadPlaylist" parameterType="MyPlaylistDTO" resultType="MyPlaylistDTO">
 		SELECT
 			playlist_id,
@@ -52,6 +74,43 @@
 			my_playlist
 		WHERE
 			user_id = #{user_id}
+	</select>
+	
+	<!-- 재생목록에 곡 추가 -->
+	<insert id="insertTrackIntoPlaylist" parameterType="PlaylistDTO">
+		INSERT INTO
+			playlist (
+				playlist_id,
+				track_id
+			)
+		VALUES
+			(
+			#{playlist_id},
+			#{track_id}
+			)
+	</insert>
+	
+	<!-- 재생목록에 있는 곡 불러오기 -->
+	<select id="loadPlaylistTracks" parameterType="playlistDTO">
+		SELECT
+			mp.playlist_id,
+			t.track_id,
+			a.album_img,
+			t.title,
+			a.album_name,
+			ar.artist
+		FROM
+			my_playlist mp
+		JOIN
+			playlist p ON mp.playlist_id = p.playlist_id
+		JOIN
+			tracks t ON p.track_id = t.track_id
+		JOIN
+			albums a ON t.album_id = a.album_id
+		JOIN
+			artists ar ON t.artist_id = ar.artist_id
+		WHERE
+			mp.playlist_id = #{playlist_id}
 	</select>
 </mapper>
 

@@ -6,6 +6,31 @@
 <head>
 <meta charset="UTF-8">
 <title>my info</title>
+<style>
+
+#my-info-wrapper {
+	margin: 0 auto;
+	border: 1px solid lightgrey;
+	min-width: 800px;
+	width: 50%;
+	min-height: 600px;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+
+.contents {
+	display: flex;
+	align-items: center;
+	padding-left: 40px;
+	border-bottom: 1px solid grey;
+	height: 80px;
+}
+
+#profileImage {
+	margin-left: 20px;
+}
+
+</style>
 </head>
 <body>
 	<h1> 내 정보 </h1>
@@ -21,17 +46,40 @@
 			<a href="/login">로그인</a>
 		</c:when>
 		<c:otherwise>
-			<p>아이디 : ${dto.id}</p>
-			<p>이름 : ${dto.name}</p>
-			<p>이메일 : ${dto.email}</p>
-			<form action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-				<p>프로필 사진 : <img id="profileImage" src="${dto.profile_img}" style="width: 64px; height: 64px; border-radius: 32px;"></p>
-				<input type="file" name="filename" id="fileInput" value="파일 선택">
-			</form>
-			<p>회원등급 : ${dto.rank}</p>
-			<a href="/myInfo/checkPw">비밀번호 변경</a>
-			<br>
-			<a href="#">회원 탈퇴</a>
+			<div id="my-info-wrapper">
+				<div class="contents">
+					아이디 : ${dto.id}
+				</div>
+				<div class="contents">
+					이름 : ${dto.name}
+				</div>
+				<div class="contents">
+					이메일 : ${dto.email}
+				</div>
+				<form action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+					<div class="contents">
+						프로필 사진    
+						<img id="profileImage" src="${dto.profile_img}" style="width: 64px; height: 64px; border-radius: 32px;">
+					</div>
+					<div class="contents">
+						<input type="file" name="filename" id="fileInput" value="파일 선택">
+					</div>
+				</form>
+				<div class="contents">
+					회원등급 : ${dto.rank}
+				</div>
+				<div class="contents">
+					<a href="/myInfo/checkPw">
+						비밀번호 변경
+					</a>
+				</div>
+				<br>
+				<div class="contents">
+					<a href="#">
+						회원 탈퇴
+					</a>
+				</div>
+			</div>
 		</c:otherwise>
 	</c:choose>
 	

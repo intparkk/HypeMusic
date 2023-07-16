@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.study.springboot.dao.PlaylistDAO;
 import com.study.springboot.dto.MyPlaylistDTO;
+import com.study.springboot.dto.PlaylistDTO;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService{
@@ -24,6 +25,18 @@ public class PlaylistServiceImpl implements PlaylistService{
 	public List<MyPlaylistDTO> loadPlaylist(MyPlaylistDTO myPlaylistDTO) {
 
 		return playlistDAO.loadPlaylist(myPlaylistDTO);
+	}
+
+	@Override
+	public int insertTrackIntoPlaylist(PlaylistDTO playlistDTO) {
+		
+		return playlistDAO.insertTrackIntoPlaylist(playlistDTO);
+	}
+
+	@Override
+	public List<PlaylistDTO> loadPlaylistTracks(PlaylistDTO playlistDTO) {
+		
+		return playlistDAO.loadPlaylistTracks(playlistDTO);
 	}
 
 

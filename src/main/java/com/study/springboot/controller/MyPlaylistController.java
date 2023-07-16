@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.springboot.dao.PlaylistDAO;
 import com.study.springboot.dto.MyPlaylistDTO;
+import com.study.springboot.dto.PlaylistDTO;
 import com.study.springboot.dto.UserDTO;
 import com.study.springboot.service.PlaylistService;
 
@@ -39,6 +41,28 @@ public class MyPlaylistController {
 	
 	@Autowired
 	PlaylistDAO playlistDAO;
+	
+	// 재생목록에 담기
+	@RequestMapping(value="/myPlaylist/addToPlaylist", method=RequestMethod.POST)
+	@ResponseBody
+	public PlaylistDTO addToPlaylist(
+			// POST 방식으로 요청했기때문에 @RequestBody
+			@RequestBody
+			PlaylistDTO playlistDTO
+			) {
+		try {
+			
+//			System.out.println(playlistDTO);
+			
+			int insertedColumn = playlistService.insertTrackIntoPlaylist(playlistDTO);
+//			System.out.println("[/addToPlaylist]insertedColumn : " + insertedColumn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return playlistDTO;
+	}
 	
 	// 내 재생목록 페이지
 	@RequestMapping("/myPlaylist")
@@ -76,25 +100,19 @@ public class MyPlaylistController {
 		myPlaylistDTO.setUser_id(user_id);
 
 		
-		System.out.println("/createNewPlaylist 접근");
+//		System.out.println("/createNewPlaylist 접근");
 		// 새 재생목록 생성 (Mapper 에서 Insert한 행의 갯수가 아닌 재생목록ID를 반환
 		int playlist_id = playlistService.createNewPlaylist(myPlaylistDTO);
-		System.out.println("int playlist_id :" + playlist_id);
+//		System.out.println("playlist_id :" + playlist_id);
 		
 		// 재생목록DTO에 재생목록ID, 재생목록 이름 설정
 		myPlaylistDTO.setPlayList_id(myPlaylistDTO.getPlayList_id());
 		myPlaylistDTO.setPlayList_name(playlistDAO.selectPlaylistName(myPlaylistDTO));
 
-		System.out.println("myPlaylistDTO : " + myPlaylistDTO);
+//		System.out.println("myPlaylistDTO : " + myPlaylistDTO);
 		
 		// jsp에 모델로 전달
 		model.addAttribute("playlist", myPlaylistDTO);
-//		if(countList == 1) {
-//			System.out.println("[/createNewPlaylist] count : " + countList);
-//			
-//		} else {
-//			System.out.println("[/createNewPlaylist] count : " + countList + "실패");
-//		}
 		
 		return myPlaylistDTO;
 	}
@@ -120,38 +138,85 @@ public class MyPlaylistController {
 		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
 		
+		// 유저 재생목록 불러오기 
 		List<MyPlaylistDTO> playlist = playlistService.loadPlaylist(myPlaylistDTO);
-		System.out.println("playlist : " + playlist);
+//		System.out.println("playlist : " + playlist);
 		
 		// JSON 으로 파싱
 		String jsonPlaylist = parseToJson(playlist);
-		System.out.println("JSON : " + jsonPlaylist);
+//		System.out.println("JSON : " + jsonPlaylist);
 		
 		return jsonPlaylist;
 	}
 	
 	// Object 리스트를 JSON 문자열로 파싱하는 메소드
-	private String parseToJson(List<MyPlaylistDTO> playlist) {
+	private String parseToJson(
+			List<MyPlaylistDTO> playlist
+			) {
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		try {
+			
 			return objectMapper.writeValueAsString(playlist);
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 			return null;
 		}
 	}
 	
+	// 개별 재생목록 접근
 	@RequestMapping("/myPlaylist/playlist")
 	public String loadPlaylistById(
-			@RequestParam("playlist_id") int playlistId,
+			@RequestParam("playlist_id") int playlist_id,
+			@ModelAttribute
+			MyPlaylistDTO myPlaylistDTO,
 			Model model
 			) {
+
+		myPlaylistDTO.setPlayList_id(playlist_id);
+		String playlistName = playlistDAO.selectPlaylistName(myPlaylistDTO);
+		int trackQuantity = playlistDAO.countTracksFromPlaylist(playlist_id);
+		String plylistImg = playlistDAO.selectPlaylistImg(playlist_id);
 		
+		model.addAttribute("playlist_id", playlist_id);
+		model.addAttribute("playlistName", playlistName);
+		model.addAttribute("trackQuantity", trackQuantity);
+		model.addAttribute("plylistImg", plylistImg);
+		
+		
+//		System.out.println("trackQ :" + trackQuantity);
+		
+//		System.out.println("playlistName : " + playlistName);
 //		MyPlaylistDTO playlist = playlistService.getPlaylistById(playlist)
 		
 		return "playlist";
 	}
+	
 
+	@RequestMapping("/myPlaylist/playlist/loadPlaylistTracks")
+	@ResponseBody
+	public List<PlaylistDTO> loadPlaylistTracks(
+			HttpServletRequest req,
+			@RequestParam("playlist_id") int playlist_id,
+			@ModelAttribute
+			MyPlaylistDTO myPlaylistDTO,
+			@ModelAttribute
+			PlaylistDTO playlistDTO,
+			Model model
+			) {
+		// 세션에서 유저 정보 불러오기
+		HttpSession session = req.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+		
+		System.out.println("playlist_id : " + playlist_id);
+		playlistDTO.setPlaylist_id(playlist_id);
+		
+		List<PlaylistDTO> playlist = playlistService.loadPlaylistTracks(playlistDTO);
+		System.out.println("[/loadTracks] List : " + playlist);
+		
+		return playlist;
+	}
 	
 }
