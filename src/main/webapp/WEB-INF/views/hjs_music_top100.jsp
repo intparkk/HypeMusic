@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>뮤직 Top100</title>
-
+<link rel="stylesheet" href="/top100.css">
 <Style>
 table{
 	border-collapse:collapse;
@@ -78,12 +78,11 @@ text-align: center;
 					<td>
 						${loop.index + 1}
 					</td>
-					<td><a href="/music_info?track_id=${dto.track_id }">lyrics</a></td>					
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 25px; height: 30px;"></a></td>					
 					<!--  곡정보 이미지 추가 -->
-					<td><img src="${dto.album_img}" alt="album_image" style="width: 100px;height: 100px;"></td>
 					<td>
 						 <div class="track">
-          				 
+          				 <img src="${dto.album_img}" alt="album_image" style="width: 100px;height: 100px;">
         				 	<div class="caption">
                 			<p>${dto.title }</p>
                 			<p>${dto.artist }</p>
@@ -92,6 +91,12 @@ text-align: center;
 					</td>
 					<td>
 					<div class="caption1">
+				     <p>${dto.title }</p>
+                	 <p>${dto.artist }</p>
+				    </div>
+					</td>
+					<td>
+					<div class="caption2">
 				     ${dto.album_name }
 				    </div>
 					</td>
@@ -100,11 +105,47 @@ text-align: center;
      				<p>${dto.like_count }</p>
      				</div>
 					</td>
-					<td>듣기</td>
-					<td>담기</td>
-					<td>다운</td>
-					<td>뮤비</td>					
-				</tr>    	 
+					<td><a href="#"><img src="img/hjs_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
+					<td>
+					<!-- 담기 버튼 -->
+					    <c:if test="${rank == null || rank < 1}">
+					        <a href="#" onclick="showLoginAlert()">
+					            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+					        </a>
+					    </c:if>
+					    <c:if test="${rank != null && rank >= 1}">
+					    		<!--  onclick 이벤트 jsp 불러오는 함수에 맞게 꼭 변경해주세요! -->
+					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
+					            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+					        </a>
+					        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+						    <script>
+						        function showLoginAlert() {
+						            alert("로그인이 필요합니다.");
+						        }
+						        // ajax 방식으로 변경
+						        function addTrack(trackId) {
+						            $.ajax({
+						                url: '/addTrack',
+						                type: 'POST',
+						                data: { addTrack: trackId },
+						                success: function(response) {
+						                    alert("음악 담기 성공!"); // 음악 담기 성공시 알림창 띄우기
+						                    console.log(response);  
+						                },
+						                error: function(error) {
+						                    alert("이미 담겨 있는 음악입니다!"); // 이미 담겨 있는 음악일시 알림창 띄우기
+						                    console.log(error);  
+						                }
+						            });
+						        }
+						    </script>
+					    </c:if>
+					<!-- 여기까지가 담기 버튼입니다 -->	
+					</td>
+					<td><a href="#"><img src="img/hjs_down.png" class="logo3" style="border: none; width: 20px; height: 20px;"></a></td>
+					<td><a href="#"><img src="img/hjs_muve.png" class="logo4" style="border: none; width: 20px; height: 20px;"></a></td>					
+				</tr>   
     	  </c:forEach>    	
 				</tbody>
 		</table>   

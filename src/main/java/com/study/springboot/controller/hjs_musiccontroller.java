@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -27,10 +28,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dao.HjscommentDAO;
 import com.study.springboot.dao.HjsmusicDAO;
+import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.HjscommentDTO;
 import com.study.springboot.dto.HjsmusicDTO;
+import com.study.springboot.dto.UserDTO;
+import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class hjs_musiccontroller {
@@ -42,6 +47,11 @@ public class hjs_musiccontroller {
 	@Autowired
 	HjscommentDAO hjscommentDAO;
 	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	UserDAO userDAO;
 		
 	@RequestMapping("/hjs_main_test")
 	public String test1() {
@@ -237,13 +247,62 @@ public class hjs_musiccontroller {
 		return "hjs_music_top100";
 	}
 	
+//	원본
+//	@RequestMapping("/music_info")
+//	public String music_info(
+//			Model model,
+//			@RequestParam("track_id") String track_id,
+//			@ModelAttribute HjscommentDTO dto2,
+//			HttpServletRequest req
+//			) {
+//		HjsmusicDTO dto = hjsmusicDAO.viewDao(track_id);
+//		model.addAttribute("dto",dto);
+//		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
+//		model.addAttribute("list",list);
+//		
+//		System.out.println(list);
+//		return "hjs_music_info";
+//	}
+//	
 	@RequestMapping("/music_info")
 	public String music_info(
+			UserDTO userDTO,
+			@RequestParam(value="user_id", required=true, defaultValue="") 
+			String user_id,
 			Model model,
 			@RequestParam("track_id") String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			HttpServletRequest req
 			) {
+		
+		Map map = userService.login(userDTO);
+		UserDTO userInfo = (UserDTO) map.get("dto");
+		int countAcc = (int) map.get("count");
+		
+		System.out.println("[/doLogin]count : " + countAcc);	
+		System.out.println("[/doLogin]userInfo : " + userInfo);	
+		
+		if(countAcc == 1) {
+			// 계정 있음
+			HttpSession session = req.getSession();
+			session.setAttribute("isLoggedIn", "ok");
+			
+			if(userInfo != null) {
+				
+				session.setAttribute("userInfo", userInfo);
+				System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
+				System.out.println("[/doLogin]userInfo : " + userInfo);
+				
+				return "redirect:/test-main";
+			}
+		} else {
+				System.out.println("로그인 실패");
+				// 계정 없음
+				String errMsg = "계정 정보가 일치하지 않습니다.";
+				model.addAttribute("errMsg", errMsg);
+			  }
+		
+		System.out.println(user_id);
 		HjsmusicDTO dto = hjsmusicDAO.viewDao(track_id);
 		model.addAttribute("dto",dto);
 		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
@@ -253,10 +312,46 @@ public class hjs_musiccontroller {
 		return "hjs_music_info";
 	}
 	
+	
+	// 원본
 	/* DB에 댓글을 저장하는 컨트롤러 */
+//	@RequestMapping("/write_comment")
+//	public String write2(
+//			@ModelAttribute HjsmusicDTO dto,
+//			@RequestParam(value="track_id", required=true, defaultValue="") 
+//			String track_id,
+//			@ModelAttribute HjscommentDTO dto2,
+//			Model model,
+//			HttpServletRequest req
+//			) {
+//		
+//		model.addAttribute("track_id", track_id);
+//		System.out.println(track_id);
+//		
+//		String comment_id = dto2.getComment_id();
+//		String member_id = dto2.getMember_id();
+//		String comment_content = dto2.getComment_content();
+//		String parent_id = dto2.getParent_id();
+//		
+//		System.out.println("comment_id : "+ comment_id);
+//		System.out.println("member_id : "+ member_id);
+//		System.out.println("comment_content: "+ comment_content);
+//		System.out.println("parent_id : "+ parent_id);
+//		
+//		int result = hjscommentDAO.writeDao(dto2);
+//		
+//		System.out.println("writeDao result : "+ result);
+//		
+//		
+//		return "redirect:/music_info?track_id="+track_id;
+//		
+//	}
+//
+	
 	@RequestMapping("/write_comment")
 	public String write2(
-			@ModelAttribute HjsmusicDTO dto,
+			UserDTO userDTO,
+			
 			@RequestParam(value="track_id", required=true, defaultValue="") 
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
@@ -267,24 +362,32 @@ public class hjs_musiccontroller {
 		model.addAttribute("track_id", track_id);
 		System.out.println(track_id);
 		
+		
 		String comment_id = dto2.getComment_id();
-		String member_id = dto2.getMember_id();
 		String comment_content = dto2.getComment_content();
 		String parent_id = dto2.getParent_id();
 		
 		System.out.println("comment_id : "+ comment_id);
-		System.out.println("member_id : "+ member_id);
+		System.out.println("user_id : "+ user_id);
 		System.out.println("comment_content: "+ comment_content);
 		System.out.println("parent_id : "+ parent_id);
 		
 		int result = hjscommentDAO.writeDao(dto2);
 		
+		System.out.println(user_id);
 		System.out.println("writeDao result : "+ result);
 		
 		
 		return "redirect:/music_info?track_id="+track_id;
 		
 	}
+
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/reply")
 	public String reply(
