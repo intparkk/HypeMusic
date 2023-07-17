@@ -368,13 +368,13 @@ public class hjs_musiccontroller {
 		String parent_id = dto2.getParent_id();
 		
 		System.out.println("comment_id : "+ comment_id);
-		System.out.println("user_id : "+ user_id);
+	//	System.out.println("user_id : "+ user_id);
 		System.out.println("comment_content: "+ comment_content);
 		System.out.println("parent_id : "+ parent_id);
 		
 		int result = hjscommentDAO.writeDao(dto2);
 		
-		System.out.println(user_id);
+	//	System.out.println(user_id);
 		System.out.println("writeDao result : "+ result);
 		
 		
