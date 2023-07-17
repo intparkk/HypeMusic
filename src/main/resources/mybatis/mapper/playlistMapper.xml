@@ -13,14 +13,14 @@
 			my_playlist (
 				playlist_id,
 				playlist_name,
-				track_count,
+				playlist_img,
 				user_id
 			)
 		VALUES 
 			(
 			seq_playlist_id.nextval,
 			'새 재생목록',
-			null,
+			'/public/playlist_img.svg',
 			#{user_id}
 			)
 	<!-- <selectKey keyProperty="리턴 받을 변수명" resultType="반환타입"
@@ -33,6 +33,14 @@
 		</selectKey>
 	</insert>
 	
+	<!-- 재생목록 삭제 -->
+	<delete id="deletePlaylist" parameterType="PlaylistDTO">
+		DELETE FROM
+			my_playlist
+		WHERE
+			playlist_id = #{playlist_id}					
+	</delete>
+	
 	<!-- 재생목록 이름 불러오기 -->
 	<select id="selectPlaylistName" parameterType="MyPlaylistDTO" resultType="String">
 		SELECT
@@ -42,6 +50,16 @@
 		WHERE
 			playlist_id = #{playlist_id}
 	</select>
+	
+	<!-- 재생목록 제목 변경 -->
+	<update id="updatePlaylistName" parameterType="MyPlaylistDTO">
+		UPDATE
+			my_playlist
+		SET
+			playlist_name = #{playlist_name}
+		WHERE
+			playlist_id = #{playlist_id}
+	</update>
 	
 	<!-- 재생목록 곡 수 불러오기 -->
 	<select id="countTracksFromPlaylist" parameterType="MyPlaylistDTO" resultType="int">
@@ -74,6 +92,8 @@
 			my_playlist
 		WHERE
 			user_id = #{user_id}
+		ORDER BY
+			playlist_id ASC
 	</select>
 	
 	<!-- 재생목록에 곡 추가 -->
@@ -90,8 +110,16 @@
 			)
 	</insert>
 	
+	<!-- 재생목록에 곡 삭제 -->
+	<delete id="deleteTrackFromPlaylist" parameterType="PlaylistDTO">
+		DELETE FROM
+			playlist
+		WHERE
+			playlist_id = #{playlist_id} and track_id = #{track_id}
+	</delete>
+	
 	<!-- 재생목록에 있는 곡 불러오기 -->
-	<select id="loadPlaylistTracks" parameterType="playlistDTO">
+	<select id="loadPlaylistTracks" parameterType="PlaylistDTO">
 		SELECT
 			mp.playlist_id,
 			t.track_id,

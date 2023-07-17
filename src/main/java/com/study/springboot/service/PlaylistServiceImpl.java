@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.study.springboot.dao.PlaylistDAO;
 import com.study.springboot.dto.MyPlaylistDTO;
 import com.study.springboot.dto.PlaylistDTO;
+import com.study.springboot.dto.UpdatePlaylistNameDTO;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService{
@@ -37,6 +38,30 @@ public class PlaylistServiceImpl implements PlaylistService{
 	public List<PlaylistDTO> loadPlaylistTracks(PlaylistDTO playlistDTO) {
 		
 		return playlistDAO.loadPlaylistTracks(playlistDTO);
+	}
+
+	@Override
+	public int deleteTrackFromPlaylist(PlaylistDTO playlistDTO) {
+
+		return playlistDAO.deleteTrackFromPlaylist(playlistDTO);
+	}
+
+	@Override
+	public int deletePlaylist(PlaylistDTO playlistDTO) {
+		
+		return playlistDAO.deletePlaylist(playlistDTO);
+	}
+
+	@Override
+	public int updatePlaylistName(UpdatePlaylistNameDTO updatePlaylistNameDTO) {
+
+		return playlistDAO.updatePlaylistName(updatePlaylistNameDTO);
+	}
+
+	@Override
+	public int updatePlaylistImg(MyPlaylistDTO myPlaylistDTO) {
+
+		return playlistDAO.updatePlaylistImg(myPlaylistDTO);
 	}
 
 

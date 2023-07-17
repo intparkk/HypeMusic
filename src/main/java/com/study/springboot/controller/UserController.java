@@ -273,7 +273,6 @@ public class UserController {
 			Model model
 			) {
 
-
 		HttpSession session = req.getSession();
 
 		int count = userService.updatePw(userDTO);
@@ -304,9 +303,6 @@ public class UserController {
 			HttpSession session,
 			Model model
 			) {
-
-//		System.out.println("/upload 접속");
-//		System.out.println("/ : "+ file.isEmpty());
 		
 		if (!file.isEmpty()) {
 			try {

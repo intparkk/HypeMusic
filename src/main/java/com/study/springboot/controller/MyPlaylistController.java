@@ -1,5 +1,6 @@
 package com.study.springboot.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.springboot.dao.PlaylistDAO;
 import com.study.springboot.dto.MyPlaylistDTO;
 import com.study.springboot.dto.PlaylistDTO;
+import com.study.springboot.dto.UpdatePlaylistNameDTO;
 import com.study.springboot.dto.UserDTO;
 import com.study.springboot.service.PlaylistService;
 
@@ -99,17 +103,13 @@ public class MyPlaylistController {
 		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
 
-		
-//		System.out.println("/createNewPlaylist 접근");
 		// 새 재생목록 생성 (Mapper 에서 Insert한 행의 갯수가 아닌 재생목록ID를 반환
 		int playlist_id = playlistService.createNewPlaylist(myPlaylistDTO);
-//		System.out.println("playlist_id :" + playlist_id);
 		
 		// 재생목록DTO에 재생목록ID, 재생목록 이름 설정
 		myPlaylistDTO.setPlayList_id(myPlaylistDTO.getPlayList_id());
 		myPlaylistDTO.setPlayList_name(playlistDAO.selectPlaylistName(myPlaylistDTO));
 
-//		System.out.println("myPlaylistDTO : " + myPlaylistDTO);
 		
 		// jsp에 모델로 전달
 		model.addAttribute("playlist", myPlaylistDTO);
@@ -128,6 +128,7 @@ public class MyPlaylistController {
 			) {
 		
 		HttpSession session = req.getSession();
+		
 		// 세션에서 유저 정보 불러오기
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		
@@ -140,11 +141,9 @@ public class MyPlaylistController {
 		
 		// 유저 재생목록 불러오기 
 		List<MyPlaylistDTO> playlist = playlistService.loadPlaylist(myPlaylistDTO);
-//		System.out.println("playlist : " + playlist);
 		
 		// JSON 으로 파싱
 		String jsonPlaylist = parseToJson(playlist);
-//		System.out.println("JSON : " + jsonPlaylist);
 		
 		return jsonPlaylist;
 	}
@@ -178,23 +177,25 @@ public class MyPlaylistController {
 		myPlaylistDTO.setPlayList_id(playlist_id);
 		String playlistName = playlistDAO.selectPlaylistName(myPlaylistDTO);
 		int trackQuantity = playlistDAO.countTracksFromPlaylist(playlist_id);
-		String plylistImg = playlistDAO.selectPlaylistImg(playlist_id);
+		
+		if (trackQuantity == 0) {
+			String playlistImg = "/public/playlist_img.svg";	
+			model.addAttribute("playlistImg", playlistImg);
+		} else {
+			String playlistImg = playlistDAO.selectPlaylistImg(playlist_id);
+			model.addAttribute("playlistImg", playlistImg);
+		}
+		
 		
 		model.addAttribute("playlist_id", playlist_id);
 		model.addAttribute("playlistName", playlistName);
 		model.addAttribute("trackQuantity", trackQuantity);
-		model.addAttribute("plylistImg", plylistImg);
-		
-		
-//		System.out.println("trackQ :" + trackQuantity);
-		
-//		System.out.println("playlistName : " + playlistName);
-//		MyPlaylistDTO playlist = playlistService.getPlaylistById(playlist)
+//		model.addAttribute("playlistImg", playlistImg);
 		
 		return "playlist";
 	}
 	
-
+	// 재생목록 곡 불러오기
 	@RequestMapping("/myPlaylist/playlist/loadPlaylistTracks")
 	@ResponseBody
 	public List<PlaylistDTO> loadPlaylistTracks(
@@ -217,6 +218,103 @@ public class MyPlaylistController {
 		System.out.println("[/loadTracks] List : " + playlist);
 		
 		return playlist;
+	}
+	
+	// 재생목록 이름 변경
+	@RequestMapping(value="/myPlaylist/playlist/updatePlaylistName", method=RequestMethod.PUT)
+	@ResponseBody
+	public String updatePlaylistName(
+			@RequestBody 
+			UpdatePlaylistNameDTO updatePlaylistNameDTO
+			) {
+		
+	    int playlist_id = updatePlaylistNameDTO.getPlaylist_id();
+	    String playlist_name = updatePlaylistNameDTO.getPlaylist_name();
+	    
+		System.out.println(updatePlaylistNameDTO);
+
+	    System.out.println(playlist_id + playlist_name);
+	    
+	    int countUpdated = playlistService.updatePlaylistName(updatePlaylistNameDTO);
+	    
+	    String updatedName = updatePlaylistNameDTO.getPlaylist_name();
+	    
+	    return "";
+	}
+	
+//	// 재생목록 사진 업로드
+//	@RequestMapping(value="/uploadPlaylistImg", method=RequestMethod.POST)
+//	@ResponseBody
+//	public String uploadPlaylistImg(
+//			@RequestParam("file") MultipartFile file,
+//			@RequestBody int playlist_id,
+//			RedirectAttributes redirectAttributes,
+//			Model model
+//			) {
+////		int playlistId = myPlaylistDTO.getPlayList_id();
+//		if (!file.isEmpty()) {
+//			try {
+//				
+//				String filePath = "C:\\Users\\User\\Desktop\\HypeMusic\\src\\main\\resources\\static\\playlist_img";
+//				String fileName = file.getOriginalFilename();
+//				String fullFilePath = filePath + "\\" + fileName;
+//		
+//				File destination = new File(fullFilePath);
+//				file.transferTo(destination);
+//				
+//				// 이미지 주소 반환
+//				String imageUrl = "/playlist_img/" + fileName;
+//				
+//				// 데이터베이스에 이미지 주소 업데이트
+//				MyPlaylistDTO myPlaylistDTO = new MyPlaylistDTO();
+//				myPlaylistDTO.setPlayList_id(playlist_id);
+//				myPlaylistDTO.setPlaylist_img(imageUrl);
+//				playlistService.updatePlaylistImg(myPlaylistDTO);
+//				
+//				redirectAttributes.addFlashAttribute("imageUrl", imageUrl);
+//				return imageUrl;
+//				
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//			  }
+//		}
+		
+//		return "redirect:/myPlaylist/playlist?playlist_id=" + playlistId;
+//		return "redirect:/myPlaylist/playlist?playlist_id=" + 1;
+//	}
+	
+	// 재생목록 삭제
+	@RequestMapping(value="/myPlaylist/playlist/deletePlaylist", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String deletePlaylist(
+			@ModelAttribute
+			PlaylistDTO playlistDTO
+			) {
+		System.out.println(playlistDTO);
+		
+		int deletedPlaylist = playlistService.deletePlaylist(playlistDTO);
+		System.out.println(deletedPlaylist);
+		
+		return "";
+	}
+	
+	
+	// 재생목록에서 곡 삭제
+	@RequestMapping(value="/myPlaylist/playlist/deleteTrack", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String deleteTrackFromPlaylist(
+			@ModelAttribute
+			PlaylistDTO playlistDTO
+			) {
+
+			System.out.println(playlistDTO);
+			
+			int deletedTrack = playlistService.deleteTrackFromPlaylist(playlistDTO);
+			System.out.println("deleted track : " + deletedTrack);
+			
+			
+		return "";
+		
 	}
 	
 }
