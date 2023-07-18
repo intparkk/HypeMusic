@@ -7,13 +7,36 @@
 <meta charset="UTF-8">
 <title>my info</title>
 <style>
+
+.addBtn {
+	background-color: rgb(162, 162, 162);
+	color: white;
+	border-radius: 3px;
+	font-size: 20px;
+	margin-left: 250px;
+	padding: 3px;
+	border-bottom: 3px solid grey;
+	cursor: pointer;
+}
+
+.addBtn :hover {
+	background-color: rgb(150, 150, 150);
+	border-bottom: 3px solid rgb(102, 102, 102);
+}
+
+#add {
+	display: none;
+}
+
 #list-wrapper{
 	display: flex;
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	margin: 0 auto;
+	margin-top: 40px;
 	border: 1px solid red;
-	width: 80%;
+	min-width: 800px;
+	width: 800px;
 	min-height: 200px;
 }
 
@@ -28,6 +51,10 @@
 	margin: 0 auto;
 }
 
+.playlist-img-wrapper :hover{
+	filter: brightness(90%);
+}
+
 #playlist-img{
 	width: 160px;
 	height: 160px;
@@ -40,6 +67,8 @@
 
 .playlist-title {
 	margin: auto;
+	text-decoration: none;
+	color: black;
 }
 </style>
 </head>
@@ -58,24 +87,13 @@
 		</c:when>
 		<c:otherwise>
 			<p>아이디 : ${userInfo.user_id}</p>
+			<label for="add">
+				<span class="addBtn">재생목록 추가 +</span>
+				<button id="add"></button>
+			</label>
 			<div id="list-wrapper">
-			<!-- JS로 동적으로 생성할 영역 테스트 -->
-<%-- 				<div id="playlist-wrapper">				
-					<div class="playlist-img-wrapper">
-						<a class="playlist-link" href="#">
-							<img id="playlist-img" src="/public/playlist_img.svg">
-						</a>
-						
-					</div>
-					<div class="playlist-title-wrapper" >
-						<a class="playlist-title" href="#">
-							${myPlaylistDTO.playlist_title }
-						</a>
-					</div>
-				</div> --%>
+				<!-- JS로 생성할 영역 -->
 			</div>
-			<!-- todo : 추가 버튼이 플레이리스트 오른쪽에 뜨게 하기 -->
-			<button id="add">추가</button>
 		</c:otherwise>
 	</c:choose>
 	
@@ -88,6 +106,7 @@
 			document.querySelector("#add").addEventListener("click", (event) => {
 				event.preventDefault();
 				createNewPlaylist();
+				location.reload();
 			})
 		}
 		
@@ -105,14 +124,21 @@
 				console.log("로드 완료", data);
 				
 				// JSON 문자열을 객체로 변환
-				const playlistData = data;
+				const playlist = data;
 				
 				// data에서 받아온 재생목록 배열을 순회
-				data.forEach((playlistData) => {
+				data.forEach((playlist) => {
 					// playlistData에서 필요한 값 꺼내서 사용
-					const playlistId = playlistData.playList_id;
-					const playlistName = playlistData.playList_name;
-					const playlistImage = playlistData.playList_img;
+					const playlistId = playlist.playList_id;
+					const playlistName = playlist.playList_name;
+					let playlistImage;
+					
+					if (playlist.length === 0) {
+						playlistImage = '/public/playlist_img.svg';
+					} else {
+						playlistImage = playlist.playlist_img;
+					}
+					console.log(playlistImage);
 					
 					// 새로운 playlist 요소 생성
 					const playlistWrapper = document.createElement("div");
@@ -127,7 +153,7 @@
 					
 					const playlistImg = document.createElement("img");
 					playlistImg.id = "playlist-img";
-					playlistImg.src = "/public/playlist_img.svg";
+					playlistImg.src = playlistImage;
 					
 					playlistLink.appendChild(playlistImg);
 					playlistImgWrapper.appendChild(playlistLink);
@@ -138,7 +164,7 @@
 					
 					const playlistTitleLink = document.createElement("a");
 					playlistTitleLink.classList.add("playlist-title");
-					playlistTitleLink.href = "//myPlaylist/playlist?playlist_id=" + playlistId;
+					playlistTitleLink.href = "/myPlaylist/playlist?playlist_id=" + playlistId;
 					playlistTitleLink.textContent = playlistName;
 					
 					playlistTitleWrapper.appendChild(playlistTitleLink);

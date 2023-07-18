@@ -234,11 +234,14 @@ public class UserController {
         if (count == 1) {
         	// 비밀번호 일치
         	System.out.println("비밀번호 일치");
+        	
         	return "redirect:/myInfo/updatePw";
         } else {
         	System.out.println("실패");
+        	
         	String errMsg = "비밀번호가 일치하지 않습니다.";
         	model.addAttribute("errMsg", errMsg);
+        	
         	return "redirect:/myInfo/checkPw";
         }        
 	}
@@ -254,6 +257,7 @@ public class UserController {
 		System.out.println("[./updatePw]" + session.getAttribute("isLoggedIn"));
 		
 		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
+		
 		model.addAttribute("dto", dto);
 		System.out.println("[./udpatePw]Dto : " + dto);
 		
@@ -268,11 +272,12 @@ public class UserController {
 			UserDTO userDTO,
 			Model model
 			) {
-		System.out.println("업데이트 하러 들어옴");
+
 		HttpSession session = req.getSession();
-		System.out.println("DAO호출 직전임");
+
 		int count = userService.updatePw(userDTO);
 		System.out.println("[/doUpdatePw] count : " + count );
+		
 		try {
 			if (count == 1) {
 				// 변경 성공
@@ -298,9 +303,6 @@ public class UserController {
 			HttpSession session,
 			Model model
 			) {
-
-//		System.out.println("/upload 접속");
-//		System.out.println("/ : "+ file.isEmpty());
 		
 		if (!file.isEmpty()) {
 			try {

@@ -29,7 +29,6 @@ public interface UserDAO {
 	// 비밀번호 변경 수행
 	int updatePw(UserDTO userDTO);
 	
-	
 	// 프로필 사진 업데이트
 	int updateProfileImg(UserDTO userDTO);
 }

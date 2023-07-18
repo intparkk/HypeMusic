@@ -4,9 +4,10 @@ public class MyPlaylistDTO {
 	
 	private int playlist_id;
 	private String playlist_name;
-	private int playlist_quantity;
 	private int user_id;
 	private int track_id;
+	private String playlist_img;
+	
 	
 	public int getPlayList_id() {
 		return playlist_id;
@@ -20,12 +21,6 @@ public class MyPlaylistDTO {
 	public void setPlayList_name(String playList_name) {
 		this.playlist_name = playList_name;
 	}
-	public int getPlayList_quantity() {
-		return playlist_quantity;
-	}
-	public void setPlayList_quantity(int playList_quantity) {
-		this.playlist_quantity = playList_quantity;
-	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -38,12 +33,20 @@ public class MyPlaylistDTO {
 	public void setTrack_id(int track_id) {
 		this.track_id = track_id;
 	}
-	 
+	public String getPlaylist_img() {
+		return playlist_img;
+	}
+	public void setPlaylist_img(String playlist_img) {
+		this.playlist_img = playlist_img;
+	}
+	
 	@Override
 	public String toString() {
-		return "MyPlaylistDTO [playlist_id=" + playlist_id + ", playlist_name=" + playlist_name + ", playlist_quantity="
-				+ playlist_quantity + ", user_id=" + user_id + ", track_id=" + track_id + "]";
+		return "MyPlaylistDTO [playlist_id=" + playlist_id + ", playlist_name=" + playlist_name + ", user_id=" + user_id
+				+ ", track_id=" + track_id + ", playlist_img=" + playlist_img + "]";
 	}
+	
+
 	
 
 	
