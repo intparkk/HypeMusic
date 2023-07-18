@@ -26,10 +26,10 @@
 		<ul>
 	        <c:forEach var="track" items="${search_all}">
 	            <li>
-	             	<a href="/musicinfo/${track.track_id}">
+	             	<a href="/music_info?track_id=${track.track_id}">
 	                <img id = "track_img" src="${track.album_img}">
 	                </a>
-		            <a href="/musicinfo/${track.track_id}">
+		            <a href="/music_info?track_id=${track.track_id}">
 	                    ${track.title}
 	                </a>
 	                -

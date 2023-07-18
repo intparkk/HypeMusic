@@ -19,7 +19,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +34,7 @@ import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.HjscommentDTO;
 import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
+import com.study.springboot.service.HjsmusicService;
 import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +46,9 @@ public class hjs_musiccontroller {
 
 	@Autowired(required=false)
 	private HjsmusicDAO hjsmusicDAO;
+	
+	@Autowired
+	HjsmusicService hjsmusicService;
 	
 	@Autowired
 	HjscommentDAO hjscommentDAO;
@@ -229,23 +235,90 @@ public class hjs_musiccontroller {
 		
 		return "hjs_ExcelToDB";
 	}
-	
+
 	
 	@RequestMapping("/hjs_music_top100")
 	public String music_top100(
 			Model model,
 			HttpServletRequest req, 
-			HjsmusicDTO musicDto
+			HjsmusicDTO musicDto,
+			@RequestParam(value="pageNum", required=false)
+			Integer pageNum
 			) {
 		
 		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
 		HjsmusicDTO dto = musicDto;
 		
-		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
-		model.addAttribute("list",list);
-		System.out.println(list);
+		System.out.println("pageNum : "+ pageNum);
+		if(pageNum == null) {
+			pageNum = 1;
+		}
+//		int pageNum = 3; // 현재 페이지 번호
+		
+		String cpp = req.getParameter("countPerPage");
+		int countPerPage = 10;
+		try {
+			
+			countPerPage = Integer.parseInt(cpp); // 한 페이지당 표시 수
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		int startNum = ((pageNum-1) * countPerPage) + 1;
+		int endNum = startNum + (countPerPage - 1);
+		System.out.println("startNum : "+ startNum +", endNum : "+ endNum);
+		
+		musicDto.setStartNum(startNum);
+		musicDto.setEndNum(endNum);
+		
+		req.setAttribute("pageNum", pageNum);
+		model.addAttribute("countPerPage", countPerPage);
+		
+//		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
+//		model.addAttribute("list",list);
+//		System.out.println(list);
+		
+		
+		Map map = hjsmusicService.list(musicDto);
+//		model.addAttribute("map", map);
+
+		List<HjsmusicDTO> list = (List<HjsmusicDTO>) map.get("list");
+		model.addAttribute("list", list);
+		
+		
+		int total = (int) map.get("totalCount");
+		req.setAttribute("total", total);
+		
 		return "hjs_music_top100";
 	}
+
+
+	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
+	/*@RequestMapping("/music_info")
+=======
+	
+
+	
+//	// 원본 뮤직 Top100
+//	@RequestMapping("/hjs_music_top100")
+//	public String music_top100(
+//			Model model,
+//			HttpServletRequest req, 
+//			HjsmusicDTO musicDto
+//			) {
+//		
+//		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
+//		HjsmusicDTO dto = musicDto;
+//		
+//		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
+//		model.addAttribute("list",list);
+//		System.out.println(list);
+//		return "hjs_music_top100";
+//	}
+	
+	
 	
 //	원본
 //	@RequestMapping("/music_info")
@@ -264,7 +337,11 @@ public class hjs_musiccontroller {
 //		return "hjs_music_info";
 //	}
 //	
+	
+////////////////////////////////////////////////////////////////////////////////////////	
+	// 페이지 완성후에 오류코드를 확인후 수정하기 
 	@RequestMapping("/music_info")
+>>>>>>> c16312aaa7b9506e2af9b5bce7beaf98c30b02b1
 	public String music_info(
 			UserDTO userDTO,
 			@RequestParam(value="user_id", required=true, defaultValue="") 
@@ -310,7 +387,7 @@ public class hjs_musiccontroller {
 		
 		System.out.println(list);
 		return "hjs_music_info";
-	}
+	}*/
 	
 	
 	// 원본
@@ -356,11 +433,21 @@ public class hjs_musiccontroller {
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
-			HttpServletRequest req
+			HttpServletRequest req, String user_id
 			) {
 		
-		model.addAttribute("track_id", track_id);
-		System.out.println(track_id);
+		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------
+		// 박정수 : track_id 를 처리하기 위한 변수입니다
+		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id);
+		String trackIdString = trackId.getTrack_id();
+		
+		//System.out.println("trackId : "+trackIdString);
+		
+		// 박정수 : 댓글 달기위해 호출하였습니다
+		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
+		model.addAttribute("list",list);
+		
+		// --------- 박정수 : 여기까지가 수정한 내용입니다 --------------
 		
 		
 		String comment_id = dto2.getComment_id();
@@ -368,25 +455,18 @@ public class hjs_musiccontroller {
 		String parent_id = dto2.getParent_id();
 		
 		System.out.println("comment_id : "+ comment_id);
-	//	System.out.println("user_id : "+ user_id);
+		System.out.println("user_id : "+ user_id);
 		System.out.println("comment_content: "+ comment_content);
 		System.out.println("parent_id : "+ parent_id);
 		
 		int result = hjscommentDAO.writeDao(dto2);
-		
-	//	System.out.println(user_id);
-		System.out.println("writeDao result : "+ result);
-		
-		
-		return "redirect:/music_info?track_id="+track_id;
-		
-	}
+		System.out.println("writeDao result : "+ result);		
 
-	
-	
-	
-	
-	
+	//	System.out.println(user_id);
+		System.out.println("writeDao result : "+ result);		
+		
+		return "redirect:/music_info?track_id="+trackIdString;		
+	}
 	
 	
 	@RequestMapping("/reply")

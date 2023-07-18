@@ -9,7 +9,30 @@
 		<result column="artist_id" property="artist_id" />
 	</resultMap>
 	
-
+	
+	<select id="totalCount" resultType="int">
+		select count(*) from tb_music
+	</select>
+	
+	
+	<select id="selectHjsmusicDTO" 
+			resultType="HjsmusicDTO" 
+			parameterType="com.study.springboot.dto.HjsmusicDTO">
+		select * from (
+			SELECT *
+			FROM ( 
+			 SELECT rownum AS rnum, a.* from(
+            select *
+			  FROM tb_music
+			  ORDER BY like_count DESC
+			)a
+	 		) 
+	 		WHERE rnum <![CDATA[<=]]> 100 
+ 		)
+		WHERE rnum <![CDATA[ >= ]]> #{startNum}
+		  AND rnum <![CDATA[ <= ]]> #{endNum}
+		
+	</select>
  	
 	<select id="listDao" resultType="com.study.springboot.dto.HjsmusicDTO">
 		SELECT *

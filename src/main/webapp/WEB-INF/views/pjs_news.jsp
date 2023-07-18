@@ -159,5 +159,7 @@
 </section>
 
 </body>
-<jsp:include page="footer.jsp"></jsp:include>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </html>

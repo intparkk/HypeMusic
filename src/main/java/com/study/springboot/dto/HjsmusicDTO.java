@@ -17,7 +17,33 @@ public class HjsmusicDTO {
 	private String release_date;
 	private String lyrics;
 	
+	private Integer rnum;
+
+	private int startNum;
+	private int endNum;
+
 	
+	
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
+	
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+
 	public String getTrack_id() {
 		return track_id;
 	}

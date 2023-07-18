@@ -1,0 +1,94 @@
+/*@charset "EUC-KR";*/
+
+    #search_body {
+        margin: 20px 100px;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        margin: 20px;
+        font-size: 24px;
+    }
+
+    #search_track_result,
+    #search_artist_result,
+    #search_album_result
+     {
+        margin: 20px;
+    }
+    
+    h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #artist_ul {
+    	display : flex;
+	    flex-wrap: wrap;
+	    justify-content: flex-start
+    }
+    
+    #artist_package {
+	    width: 20%;
+	    margin-bottom: 20px;
+    }
+    
+	#album_ul {
+	    display: flex;
+	    flex-wrap: wrap;
+	    justify-content: flex-start
+	}
+	
+	#album_package {
+	    width: 20%;
+	    margin-bottom: 20px;
+	}
+
+    li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    #track_img {
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+    }
+    
+    #album_img {
+        width: 120px;
+        height: 120px;
+        margin-right: 10px;
+    }
+    
+    #artist_img {
+        width: 120px;
+        height: 120px;
+        margin-right: 10px;
+    }
+    
+    #track_img:hover,
+	#album_img:hover,
+	#artist_img:hover {
+    transform: scale(1.3); /* Enlarge the image by 10% on hover */
+    transition: transform 0.2s ease-in-out; /* Add a smooth transition effect */
+    }
+    
+    .btn {
+    display: inline-block;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+	}
+}
+

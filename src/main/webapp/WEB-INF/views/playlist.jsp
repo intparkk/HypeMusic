@@ -12,28 +12,60 @@
 	border: 1px solid lightgrey;
 	min-width: 800px;
 	width: 70%;
+	height: 264px;
 	margin: 0 auto;
+	position: relative;
 }
 
 .playlist-title {
-	padding: 30px 30px 10px 30px;
+	padding: 20px 30px 10px 30px;
 	font-weight: bold;
 	font-size: 32px;
 }
 
 .playlist-track-quantity {
-	padding: 0px 30px 0px 30px;
-	font-size: 20px;
+	padding: 36px 30px 0px 30px;
+	font-size: 18px;
 }
 
-#playlist-img-btn {
-	margin-top: 130px;
+#playlist-title-update-btn {
+	display: none;
+}
+
+.title-update {
+	position: absolute;
+	margin-left: 30px;
+	border-bottom: 2px solid lightgrey;
+	border-radius: 3px;
+	background-color: grey;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
 }
 
 .playlist-delete-btn-wrapper {
-	margin-left: auto;
-	margin-top: auto;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin-bottom: 8px;
+	margin-right: 10px;
 }
+
+#playlist-delete-btn {
+	display: none;
+}
+
+.playlist-delete {
+	border-bottom: 2px solid lightgrey;
+	border-radius: 3px;
+	background-color: grey;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
+}
+
 #list-wrapper{
 	margin: 0 auto;
 	min-width: 800px;
@@ -56,20 +88,28 @@
 	text-align: center;
 }
 
-#playlist-img-btn {
+#img-update-btn {
 	color: white;
 	font-size: 0;
 	opacity: 0;
 	cursor: pointer;
 }
 
-.img-upload {
-	border: 1px solid grey;
+.img-update {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 8px;
+	margin-left: 30px;
+	border-bottom: 2px solid lightgrey;
 	border-radius: 3px;
 	background-color: grey;
 	color: white;
 	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
 }
+
+
 </style>
 </head>
 <body>
@@ -86,7 +126,7 @@
 			<a href="/login">로그인</a>
 		</c:when>
 		<c:otherwise>
-			<p>아이디 : ${userInfo.user_id}</p>
+			<input type="hidden" id="user-id" value="${userInfo.user_id}">
 			<input type="hidden" id="playlist-id" value="${playlist_id}">
 			<div id="playlist-info-wrapper">
 				<div class="playlist-img-container">
@@ -96,17 +136,31 @@
 					<div class="playlist-title">
 						${playlistName}
 					</div>
-					<button id="playlist-title-update-btn">
-						이름 변경
-					</button>
+					<label for="playlist-title-update-btn">
+						<span class="title-update">
+							이름 변경
+						</span>
+						<button id="playlist-title-update-btn">
+						</button>
+					</label>
 					<div class="playlist-track-quantity">
 						${trackQuantity} 곡
 					</div>
+					<label for="img-update-btn">
+						<span class="img-update">
+							변경
+						</span>
+						<input type="file" id="img-update-btn">
+					</label>
 				</div>
 				<div class="playlist-delete-btn-wrapper">
-					<button id="playlist-delete-btn">
-						재생목록 삭제
-					</button>
+					<label for="playlist-delete-btn">
+						<span class="playlist-delete">
+							재생목록 삭제
+						</span>
+						<button id="playlist-delete-btn">
+						</button>
+					</label>
 				</div>
 			</div>
 			<hr>
@@ -263,7 +317,7 @@
 		
 		loadPlaylistTracks();
 		
-		/* 재생목록 삭제 버튼에 이벤트 리스너 추가 */
+		/* 재생목록 삭제 버튼에 클릭 이벤트 추가 */
 		const playlistDeleteBtn = document.querySelector("#playlist-delete-btn");
 		playlistDeleteBtn.addEventListener("click", (event) => {
 			event.preventDefault();
@@ -277,7 +331,39 @@
 		    updatePlaylistName();
 		});
 		
+		/* 이미지 변경 버튼에 클릭 이벤트 추가 */
+		const imgUpdateBtn = document.querySelector("#img-update-btn");
+		imgUpdateBtn.addEventListener("change", updatePlaylistImage);
+		
 	});
+	
+	/* 재생목록 이미지 변경 */
+	const updatePlaylistImage = () => {
+		const playlistId = document.querySelector("#playlist-id").value.trim();
+		const imageUpload = document.querySelector("#img-update-btn");
+		
+		const formData = new FormData();
+		formData.append("playlist_id", playlistId);
+ 		formData.append("file", imageUpload.files[0]);
+		
+		fetch("/myPlaylist/playlist/updatePlaylistImage",{
+			method: "POST",
+			body: formData
+		})
+		.then((response) => {
+			if (response.ok) {
+				alert("이미지 변경 완료");
+				console.log("이미지 변경")
+				
+				location.reload();
+			} else {
+				console.log("이미지 변경 실패");
+			}
+		})
+		.catch((error) => {
+			console.log("Error", error);
+		})
+	}
 	
 	/* 재생목록 이름 변경 */
 	const updatePlaylistName = () => {

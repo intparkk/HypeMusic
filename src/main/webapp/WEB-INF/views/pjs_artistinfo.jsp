@@ -147,7 +147,7 @@
 			        	<a href="/albuminfo/${track.album_id }">
 			            <img id="song_img" src="${track.album_img}" alt="Album Image">
 			            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			            <a href="/musicinfo/${track.track_id}">${track.title}</a>&nbsp; - &nbsp;<a href="/artistinfo/${track.artist_id}">${track.artist}</a>
+			            <a href="/music_info?track_id=${track.track_id}">${track.title}</a>&nbsp; - &nbsp;<a href="/artistinfo/${track.artist_id}">${track.artist}</a>
 			            <button type="button" title="재생" class="btn play-btn">
 			                <img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;">
 			            </button>

@@ -31,7 +31,7 @@
 					<label for="pw" id="lb">비밀번호</label><br>
 				</div>
 				<input type="password" name="fpw" value="1234" onkeyup="updatePw(this.value)"><br>
-				<input type="text" name="pw" value="1234">
+				<input type="hidden" name="pw" value="1234">
 			</div>
 			<c:if test="${not empty errMsg}">
 				<p style="color:red">${errMsg }</p>

@@ -1,6 +1,8 @@
 package com.study.springboot.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,20 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 
 	@Autowired
 	HjsmusicDAO hjsmusicDAO;
+	
+	@Override
+	public Map list(HjsmusicDTO musicDto) {
+		List<HjsmusicDTO> list = hjsmusicDAO.selectHjsmusicDTO(musicDto);
+		int totalCount = hjsmusicDAO.totalCount();
+		
+		Map map = new HashMap();
+		map.put("list", list);
+		map.put("totalCount", totalCount);
+		
+		return map;
+	}
+
+	
 	
 	@Override
 	public List<HjsmusicDTO> listDao(HjsmusicDTO musicDto) {

@@ -28,4 +28,7 @@ public interface UserService {
 	
 	// 프로필 사진 업데이트
 	int updateProfileImg(UserDTO userDTO);
+	
+	// 이메일보기
+	UserDTO userEmail(UserDTO userDTO);
 }
