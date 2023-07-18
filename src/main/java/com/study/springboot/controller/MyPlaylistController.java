@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -128,16 +130,19 @@ public class MyPlaylistController {
 			) {
 		
 		HttpSession session = req.getSession();
-		
 		// 세션에서 유저 정보 불러오기
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		
 		// 유저ID 추출
 		int user_id = userDTO.getUser_id();
 		System.out.println("user id :" + user_id);
-
 		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
+		
+		// 재생목록 갯수
+		int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
+		System.out.println(numberOfPlaylist);
+		model.addAttribute("numberOfPlaylist", numberOfPlaylist);
 		
 		// 유저 재생목록 불러오기 
 		List<MyPlaylistDTO> playlist = playlistService.loadPlaylist(myPlaylistDTO);
@@ -178,13 +183,13 @@ public class MyPlaylistController {
 		String playlistName = playlistDAO.selectPlaylistName(myPlaylistDTO);
 		int trackQuantity = playlistDAO.countTracksFromPlaylist(playlist_id);
 		
-		if (trackQuantity == 0) {
-			String playlistImg = "/public/playlist_img.svg";	
-			model.addAttribute("playlistImg", playlistImg);
-		} else {
+//		if (trackQuantity == 0) {
+//			String playlistImg = "/public/playlist_img.svg";	
+//			model.addAttribute("playlistImg", playlistImg);
+//		} else {
 			String playlistImg = playlistDAO.selectPlaylistImg(playlist_id);
 			model.addAttribute("playlistImg", playlistImg);
-		}
+//		}
 		
 		
 		model.addAttribute("playlist_id", playlist_id);
@@ -242,46 +247,53 @@ public class MyPlaylistController {
 	    return "";
 	}
 	
-//	// 재생목록 사진 업로드
-//	@RequestMapping(value="/uploadPlaylistImg", method=RequestMethod.POST)
-//	@ResponseBody
-//	public String uploadPlaylistImg(
-//			@RequestParam("file") MultipartFile file,
-//			@RequestBody int playlist_id,
-//			RedirectAttributes redirectAttributes,
-//			Model model
-//			) {
-////		int playlistId = myPlaylistDTO.getPlayList_id();
-//		if (!file.isEmpty()) {
-//			try {
-//				
-//				String filePath = "C:\\Users\\User\\Desktop\\HypeMusic\\src\\main\\resources\\static\\playlist_img";
-//				String fileName = file.getOriginalFilename();
-//				String fullFilePath = filePath + "\\" + fileName;
-//		
-//				File destination = new File(fullFilePath);
-//				file.transferTo(destination);
-//				
-//				// 이미지 주소 반환
-//				String imageUrl = "/playlist_img/" + fileName;
-//				
-//				// 데이터베이스에 이미지 주소 업데이트
-//				MyPlaylistDTO myPlaylistDTO = new MyPlaylistDTO();
-//				myPlaylistDTO.setPlayList_id(playlist_id);
-//				myPlaylistDTO.setPlaylist_img(imageUrl);
-//				playlistService.updatePlaylistImg(myPlaylistDTO);
-//				
-//				redirectAttributes.addFlashAttribute("imageUrl", imageUrl);
-//				return imageUrl;
-//				
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			  }
-//		}
+	// 재생목록 사진 업로드
+	@RequestMapping(value="/myPlaylist/playlist/updatePlaylistImage", method=RequestMethod.POST)
+	@ResponseBody
+	public String updatePlaylistImage(
+			@RequestPart(value="file", required=false) MultipartFile file,
+			@RequestParam("playlist_id") int playlist_id,
+			RedirectAttributes redirectAttributes
+			) {
+		if (!file.isEmpty()) {
+	        try {
+	            String filePath = "C:\\Users\\User\\Desktop\\HypeMusic\\src\\main\\resources\\static\\playlist_img";
+	            String originalFileName = file.getOriginalFilename();
+	            String fullFilePath = filePath + "\\" + originalFileName;
+
+	            File destination = new File(fullFilePath);
+	            file.transferTo(destination);
+	            
+//	            String binFilePath = "C:\\Users\\User\\Desktop\\HypeMusic\\bin\\main\\static\\playlist_img";
+//	            String binOriginalFileName = file.getOriginalFilename();
+//	            String binFullFilePath = binFilePath + "\\" + binOriginalFileName;
+//	            
+//	            File binDestination = new File(binFullFilePath);
+//	            file.transferTo(binDestination);
+	            
+	            
+	            // 이미지 주소 반환
+	            String imageUrl = "/playlist_img/" + originalFileName;
+	            ClassPathResource resource = new ClassPathResource(fullFilePath);
+	            System.out.println(resource);
+
+	            
+
+	            MyPlaylistDTO myPlaylistDTO = new MyPlaylistDTO();
+	            myPlaylistDTO.setPlayList_id(playlist_id);
+	            myPlaylistDTO.setPlaylist_img(imageUrl);
+	            playlistService.updatePlaylistImg(myPlaylistDTO);
+
+	            redirectAttributes.addFlashAttribute("imageUrl", imageUrl);
+	            return imageUrl;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+			
 		
-//		return "redirect:/myPlaylist/playlist?playlist_id=" + playlistId;
-//		return "redirect:/myPlaylist/playlist?playlist_id=" + 1;
-//	}
+		 return "";
+	}
 	
 	// 재생목록 삭제
 	@RequestMapping(value="/myPlaylist/playlist/deletePlaylist", method=RequestMethod.DELETE)

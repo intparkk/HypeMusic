@@ -17,6 +17,9 @@ public interface PlaylistDAO {
 	// 유저 재생목록 삭제
 	int deletePlaylist(PlaylistDTO playlistDTO);
 	
+	// 재생목록 갯수 세기
+	int countNumberOfPlaylist(MyPlaylistDTO myPlaylistDTO);
+	
 	// 재생목록 제목 불러오기
 	String selectPlaylistName(MyPlaylistDTO myPlaylistDTO);
 	

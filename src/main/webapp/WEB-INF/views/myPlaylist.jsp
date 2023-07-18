@@ -86,7 +86,8 @@
 			<a href="/login">로그인</a>
 		</c:when>
 		<c:otherwise>
-			<p>아이디 : ${userInfo.user_id}</p>
+			<input type="hidden" id="user-id" value="${userInfo.user_id}">
+			<input type="text" id="numberOfPlaylist" value="${numberOfPlaylist}">
 			<label for="add">
 				<span class="addBtn">재생목록 추가 +</span>
 				<button id="add"></button>
@@ -99,7 +100,6 @@
 	
 	<script>
 		window.onload = () => {
-			
 			loadPlaylist();
 			
 			// 추가 버튼에 이벤트리스너 추가
@@ -112,12 +112,12 @@
 		
 		// 재생목록 불러오기
 		const loadPlaylist = () => {
+			
 			// ajax 요청 보내기
 			fetch("/myPlaylist/loadPlaylist", {
 				method : "GET"
 			})
 			.then((response) => {
-			
 				return response.json();
 			})
 			.then((data) => {
@@ -177,7 +177,7 @@
 				console.error("Error", error);
 			});
 		}
-
+		
 		
 		// 재생목록 생성 & html 동적 생성
 		const createNewPlaylist = () => {
@@ -221,11 +221,8 @@
 				playlistImg.src = "/public/playlist_img.svg";
 				
 				// 부모-자식 관계 설정
-				// playlistImg를 playlistLink의 자식으로 추가
 				playlistLink.appendChild(playlistImg);
-				// playlistLink를 playlistImgWrapper의 자식으로 추가
 				playlistImgWrapper.appendChild(playlistLink);
-				// playlistImgWrapper를 playlistWrapper의 자식으로 추가
 				playlistWrapper.appendChild(playlistImgWrapper);
 				
 				const playlistTitleWrapper = document.createElement("div");
@@ -234,13 +231,8 @@
 				const playlistTitleLink = document.createElement("a");
 				playlistTitleLink.classList.add("playlist-title");
 				playlistTitleLink.href = "//myPlaylist/playlist?playlist_id=" + playlistId;
-				playlistTitleLink.textContent = playlistName;// 새로운 playlist 제목 설정
+				playlistTitleLink.textContent = playlistName;
 
-/* 				const addBtn = document.createElement("button");
-				addBtn.setAttribute("id", "add");
-				addBtn.textContent = "추가";
-				
-				playlistWrapper.appendChild(addBtn); */
 				playlistTitleWrapper.appendChild(playlistTitleLink);
 				playlistWrapper.appendChild(playlistTitleWrapper);
 				
@@ -248,6 +240,9 @@
 				document.querySelector("#list-wrapper").appendChild(playlistWrapper);
 			})
 		}
+
+		
+		
 	</script>
 </body>
 </html>
