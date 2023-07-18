@@ -80,14 +80,20 @@ public class MyPlaylistController {
 			) {
 		HttpSession session = req.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
-		myPlaylistDTO.setUser_id(userDTO.getUser_id());
+		session.getAttribute("isLoggedIn");
 		
-		// 재생목록 갯수
-		int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
-		System.out.println(numberOfPlaylist);
-		model.addAttribute("numberOfPlaylist", numberOfPlaylist);
+		if(userDTO != null) {
+			myPlaylistDTO.setUser_id(userDTO.getUser_id());
+			
+			// 재생목록 갯수
+			int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
+			System.out.println(numberOfPlaylist);
+			model.addAttribute("numberOfPlaylist", numberOfPlaylist);
+			
+			return "myPlaylist";
+		}
 		
-		return "myPlaylist";
+		return "redirect:/login";
 	}
 	
 	// 새 재생목록 생성
@@ -103,7 +109,7 @@ public class MyPlaylistController {
 		HttpSession session = req.getSession();
 		// 세션에서 유저 정보 불러오기
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
-		
+
 		// 유저ID 추출
 		int user_id = userDTO.getUser_id();
 		System.out.println("user id :" + user_id);
