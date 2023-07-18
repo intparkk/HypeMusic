@@ -10,6 +10,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/header.css?after">
 </head>
+<style>
+	a {
+		color : #333333;
+		text-decoration : none;
+	}
+	
+	a:hover {
+		color: #000000;
+     	 font-weight: bold;
+	}	
+</style>
 <header>
 <div id="header">
 	<div class = head_top>
@@ -42,7 +53,7 @@
 	<!-- 로고 클릭시 메인페이지 이동 -->
 	<!--  메인페이지 변경 시 href 변경요망 -->
 	<div class="head_middle">
-        <a href="/test-main" title="Go_Mainppge">
+        <a href="/Mainpage" title="Go_Mainppge">
         	<img src="/img/logo2.jpg" alt="로고" class="logo">
         </a>
         <!--  검색 기능  -->

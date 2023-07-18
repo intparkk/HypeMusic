@@ -108,7 +108,7 @@
 	        <c:forEach var="track" items="${albumInfo}">
 	            <li>
 	                <a href="/albuminfo/${track.album_id}"><img src="${track.album_img}" alt="Album Image"></a>
-	                <a href="/musicinfo/${track.track_id}">${track.title}</a> - <a href="/artistinfo/${track.artist_id}">${track.artist}</a> &nbsp;&nbsp;&nbsp;&nbsp;	                
+	                <a href="/music_info?track_id=${track.track_id}">${track.title}</a> - <a href="/artistinfo/${track.artist_id}">${track.artist}</a> &nbsp;&nbsp;&nbsp;&nbsp;	                
                     <button type="button" title="재생" class="btn play-btn" >
                     <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
                 	</button>
@@ -125,7 +125,7 @@
 <section>
 	  <div class ="album_brief">
 	  	<h2>앨범 소개글</h2>
-      	<a>${albumInfo[0].album_brief }</a>
+      	<p>${albumInfo[0].album_brief }</p>
       </div>
 </section>
 </div>
