@@ -94,7 +94,7 @@
 	      <a href="" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
 	      <a href="/pjs_news" title="starmagazine"><button class="star_magazine_btn">스타매거진</button></a>
 	      <a href="" title="music4u"><button class="music_4u_btn">뮤직4U</button></a>
-	      <a href="" title="mymusic"><button class="my_music_btn">마이뮤직</button></a>	      
+	      <a href="/myPlaylist" title="mymusic"><button class="my_music_btn">마이뮤직</button></a>	      
 	    </div> 
 	    <div class="head_bottom_right">
 	    <!-- 내정보 부분 -->
