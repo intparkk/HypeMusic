@@ -27,6 +27,7 @@
 	<p>user_id : ${dto.user_id}</p>
 	<p>profile_img : <img src="${dto.profile_img }" style="width:64px; border-radius: 32px;"></p>
 	<p>join date : ${dto.join_date }</p>
+	<img src="/static/playlist_img/다운로드.jpg">
 	
 </body>
 </html>

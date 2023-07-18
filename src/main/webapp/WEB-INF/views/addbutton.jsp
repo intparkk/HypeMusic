@@ -27,6 +27,7 @@
 	</button>
 	<span id ="icon_nextword"></span>
 	<script>
+	
 	// 현재 url에서 TrackId 추출
 	const url = window.location.href;
 	const trackId = url.split("/").pop();
@@ -45,7 +46,9 @@
 
 		// 팝업 내용을 구성하고 표시하는 코드 추가
 		fetch("/myPlaylist/loadPlaylist")
-			.then(response => response.json())
+			.then(
+					response => response.json()
+			)
 			.then(playlists => {
 				console.log(playlists);
 				const playlistSelect = document.createElement("select");

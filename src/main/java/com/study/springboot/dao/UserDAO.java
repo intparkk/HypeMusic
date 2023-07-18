@@ -1,7 +1,10 @@
 package com.study.springboot.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
 
 @Mapper
@@ -31,4 +34,8 @@ public interface UserDAO {
 	
 	// 프로필 사진 업데이트
 	int updateProfileImg(UserDTO userDTO);
+	
+	// 이메일 보기
+	UserDTO userEmail(UserDTO userDTO);
+	
 }
