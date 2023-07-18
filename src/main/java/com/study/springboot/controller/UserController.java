@@ -112,7 +112,7 @@ public class UserController {
 				System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
 				System.out.println("[/doLogin]userInfo : " + userInfo);
 				
-				return "redirect:/test-main";
+				return "redirect:/Mainpage";
 			}
 		} else {
 				System.out.println("로그인 실패");
@@ -133,7 +133,7 @@ public class UserController {
 		session.invalidate();
 		System.out.println("로그아웃");
 		
-		return "redirect:/test-main";
+		return "redirect:/Mainpage";
 	}
 	
 	// 회원가입 폼
@@ -159,7 +159,7 @@ public class UserController {
 			userService.joinUser(userDTO);
 			System.out.println("회원가입 성공 id : " + userDTO.getId());
 			
-			return "redirect:/test-main";
+			return "redirect:/Mainpage";
 			
 		} else if (countId > 0){
 			// countID가 0 보다 크면 이미 DB에 같은 ID가 한 개 이상 존재
@@ -192,12 +192,15 @@ public class UserController {
 		HttpSession session = req.getSession();
 		session.getAttribute("isLoggedIn");
 		
-		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
-		model.addAttribute("dto", dto);
+		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("userDTO", userDTO);
 		
-		System.out.println("[/myInfo]Dto : " + dto);
+		if (userDTO != null) {
+			return "myInfo";
+		}
 		
-		return "myInfo";
+		return "redirect:/login";
+		
 	}
 	
 	// 비밀번호 변경 전 비밀번호 확인 페이지

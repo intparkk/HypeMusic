@@ -11,4 +11,6 @@ public interface pjs_mainpageDAO
 {
 	List<trackinfoDTO> gettop10tracks();
 	List<trackinfoDTO> getgridtracks();
+	List<trackinfoDTO> getRandomTracksByGenre(String genre);
+	List<trackinfoDTO> getrandomartists();
 }

@@ -41,6 +41,16 @@
 			playlist_id = #{playlist_id}					
 	</delete>
 	
+	<!-- 재생목록 갯수 세기 -->
+	<select id="countNumberOfPlaylist">
+		SELECT
+			count (*)
+		FROM
+			my_playlist
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
 	<!-- 재생목록 이름 불러오기 -->
 	<select id="selectPlaylistName" parameterType="MyPlaylistDTO" resultType="String">
 		SELECT
@@ -80,6 +90,16 @@
 		WHERE
 			playlist_id = #{playlist_id}
 	</select>
+	
+	<!-- 재생목록 이미지 변경 -->
+	<update id="updatePlaylistImg" parameterType="MyPlaylistDTO">
+		UPDATE
+			my_playlist
+		SET
+			playlist_img = #{playlist_img}
+		WHERE
+			playlist_id = #{playlist_id}
+	</update>
 	
 	<!-- 유저 재생목록 목록 불러오기 -->
 	<select id="loadPlaylist" parameterType="MyPlaylistDTO" resultType="MyPlaylistDTO">

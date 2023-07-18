@@ -19,7 +19,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -233,7 +235,10 @@ public class hjs_musiccontroller {
 		
 		return "hjs_ExcelToDB";
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 81e3808d4f05a1d76d2a292e6b6476bd55da7893
 	
 	@RequestMapping("/hjs_music_top100")
 	public String music_top100(
@@ -291,6 +296,11 @@ public class hjs_musiccontroller {
 		
 		return "hjs_music_top100";
 	}
+
+
+	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
+	/*@RequestMapping("/music_info")
+=======
 	
 
 	
@@ -334,6 +344,7 @@ public class hjs_musiccontroller {
 ////////////////////////////////////////////////////////////////////////////////////////	
 	// 페이지 완성후에 오류코드를 확인후 수정하기 
 	@RequestMapping("/music_info")
+>>>>>>> c16312aaa7b9506e2af9b5bce7beaf98c30b02b1
 	public String music_info(
 			UserDTO userDTO,
 			@RequestParam(value="user_id", required=true, defaultValue="") 
@@ -379,7 +390,7 @@ public class hjs_musiccontroller {
 		
 		System.out.println(list);
 		return "hjs_music_info";
-	}
+	}*/
 	
 	
 	// 원본
@@ -428,8 +439,18 @@ public class hjs_musiccontroller {
 			HttpServletRequest req, String user_id
 			) {
 		
-		model.addAttribute("track_id", track_id);
-		System.out.println(track_id);
+		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------
+		// 박정수 : track_id 를 처리하기 위한 변수입니다
+		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id);
+		String trackIdString = trackId.getTrack_id();
+		
+		//System.out.println("trackId : "+trackIdString);
+		
+		// 박정수 : 댓글 달기위해 호출하였습니다
+		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
+		model.addAttribute("list",list);
+		
+		// --------- 박정수 : 여기까지가 수정한 내용입니다 --------------
 		
 		
 		String comment_id = dto2.getComment_id();
@@ -442,20 +463,13 @@ public class hjs_musiccontroller {
 		System.out.println("parent_id : "+ parent_id);
 		
 		int result = hjscommentDAO.writeDao(dto2);
-		
-	//	System.out.println(user_id);
-		System.out.println("writeDao result : "+ result);
-		
-		
-		return "redirect:/music_info?track_id="+track_id;
-		
-	}
+		System.out.println("writeDao result : "+ result);		
 
-	
-	
-	
-	
-	
+	//	System.out.println(user_id);
+		System.out.println("writeDao result : "+ result);		
+		
+		return "redirect:/music_info?track_id="+trackIdString;		
+	}
 	
 	
 	@RequestMapping("/reply")

@@ -162,5 +162,14 @@
 		position: absolute;
   		top: 43px;
   		right: 15px;  		
+	}
+	a {
+		color : #333333;
+		text-decoration : none;
+	}
+	
+	a:hover {
+		color: #000000;
+     	 font-weight: bold;
 	}		
 

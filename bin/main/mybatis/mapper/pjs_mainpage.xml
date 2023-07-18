@@ -25,26 +25,26 @@
 	    WHERE ROWNUM &lt;= 10
 	</select>
 	
-	<!-- 메인페이지 Top 10 아티스트(우선 보류) -->
-	<select id="gettop100artists" resultType="trackinfoDTO">		
+	<!-- 메인페이지 정면 그리드  -->
+	<select id="getRandomTracksByGenre" resultType="trackinfoDTO">
+		SELECT t.track_id, t.artist_id, t.title, t.genre, a.artist, al.release_date, al.album_img
+		FROM TRACKS t
+		JOIN ARTISTS a ON t.artist_id = a.artist_id
+		JOIN ALBUMS al ON t.album_id = al.album_id
+		WHERE t.genre LIKE '%' || #{genre} || '%'
+		  AND al.release_date > TO_DATE('2021-01-01', 'YYYY-MM-DD')
+		ORDER BY DBMS_RANDOM.VALUE
 	</select>
 	
-	<!-- 메인페이지 정면 그리드  -->
-	<select id="getgridtracks" resultType="trackinfoDTO">
-		SELECT
-		    t.track_id, 
-		    t.artist_id, 
-		    t.title, 
-		    a.artist, 
-		    al.release_date, 
-		    al.album_img
-		FROM
-		    tracks t
-		JOIN
-		    artists a ON t.artist_id = a.artist_id
-		JOIN
-		    albums al ON t.album_id = al.album_id
-		WHERE
-		    al.release_date &gt;= TO_DATE('2021-01-01', 'YYYY-MM-DD')
+		<!-- 랜덤 아티스트 20명(메인페이지 하단) -->
+	<select id="getrandomartists" resultType="trackinfoDTO">
+		SELECT artist_id, artist, artist_img
+			FROM (
+			    SELECT artist_id, artist, artist_img
+			    FROM artists
+			    WHERE artist_img IS NOT NULL
+			    ORDER BY DBMS_RANDOM.VALUE
+			)
+			WHERE ROWNUM &lt;= 40			
 	</select>	
 </mapper>

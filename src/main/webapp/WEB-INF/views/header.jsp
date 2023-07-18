@@ -10,6 +10,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/header.css?after">
 </head>
+<style>
+	a {
+		color : #333333;
+		text-decoration : none;
+	}
+	
+	a:hover {
+		color: #000000;
+     	 font-weight: bold;
+	}	
+</style>
 <header>
 <div id="header">
 	<div class = head_top>
@@ -42,7 +53,7 @@
 	<!-- 로고 클릭시 메인페이지 이동 -->
 	<!--  메인페이지 변경 시 href 변경요망 -->
 	<div class="head_middle">
-        <a href="/test-main" title="Go_Mainppge">
+        <a href="/Mainpage" title="Go_Mainppge">
         	<img src="/img/logo2.jpg" alt="로고" class="logo">
         </a>
         <!--  검색 기능  -->
@@ -83,7 +94,7 @@
 	      <a href="" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
 	      <a href="/pjs_news" title="starmagazine"><button class="star_magazine_btn">스타매거진</button></a>
 	      <a href="" title="music4u"><button class="music_4u_btn">뮤직4U</button></a>
-	      <a href="" title="mymusic"><button class="my_music_btn">마이뮤직</button></a>	      
+	      <a href="/myPlaylist" title="mymusic"><button class="my_music_btn">마이뮤직</button></a>	      
 	    </div> 
 	    <div class="head_bottom_right">
 	    <!-- 내정보 부분 -->
