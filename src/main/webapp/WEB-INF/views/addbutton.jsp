@@ -25,7 +25,7 @@
    	<button type="button" title="담기" class="btn add-btn" onclick="showPlaylistPopup()">
     <img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
 	</button>
-	<span id ="icon_nextword">담기</span>
+	<span id ="icon_nextword"></span>
 	<script>
 	// 현재 url에서 TrackId 추출
 	const url = window.location.href;
