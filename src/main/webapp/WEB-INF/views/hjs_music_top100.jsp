@@ -27,6 +27,16 @@ table,th, td{
 h1, h2{
 text-align: center;
 }
+#paging_number,
+#paging_text_1,
+#paging_text_2 {
+text-decoration: none;
+font-weight: bold;
+color: gray;
+font-size : 20px;
+letter-spacing: 5px;
+}
+
 </Style>
 
 </head>
@@ -71,12 +81,12 @@ text-align: center;
 				</tr>
 			</thead>			
     	<tbody>    	
-        <c:forEach var="dto" items="${list}" begin="0" end="99" varStatus="loop"> 	 			
+        <c:forEach var="dto" items="${list}" begin="0" end="99"> 	 			
 				<tr>
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
-						${loop.index + 1}
+						${dto.rnum}
 					</td>
 					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 25px; height: 30px;"></a></td>					
 					<!--  곡정보 이미지 추가 -->
@@ -149,7 +159,83 @@ text-align: center;
     	  </c:forEach>    	
 				</tbody>
 		</table>   
-</div>	
+</div>
+
+		<%
+
+			int total = (int) request.getAttribute("total");
+			int countPerPage = (int) request.getAttribute("countPerPage");
+// 			ceil(101/10) == 11
+			double lastPage = Math.ceil( (double)total / (double)countPerPage);
+
+			// 페이징 그룹
+			// 한 그룹당 보여줄 수
+			int groupCount = 5;
+			// 현재 페이지
+			int pageNum = (int) request.getAttribute("pageNum");
+			// 현재 속한 그룹
+			double group = Math.floor((((double)pageNum-1) / groupCount) + 1);
+			// 그룹의 시작 페이지, 끝 페이지
+			int end = (int)group * groupCount;
+			int begin = end - (groupCount - 1);
+			System.out.println("group: "+ group);
+			System.out.println("end: "+ end);
+			System.out.println("begin: "+ begin);
+			if(end > lastPage){
+				end = (int)lastPage;
+			}
+			
+			// 10보다 큰 숫자는 보이지 않도록 설정
+		    if (end > 10) {
+		        begin = 1;
+		        end = Math.min(end, 10);
+		    }
+		    
+			// scope 관련
+			pageContext.setAttribute("a", 1);
+			request.setAttribute("p", 2);
+			session.setAttribute("test", 3);
+			application.setAttribute("test2", 4);
+		%>
+<%--  		total: <%= total%><br>
+ 		countPerPage: <%= countPerPage%><br>
+ 		lastPage: <%= lastPage%><br>
+ --%> 		
+		<div style="width:350px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;">
+		<%
+			if(begin != 1){
+		%>				
+				<a href="/hjs_music_top100?pageNum=<%= begin-1 %>" id="paging_text_1">[이전]</a>
+		<%
+			}
+		%>
+		<% 
+			for(int i=begin; i<=end; i++){
+		%>
+			<a href="/hjs_music_top100?pageNum=<%= i %>"  id="paging_number">
+				<c:set var="i2" value="<%= i %>" scope="page"></c:set>
+				<c:if test="${pageNum eq i2}">
+					<strong><%= i %></strong>
+				</c:if>
+				<c:if test="${pageNum ne i2}">
+					<%= i %>
+				</c:if>
+			</a>
+		<%
+			}
+		%>
+		<%
+			if(end != lastPage){
+		%>				
+				<a href="/hjs_music_top100?pageNum=<%= end+1 %>" id="paging_text_2">[다음]</a>
+		<%
+			}
+		%>
+			
+		</div>
+		
+	</section>
+	
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 

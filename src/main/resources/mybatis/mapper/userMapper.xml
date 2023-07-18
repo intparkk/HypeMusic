@@ -107,7 +107,12 @@
 			id = #{id}
 	</update>
 	
+	<!-- 아이디찾기 기능을 위해서 userlist를 조회하는 쿼리 -->
+	<select id="userEmail" parameterType="UserDTO"
+			resultType="UserDTO">
+	 select * from users where email = #{email}
 	
+	</select>
 	
 </mapper>
 

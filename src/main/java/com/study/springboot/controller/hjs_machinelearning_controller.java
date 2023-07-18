@@ -167,15 +167,15 @@ public class hjs_machinelearning_controller {
 
             // 선 그래프 생성
             JFreeChart chart = ChartFactory.createLineChart(
-                    "가수별 좋아요 수 변화",   // 차트 제목
-                    "날짜",                  // x축 레이블
-                    "좋아요 수",             // y축 레이블
+                    "like_count change",   // 차트 제목
+                    "release_date",                  // x축 레이블
+                    "like_count",             // y축 레이블
                     dataset                  // 데이터셋
             );
 
-            // 그래프 스타일 설정
-            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 16));
-            chart.getLegend().setItemFont(new Font("SansSerif", Font.PLAIN, 12));
+            // 그래프 스타일 설정 SansSerif
+            chart.getTitle().setFont(new Font("Papyrus", Font.BOLD, 16));
+            chart.getLegend().setItemFont(new Font("Papyrus", Font.PLAIN, 12));
             chart.getPlot().setBackgroundPaint(Color.WHITE);
 
             // 이미지 데이터 생성

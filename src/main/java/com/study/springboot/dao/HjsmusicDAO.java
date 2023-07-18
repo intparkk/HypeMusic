@@ -26,6 +26,10 @@ public interface HjsmusicDAO {
 	// 검색기능을 만들때 필요할 수도 있어서 일단 남겨둡니다. 
 	List testIf(HjsmusicDTO musicDto);
 //	List testForeach(HjsmusicDTO musicDto);
+	
+	int totalCount();
+	List<HjsmusicDTO> selectHjsmusicDTO(HjsmusicDTO musicDto);
+	
 }	
 
 	

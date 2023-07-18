@@ -101,6 +101,15 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	// user 이메일보기
+	@Override
+	public UserDTO userEmail(UserDTO userDTO) {
+		
+		UserDTO result = userDAO.userEmail(userDTO);
+		
+		return result;
+	}
+
 
 
 }
