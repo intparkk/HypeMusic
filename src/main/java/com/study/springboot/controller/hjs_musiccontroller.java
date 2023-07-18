@@ -297,7 +297,7 @@ public class hjs_musiccontroller {
 
 	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
 	/*@RequestMapping("/music_info")
-=======
+
 	
 
 	
@@ -341,7 +341,7 @@ public class hjs_musiccontroller {
 ////////////////////////////////////////////////////////////////////////////////////////	
 	// 페이지 완성후에 오류코드를 확인후 수정하기 
 	@RequestMapping("/music_info")
->>>>>>> c16312aaa7b9506e2af9b5bce7beaf98c30b02b1
+
 	public String music_info(
 			UserDTO userDTO,
 			@RequestParam(value="user_id", required=true, defaultValue="") 
@@ -578,12 +578,13 @@ public class hjs_musiccontroller {
 		return "hjs_music_genre";
 	}
 	
+	// 관리자 음악정보 insert기능
 	@RequestMapping("/hjs_music_admintest")
 	public String admintest() {
 		return "hjs_music_admintest";
 	}
 	
-	
+	// 관리자 음악정보 insert기능 
 	@RequestMapping("/hjs_music_admininsert")
 	public String admintest(
 			HjsmusicDTO musicDto2,
@@ -611,6 +612,7 @@ public class hjs_musiccontroller {
 		return "hjs_music_admintest";
 	}
 	
+	// 관리자 음악정보 insert후에 리스트 확인
 	@RequestMapping("/hjs_music_viewtest")
 	public String viewtest(
 			HjsmusicDTO musicDto2,

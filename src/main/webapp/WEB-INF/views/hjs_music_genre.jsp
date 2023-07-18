@@ -13,19 +13,30 @@
 <title>HYPEMUSIC 장르음악</title>
 <style>
 
-#genre_title {
-	margin-left:123px;
+body{
+	
+	width:85%;
+	/* display: inline-block; */
+	margin-left: 120px;
 }
 
-#genre_body {
+
+#genre_title {
+	/* margin-left:123px; */
+	margin: auto;
+	margin-top: 20px;
+}
+
+ #genre_body {
         margin: 20px 120px;
         padding: 0;
         font-family: Arial, sans-serif;
         color: #3f3f3f;
-        }
+        } 
         
  #form_btn
  {
+ 	 margin: 15px;
     background-color: white;
     border: none;
     color: gray;
@@ -34,7 +45,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+ /*    margin: 4px 2px; */
     cursor: pointer;
     border-radius: 8px;
 }  
@@ -51,16 +62,32 @@
     font-weight: bold;
     color: black;
   }
-  
-	table {
-		width:950px;
-	}
+  h1{
+  text-align: center;
+  }
 
-table,th, td{
+table{
+    width: 100%; 
+	border-collapse:collapse;
+	margin: auto;
 	border: none;
 	border-bottom: 1px solid lightgray;
 	border-top: 1px solid lightgray;
+	color: #333333;	
+	/* width:950px; */
 }
+th, td{
+	border: none;
+	border-bottom: 1px solid lightgray;
+	border-top: 1px solid lightgray;
+	color: #333333;
+	margin-left:20px;
+	margin-right:20px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+}
+
 
   td {
     white-space: nowrap;
@@ -78,6 +105,9 @@ table,th, td{
   }   
 
   #genreForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   	margin-bottom:30px;
   }
   
@@ -137,6 +167,8 @@ a:hover {
 			    <th>곡정보</th>
 			    <th>앨범</th>
 			    <th>앨범발매일</th>
+			    <th>듣기</th>
+			    <th>담기</th>
 			  </tr>
 			  <div id ="table_header_blank"></div>
 			    <tr class = "table_contents">

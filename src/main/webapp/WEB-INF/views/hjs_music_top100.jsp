@@ -17,13 +17,18 @@
 <Style>
 table{
 	border-collapse:collapse;
-	margin: auto;	
+	margin: auto;
+	width: 90%;	
 }
 table,th, td{
 	border: none;
 	border-bottom: 1px solid lightgray;
 	border-top: 1px solid lightgray;
 	color: #333333;
+	text-align: center;
+}
+th,td{
+max-width: 250px;
 }
 h1, h2{
 text-align: center;
@@ -81,6 +86,7 @@ letter-spacing: 5px;
 				<th><input type="checkbox" name="check" id="checkbox">
                            <div class="checkmark"></div></th>
 				<th>순위</th>
+				<th>ㅡ</th>
 				<th>앨범이미지</th>
 				<th>곡정보</th>
 				<th>앨범</th>
@@ -94,9 +100,10 @@ letter-spacing: 5px;
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
-						&nbsp;${loop.index + 1}
+						<%-- &nbsp;${loop.index + 1} --%>
 						${dto.rnum}
 					</td>
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 25px; height: 30px;"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
