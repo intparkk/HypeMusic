@@ -10,85 +10,187 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장르음악</title>
+<title>HYPEMUSIC 장르음악</title>
 <style>
-table{
-	border-collapse:collapse;
-	margin: auto;
+
+#genre_title {
+	margin-left:123px;
 }
+
+#genre_body {
+        margin: 20px 120px;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: #3f3f3f;
+        }
+        
+ #form_btn
+ {
+    background-color: white;
+    border: none;
+    color: gray;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}  
+   
+   #form_btn:hover
+{
+     background-color: #ffffff;
+     color: #000000;
+     font-weight: bold;
+}
+
+ .active {
+    border: 2px solid #000000;
+    font-weight: bold;
+    color: black;
+  }
+  
+	table {
+		width:950px;
+	}
+
 table,th, td{
 	border: none;
 	border-bottom: 1px solid lightgray;
 	border-top: 1px solid lightgray;
 }
-table {
-margin: auto;
+
+  td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+  
+  .text_over{
+  	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px; /* 텍스트가 표시될 최대 너비를 지정합니다 */
+    width:100px;
+  }   
+
+  #genreForm {
+  	margin-bottom:30px;
+  }
+  
+#table_img {
+   transition: transform 0.5s ease;
+ }
+
+ #table_img:hover {
+   transform: scale(1.1);
+ }
+ 
+a {
+	color : #333333;
+	text-decoration : none;
 }
-h1 {
-text-align: center;
-}
-#genreForm {
-  text-align: center;
-}
-#preference {
-  margin: 0 auto;
-}
+
+a:hover {
+	color: #000000;
+    font-weight: bold;
+} 
 </style>
 </head>
 <header>
 <jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
-<h1>장르음악</h1>
-
-<form id="genreForm" action="/hjs_music_genre">
- <select id="preference" name="preference" onchange="submitForm()">
-    <option value="">장르를 선택해주세요</option>
-    <option value="발라드">발라드</option>
-    <option value="드라마">드라마OST</option>
-    <option value="영화">영화OST</option>
-    <option value="댄스">댄스</option>
-    <option value="POP">팝</option>
-    <option value="포크">포크</option>
-    <option value="Soul">알앤비&소울</option>
-    <option value="재즈">재즈</option>
-    <option value="메탈">메탈</option>
-	<option value="NewAge">뉴에이지</option>
-    <option value="인디">인디</option>
- </select>
- </form>
- <br><br>
-
-<table>
-		<tr>
-					<th>♡</th>	
-					<th>장르</th>
-					<th>♬</th>
-					<th>앨범이미지</th>
-					<th>곡정보</th>
-					<th>앨범</th>
-					<th>앨범발매일</th>
-		</tr>
-		<c:forEach var="dto" items="${list}" begin="0" end="99" varStatus="loop">
-			<tr>
-					<td>${loop.index + 1}</td>
-					<td>${dto.genre }</td>
-					<td><a href="/music_info?track_id=${dto.track_id }">♬</a></td>
-					<td><img src="${dto.album_img}" alt="album_image" style="width: 100px;height: 100px;"></td>
-					<td>
-					<P>${dto.title }</P>
-					<P>${dto.artist }</P>
-					</td>
-					<td>${dto.album_name }</td>
-					<td>${dto.release_date }</td>
-			</tr>
-		</c:forEach>
-</table>
- 
+		<h1 id ="genre_title">장르음악</h1>
+	<div id ="genre_body">
+		<!--  상단 부분 -->
+		<section id ="genre_body_top">
+		
+		<!-- 버튼 방식으로 변경하였습니다. -->
+		<!-- 재즈, 뉴에이지는 한두곡 밖에 없어서 주석처리하여 제외하였습니다 -->		
+		<form id="genreForm" action="/hjs_music_genre">
+		  <!-- <button type="submit" name="preference" value="">장르를 선택해주세요</button> -->
+		  <button id="form_btn" type="submit" name="preference" value="발라드">발라드</button>
+		  <button id="form_btn" type="submit" name="preference" value="드라마">드라마OST</button>
+		  <button id="form_btn" type="submit" name="preference" value="영화">영화OST</button>
+		  <button id="form_btn" type="submit" name="preference" value="댄스">댄스</button>
+		  <button id="form_btn" type="submit" name="preference" value="POP">팝</button>
+		  <button id="form_btn" type="submit" name="preference" value="포크">포크</button>
+		  <button id="form_btn" type="submit" name="preference" value="Soul">알앤비&amp;소울</button>
+		  <!--<button type="submit" name="preference" value="재즈">재즈</button>  -->
+		  <button id="form_btn" type="submit" name="preference" value="메탈">메탈</button>
+		  <!-- <button type="submit" name="preference" value="NewAge">뉴에이지</button>  -->
+		  <button id="form_btn" type="submit" name="preference" value="인디">인디</button>
+		</form>
+		</section>
+		
+		<!--  차트 부분 -->
+		<section id ="genre_body_middle">
+			<table>			
+			  <tr class ="table_header">
+			    <th>No</th>
+			    <th>장르</th>
+			    <th>앨범이미지</th>
+			    <th>곡정보</th>
+			    <th>앨범</th>
+			    <th>앨범발매일</th>
+			  </tr>
+			  <div id ="table_header_blank"></div>
+			    <tr class = "table_contents">
+			  	  <c:forEach var="dto" items="${list}" begin="0" end="99" varStatus="loop">
+			      <td>${loop.index + 1}</td>
+			      <td class ="text_over">${dto.genre}</td>
+			      <td><a href="/music_info?track_id=${dto.track_id}"><img id="table_img" src="${dto.album_img}" alt="album_image" style="width: 100px; height: 100px;"></a></td>
+			      <td>
+			        <p><a href="/music_info?track_id=${dto.track_id}">${dto.title}</a></p>
+			        <p><a href="/artistinfo/${dto.artist_id}">${dto.artist}</a></p>
+			      </td>
+			      <td><a href="/albuminfo/${dto.track_id}">${dto.album_name}</a></td>
+			      <td class ="text_over">${dto.release_date}</td>
+			      <td>
+			      <!--  재생 버튼 -->
+			      <!-- 유튜브 url 필요 -->                    
+			      <a href=""><button type="button" title="재생" class="btn play-btn" >
+                    <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
+                	</button>
+                	</a>
+                </td>
+                <td><jsp:include page="addbutton.jsp"></jsp:include> </td>
+			    </tr>
+			  </c:forEach>
+			</table>
+		</section> 
+	</div>	
+<!--  장르 선택 스크립트 -->	
 <script>
 function submitForm(){
 	document.getElementById("genreForm").submit();
 }
+
+// 클릭 효과 (클릭시 해당 장르 버튼 볼드, 테두리 처리)
+// 클릭 효과 주고싶었으나 페이지를 다시  불러오는 방식이라 계속 초기화가 되네요... 
+// 굳이 하려면 redirect 방식에서 바꿔야 할듯요
+
+/*window.onload = function() {
+    var buttons = document.querySelectorAll("#genreForm button");
+    var initialButton = document.querySelector("#genreForm button[value='발라드']");
+    
+    // 페이지 최초 진입 시 "발라드" 버튼 클릭
+    initialButton.classList.add("active");
+    
+    buttons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        // 클릭된 버튼에 active 클래스 추가
+        buttons.forEach(function(btn) {
+          btn.classList.remove("active");
+        });
+        this.classList.add("active");
+      });
+    });
+  };*/
 
 </script>
 </body>

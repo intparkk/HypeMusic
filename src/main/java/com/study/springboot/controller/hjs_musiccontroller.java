@@ -390,11 +390,9 @@ public class hjs_musiccontroller {
 		System.out.println("parent_id : "+ parent_id);
 		
 		int result = hjscommentDAO.writeDao(dto2);
-		System.out.println("writeDao result : "+ result);		
-
+		System.out.println("writeDao result : "+ result);
 	//	System.out.println(user_id);
 		System.out.println("writeDao result : "+ result);		
-		
 		return "redirect:/music_info?track_id="+trackIdString;		
 	}
 	
