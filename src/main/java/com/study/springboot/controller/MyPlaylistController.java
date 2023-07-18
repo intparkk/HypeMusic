@@ -75,12 +75,18 @@ public class MyPlaylistController {
 	public String myPlaylist(
 			HttpServletRequest req,
 			@ModelAttribute
-			UserDTO userDTO,
-			@ModelAttribute
-			MyPlaylistDTO myPlaylistDTO
+			MyPlaylistDTO myPlaylistDTO,
+			Model model
 			) {
 		HttpSession session = req.getSession();
-	
+		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+		myPlaylistDTO.setUser_id(userDTO.getUser_id());
+		
+		// 재생목록 갯수
+		int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
+		System.out.println(numberOfPlaylist);
+		model.addAttribute("numberOfPlaylist", numberOfPlaylist);
+		
 		return "myPlaylist";
 	}
 	
@@ -138,11 +144,6 @@ public class MyPlaylistController {
 		System.out.println("user id :" + user_id);
 		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
-		
-		// 재생목록 갯수
-		int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
-		System.out.println(numberOfPlaylist);
-		model.addAttribute("numberOfPlaylist", numberOfPlaylist);
 		
 		// 유저 재생목록 불러오기 
 		List<MyPlaylistDTO> playlist = playlistService.loadPlaylist(myPlaylistDTO);

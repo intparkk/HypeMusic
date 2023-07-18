@@ -112,7 +112,7 @@ public class UserController {
 				System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
 				System.out.println("[/doLogin]userInfo : " + userInfo);
 				
-				return "redirect:/test-main";
+				return "redirect:/Mainpage";
 			}
 		} else {
 				System.out.println("로그인 실패");

@@ -34,7 +34,8 @@
 </head>
 <body>
 	<h1> 내 정보 </h1>
-	<a href="/test-main">메인페이지</a>
+	<a href="/test-main">테스트 메인페이지</a>
+	<a href="/Mainpage">진짜 메인페이지</a>
 	<a href="#">내가 쓴 댓글</a>
 	<a href="#">좋아요</a>
 	<a href="/myPlaylist">나의 재생목록</a>

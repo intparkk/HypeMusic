@@ -36,7 +36,7 @@
 	margin-top: 40px;
 	border: 1px solid red;
 	min-width: 800px;
-	width: 800px;
+	width: 1000px;
 	min-height: 200px;
 }
 
@@ -58,6 +58,7 @@
 #playlist-img{
 	width: 160px;
 	height: 160px;
+	border-radius: 6px;
 }
 
 .playlist-title-wrapper {
@@ -74,7 +75,8 @@
 </head>
 <body>
 	<h1> 내 재생목록 </h1>
-	<a href="/test-main">메인페이지</a>
+	<a href="/test-main">테스트 메인페이지</a>
+	<a href="/Mainpage">진짜 메인페이지</a>
 	<a href="#">내가 쓴 댓글</a>
 	<a href="#">좋아요</a>
 	<a href="/myPlaylist">나의 재생목록</a>
@@ -87,7 +89,7 @@
 		</c:when>
 		<c:otherwise>
 			<input type="hidden" id="user-id" value="${userInfo.user_id}">
-			<input type="text" id="numberOfPlaylist" value="${numberOfPlaylist}">
+			<input type="hidden" id="numberOfPlaylist" value="${numberOfPlaylist}">
 			<label for="add">
 				<span class="addBtn">재생목록 추가 +</span>
 				<button id="add"></button>
@@ -178,11 +180,14 @@
 			});
 		}
 		
-		
 		// 재생목록 생성 & html 동적 생성
-		const createNewPlaylist = () => {
-			
+		const createNewPlaylist = (event) => {
+			const numberOfPlaylist = document.querySelector("#numberOfPlaylist").value.trim();
 			// ajax 요청 보내기
+			if (numberOfPlaylist >= 20) {
+				alert("재생목록은 20개까지 생성 가능합니다.");
+				event.preventDefault();
+			}
 			fetch("/myPlaylist/createNewPlaylist", {
 				method : "POST"
 			})
