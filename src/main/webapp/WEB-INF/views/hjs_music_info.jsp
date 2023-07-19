@@ -142,7 +142,7 @@ border: 1px solid lightgray;
 <h3 id ="blackword">댓글달기</h3>
 <form action="/write_comment" method="post">
 
-<input type="hidden" name="track_id" value="${dto.track_id }">
+
 <input type="hidden" name="user_id" value="${userInfo.user_id }">
 
 <input type="hidden" name="track_id" value="${trackInfo[0].track_id }">
@@ -183,9 +183,9 @@ border: 1px solid lightgray;
 		<td>${dto2.user_id }</td>
 		<td>${dto2.comment_content }</td>
 		<td>${dto2.comment_time }</td>
-		<td><a href="/reply?track_id=${dto.track_id }&comment_id=${dto2.comment_id }">답글</a></td>
-		<td><a href="/modifyForm?track_id=${dto.track_id }&comment_id=${dto2.comment_id }">수정</a></td>
-		<td><a href="/delete?track_id=${dto.track_id }&comment_id=${dto2.comment_id }">삭제</a></td>
+		<td><a href="/reply?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">답글</a></td>
+		<td><a href="/modifyForm?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">수정</a></td>
+		<td><a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">삭제</a></td>
 	</tr> 
 	</c:forEach>  
 	

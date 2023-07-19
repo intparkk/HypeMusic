@@ -295,6 +295,13 @@ public class hjs_musiccontroller {
 
 
 	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
+<<<<<<< HEAD
+=======
+	//@RequestMapping("/music_info")
+
+	
+
+>>>>>>> 78395019cd28d1b2dfd62bfef7aa8fc53b118547
 	
 //	// 원본 뮤직 Top100
 //	@RequestMapping("/hjs_music_top100")
@@ -337,43 +344,25 @@ public class hjs_musiccontroller {
 	@RequestMapping("/music_info")
 
 	public String music_info(
-			UserDTO userDTO,
-			@RequestParam(value="user_id", required=true, defaultValue="") 
-			String user_id,
 			Model model,
 			@RequestParam("track_id") String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			HttpServletRequest req
 			) {
 		
-		Map map = userService.login(userDTO);
-		UserDTO userInfo = (UserDTO) map.get("dto");
-		int countAcc = (int) map.get("count");
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
 		
-		System.out.println("[/doLogin]count : " + countAcc);	
-		System.out.println("[/doLogin]userInfo : " + userInfo);	
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		int user_id = userInfo.getUser_id();
 		
-		if(countAcc == 1) {
-			// 계정 있음
-			HttpSession session = req.getSession();
-			session.setAttribute("isLoggedIn", "ok");
-			
-			if(userInfo != null) {
-				
-				session.setAttribute("userInfo", userInfo);
-				System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
-				System.out.println("[/doLogin]userInfo : " + userInfo);
-				
-				return "redirect:/test-main";
-			}
-		} else {
-				System.out.println("로그인 실패");
-				// 계정 없음
-				String errMsg = "계정 정보가 일치하지 않습니다.";
-				model.addAttribute("errMsg", errMsg);
-			  }
+		System.out.println("user_id:"+user_id);
+	//	session.setAttribute("userInfo", userInfo);
+	//	System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
+	//	System.out.println("[/doLogin]userInfo : " + userInfo);
 		
-		System.out.println(user_id);
+		
+		
 		HjsmusicDTO dto = hjsmusicDAO.viewDao(track_id);
 		model.addAttribute("dto",dto);
 		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
@@ -421,23 +410,29 @@ public class hjs_musiccontroller {
 	
 	@RequestMapping("/write_comment")
 	public String write2(
+<<<<<<< HEAD
 			UserDTO userDTO,			
+=======
+			UserDTO userDTO,
+			HjsmusicDTO musicDTO,
+>>>>>>> 78395019cd28d1b2dfd62bfef7aa8fc53b118547
 			@RequestParam(value="track_id", required=true, defaultValue="") 
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
 			HttpServletRequest req, int user_id
 			) {
-		
+		String track_id1 = musicDTO.getTrack_id();
+		System.out.println("중요"+track_id1);
 		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------
 		// 박정수 : track_id 를 처리하기 위한 변수입니다
-		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id);
+		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id1);
 		String trackIdString = trackId.getTrack_id();
 		
 		//System.out.println("trackId : "+trackIdString);
 		
 		// 박정수 : 댓글 달기위해 호출하였습니다
-		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
+		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id1);
 		model.addAttribute("list",list);
 		
 		// --------- 박정수 : 여기까지가 수정한 내용입니다 --------------
