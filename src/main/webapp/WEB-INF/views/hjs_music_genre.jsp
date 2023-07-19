@@ -17,7 +17,8 @@ body{
 	
 	width:85%;
 	/* display: inline-block; */
-	margin-left: 120px;
+	/* margin-left: 120px; */
+	margin: auto;
 }
 
 
@@ -28,7 +29,7 @@ body{
 }
 
  #genre_body {
-        margin: 20px 120px;
+        margin: 20px ;
         padding: 0;
         font-family: Arial, sans-serif;
         color: #3f3f3f;
@@ -36,7 +37,7 @@ body{
         
  #form_btn
  {
- 	 margin: 15px;
+ 	margin: 15px;
     background-color: white;
     border: none;
     color: gray;

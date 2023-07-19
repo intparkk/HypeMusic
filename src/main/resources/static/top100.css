@@ -3,9 +3,10 @@
 
 body {
 	
-	width:85%;
-	display: inline-block;
-	margin-left: 120px;
+	width:90%;
+/* 	display: inline-block;
+	margin-left: 120px; */
+	margin: auto;
 }
 
 h1 {
