@@ -38,7 +38,7 @@ ${dto.lyrics }<br><br>
 글내용:${dto2.comment_content}<br>
 부모글:${dto2.comment_id}<input type="hidden" name="parent_id" value="${dto2.comment_id}"><br>
 <!-- 작성자 : <input type="text" name="member_id"><br> -->
-작성자 :${dto2.user_id } <!-- <input type="text" name="user_id"><br> --><br>
+작성자 :${userInfo.user_id } <!-- <input type="text" name="user_id"><br> --><br>
 답글 : <textarea class="text" name="comment_content"></textarea>
 <input type="submit" value="저장하기">
 </form>

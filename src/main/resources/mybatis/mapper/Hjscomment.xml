@@ -10,6 +10,7 @@
 </resultMap>
 <select id="listDao" resultType="com.study.springboot.dto.HjscommentDTO">
 	select * from tb_comment where track_id=#{track_id}
+	order by comment_id asc
 </select>
  
  
