@@ -10,6 +10,7 @@ public interface HjscommentDAO {
 
 	int writeDao(HjscommentDTO dto);
 	List<HjscommentDTO> listDao(String track_id);
+	List<HjscommentDTO> listDao2(HjscommentDTO hjscommentDTO);
 	int deleteDao(String comment_id);
 	int updateDao(HjscommentDTO dto2);
 	HjscommentDTO viewDao(String comment_id);

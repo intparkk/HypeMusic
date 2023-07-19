@@ -15,11 +15,19 @@ table{
 }
 table,th, td{
 	border: 1px solid lightgray;
+	
 /* 	border-bottom: 1px solid lightgray;
 	border-top: 1px solid lightgray; */
 }
 h1, h2{
 text-align: center;
+}
+.delete {
+color: red;
+font-weight: bold;
+}
+.delete:hover {
+color: #FFA7A7;
 }
 </Style>
 
@@ -42,6 +50,7 @@ text-align: center;
 		<th>genre</th>
 		<th>release_date</th>
 		<th>lyrics</th>
+		<th>곡삭제</th>
 	</tr>
 <c:forEach var="dto" items="${list}" begin="0" end="200" varStatus="loop">
 	<tr>
@@ -56,10 +65,12 @@ text-align: center;
 		<td>${dto.genre }</td>
 		<td>${dto.release_date }</td>
 		<td>${dto.lyrics }</td>
+		<td><a href="/admin_delete?track_id=${dto.track_id }" class="delete">곡삭제</a></td>
+		
+<!-- <a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">삭제</a> -->		
 	</tr>
 </c:forEach>
-	<!-- 업데이트 테스트 -->
-	<!-- 업데이트 테스트 -->
+	
 </table>
 <br><br><br>
 </body>

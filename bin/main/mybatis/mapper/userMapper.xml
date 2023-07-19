@@ -114,6 +114,12 @@
 	
 	</select>
 	
+	<!-- userlist를 모두 조회하는 쿼리 -->
+	<select id="listDao" parameterType="UserDTO"
+			resultType="UserDTO">
+	select rownum as rnum, users.* from users order by user_id asc
+	</select>
+	
 </mapper>
 
 

@@ -38,4 +38,6 @@ public interface UserDAO {
 	// 이메일 보기
 	UserDTO userEmail(UserDTO userDTO);
 	
+	List<UserDTO> listDao(UserDTO userDTO);
+	
 }

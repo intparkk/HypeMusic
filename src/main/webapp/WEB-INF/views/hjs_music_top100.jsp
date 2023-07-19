@@ -58,7 +58,7 @@ letter-spacing: 5px;
 
 </head>
 <header>
-<jsp:include page="hjs_music_header2.jsp"></jsp:include> 
+<jsp:include page="header.jsp"></jsp:include>
 </header>
 <body>
 
@@ -103,7 +103,7 @@ letter-spacing: 5px;
 						<%-- &nbsp;${loop.index + 1} --%>
 						${dto.rnum}
 					</td>
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 25px; height: 30px;"></a></td>
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">

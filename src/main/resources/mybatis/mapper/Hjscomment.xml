@@ -13,6 +13,11 @@
 	order by comment_id asc
 </select>
  
+ <select id="listDao2" resultType="com.study.springboot.dto.HjscommentDTO">
+	select rownum as rnum, tb_comment.* from tb_comment 
+	order by comment_id asc
+</select>
+ 
  
 <select id="viewDao" resultType="com.study.springboot.dto.HjscommentDTO">
 	select * from tb_comment where comment_id = #{param1}

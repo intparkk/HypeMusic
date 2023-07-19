@@ -66,4 +66,12 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 		List result = hjsmusicDAO.testIf(musicDto);
 		return result;
 	}
+
+
+
+	@Override
+	public int deleteadminDao(String track_id) {
+		int result = hjsmusicDAO.deleteadminDao(track_id);
+		return result;
+	}
 }

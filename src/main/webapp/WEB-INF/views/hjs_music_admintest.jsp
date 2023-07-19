@@ -9,46 +9,69 @@
 <meta charset="UTF-8">
 <title>관리자권한연습</title>
 <style>
+
+table {
+margin: auto;
+}
+
  button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #FFD6FF;
+            color: black;
             border: none;
             cursor: pointer;
-            width: 280px;
+            width: 390px;
         }
  #list-button {
  			padding: 0;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #FFD6FF;
+            color: black;
             border: none;
             cursor: pointer;
-            width: 280px;
+            width: 390px;
             text-decoration: none;
  } 
  
  td {
  font-weight: bold;
+ font-size: 20px;
+ color: gray;
+ max-width: 300px;
  }      
  h1 {
- background-color: #4CAF50;
- color: white;
+ margin: auto;
+ background-color: #FFD6FF;
+ color: gray;
  font-weight: bold;
  padding: 0 px;
  display: inline-bolck;
  margin: 0 px;
- width: 280px;
+ width: 380px;
  text-align: center;
  } 
+ 
+input[type="text"] {
+            width: 250px; /* 원하는 가로 크기로 지정 */
+            height: 22px; /* 원하는 세로 크기로 지정 */
+        	border: 2px solid lightgray;
+        }
+        
+#preference {
+width: 257px;
+height: 27px;
+border: 2px solid lightgray;
+color: gray;
+}        
 </style>
 
 </head>
 <header>
-<jsp:include page="header.jsp"></jsp:include> 
+<jsp:include page="header.jsp"></jsp:include>
 </header>
 <body>
+<br>
 <h1>곡정보등록</h1>
-
+<br>
 <table>
 <form action="/hjs_music_admininsert" method="post">
         <tr>

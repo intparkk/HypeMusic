@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.springboot.dao.UserDAO;
+import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
 import com.study.springboot.encryptor.Encryptor;
 
@@ -108,6 +109,13 @@ public class UserServiceImpl implements UserService {
 		UserDTO result = userDAO.userEmail(userDTO);
 		
 		return result;
+	}
+
+	
+	@Override
+	public List<UserDTO> listDao(UserDTO userDTO) {
+		List<UserDTO> list = userDAO.listDao(userDTO);
+		return list;
 	}
 
 

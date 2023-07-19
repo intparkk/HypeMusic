@@ -262,7 +262,7 @@ public class hjs_musiccontroller {
 			countPerPage = Integer.parseInt(cpp); // 한 페이지당 표시 수
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 		
@@ -410,24 +410,32 @@ public class hjs_musiccontroller {
 	@RequestMapping("/write_comment")
 	public String write2(
 			UserDTO userDTO,
-			HjsmusicDTO musicDTO,
 			@RequestParam(value="track_id", required=true, defaultValue="") 
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
-			HttpServletRequest req, String user_id
+			HttpServletRequest req
 			) {
-		String track_id1 = musicDTO.getTrack_id();
-		System.out.println("중요"+track_id1);
+
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		int user_id2 = userInfo.getUser_id();
+		
+		
+		System.out.println("user_id:"+user_id2);
+		
 		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------
 		// 박정수 : track_id 를 처리하기 위한 변수입니다
-		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id1);
+		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id);
 		String trackIdString = trackId.getTrack_id();
 		
 		//System.out.println("trackId : "+trackIdString);
 		
 		// 박정수 : 댓글 달기위해 호출하였습니다
-		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id1);
+		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
 		model.addAttribute("list",list);
 		
 		// --------- 박정수 : 여기까지가 수정한 내용입니다 --------------
@@ -438,14 +446,15 @@ public class hjs_musiccontroller {
 		String parent_id = dto2.getParent_id();
 		
 		System.out.println("comment_id : "+ comment_id);
-		System.out.println("user_id : "+ user_id);
+		System.out.println("user_id : "+ user_id2);
 		System.out.println("comment_content: "+ comment_content);
 		System.out.println("parent_id : "+ parent_id);
+		
+		dto2.setUser_id(user_id2);
 		
 		int result = hjscommentDAO.writeDao(dto2);
 		System.out.println("writeDao result : "+ result);
 	//	System.out.println(user_id);
-		System.out.println("writeDao result : "+ result);		
 		return "redirect:/music_info?track_id="+trackIdString;		
 	}
 	
@@ -612,6 +621,18 @@ public class hjs_musiccontroller {
 		
 		return "hjs_music_viewtest";
 	}
+	
+	
+	@RequestMapping("/admin_delete")
+	public String admin_delete(
+			@ModelAttribute("dto") HjsmusicDTO dto,
+			@RequestParam(value = "track_id", required = true, defaultValue = "") String track_id
+			) {
+		System.out.println(track_id);
+		int result = hjsmusicDAO.deleteadminDao(track_id);
+		System.out.println("삭제 개수 : "+ result);
 		
+		return "redirect:/hjs_music_viewtest";
+	}
 	
 }

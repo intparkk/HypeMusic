@@ -13,6 +13,14 @@ public class UserDTO {
 	private String rank;
 	private Date join_date;
 	
+	private Integer rnum;
+	
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

@@ -31,4 +31,6 @@ public interface UserService {
 	
 	// 이메일보기
 	UserDTO userEmail(UserDTO userDTO);
+	
+	List<UserDTO> listDao(UserDTO userDTO);
 }

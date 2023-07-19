@@ -141,6 +141,10 @@
 		DELETE FROM tb_music WHERE track_id= #{track_id}
 	</delete>
 	
+	<delete id="deleteadminDao" parameterType="com.study.springboot.dto.HjsmusicDTO">
+	    delete from tb_music_test where track_id= #{track_id}
+	</delete>
+	
 	<update id="updateDao" parameterType="com.study.springboot.dto.HjsmusicDTO">
 		UPDATE 
 				tb_music

@@ -6,12 +6,19 @@ public class HjscommentDTO {
 
 	private String track_id;
 	private String comment_id;
-	private String user_id;
+	private int user_id;
 	private String comment_content;
 	private LocalDateTime comment_time;
 	private String parent_id;
 	
+	private Integer rnum;
 	
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
 	public String getTrack_id() {
 		return track_id;
 	}
@@ -24,10 +31,10 @@ public class HjscommentDTO {
 	public void setComment_id(String comment_id) {
 		this.comment_id = comment_id;
 	}
-	public String getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(String user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 	public String getComment_content() {

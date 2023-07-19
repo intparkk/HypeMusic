@@ -17,10 +17,39 @@
 /* 진서님 CSS*/
 .text {
 width: 500px;
-height: 40px;
+height:40px;
+font-size: 15px;
+background-color: #FFD6FF;
+border: none;
+}
+#submit_button {
+border: none;
+background-color: white;
+font-size: 17px;
+font-weight: bold;
+color:#5D5D5D;
+cursor:pointer;
+}
+#submit_button:hover,
+#list_button:hover {
+color: #030303;
+}
+#list_button {
+border: none;
+background-color: white;
+color: #5D5D5D;
+}
+table {
+    border-collapse:collapse;
+    width: 800px;
 }
 table,th,td{
-border: 1px solid lightgray;
+	border: none;
+	border-bottom: 1px solid #faaad8;
+	border-top: 1px solid #faaad8;
+}
+th,td {
+max-width: 250px;
 }
 	/* 박정수 CSS*/
     #detailsong_body {
@@ -139,27 +168,27 @@ border: 1px solid lightgray;
 <!-- 진서님 댓글 파트 -->
 <!--   -->
 <section id = "reply_section">
+<c:choose>
+<c:when test="${not empty userInfo }">
 <h3 id ="blackword">댓글달기</h3>
 <form action="/write_comment" method="post">
-
-
-<input type="hidden" name="user_id" value="${userInfo.user_id }">
-
 <input type="hidden" name="track_id" value="${trackInfo[0].track_id }">
-
+<%-- <input type="hidden" name="user_id" value="${userInfo.user_id }"> --%>
 글번호 : ${dto2.comment_id }<!-- <input type="text" name="comment_id"> --><br>
 <!-- 원본 -->
 <!-- 작성자 : <input type="text" name="member_id"><br> -->
-<% 
-
-
-%>
-
 작성자 :${userInfo.user_id } <!-- <input type="text" name="user_id"><br> --><br>
 댓글 : <textarea class="text" name="comment_content"></textarea>
-<input type="submit" value="등록">
+<input type="submit" value="등록" id="submit_button">
 </form>
-<br><br>
+</c:when>
+<c:otherwise>
+
+</c:otherwise>
+
+</c:choose>
+<br>
+<br>
 <table>
 <thead>
 	<tr>
@@ -168,9 +197,15 @@ border: 1px solid lightgray;
 		<th>작성자</th>
 		<th>댓글</th>
 		<th>작성시간</th>
+<c:choose>
+<c:when test="${not empty userInfo }">	
 		<th>답글</th>
 		<th>수정</th>
 		<th>삭제</th>
+</c:when>
+<c:otherwise>
+</c:otherwise>
+</c:choose>				
 	</tr>
 </thead>
 <tbody>
@@ -183,21 +218,36 @@ border: 1px solid lightgray;
 		<td>${dto2.user_id }</td>
 		<td>${dto2.comment_content }</td>
 		<td>${dto2.comment_time }</td>
+<c:choose>
+<c:when test="${not empty userInfo }">
 		<td><a href="/reply?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">답글</a></td>
+	<c:choose>
+	<c:when test="${userInfo.user_id eq dto2.user_id}">
 		<td><a href="/modifyForm?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">수정</a></td>
 		<td><a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">삭제</a></td>
+	</c:when>
+	<c:otherwise>
+		<td><a href="#" class="edit-link">수정</a></td>
+		<td><a href="#" class="delete-link">삭제</a></td>
+	</c:otherwise>
+	</c:choose>	
+</c:when>
+<c:otherwise>
+</c:otherwise>
+</c:choose>		
 	</tr> 
-	</c:forEach>  
-	
+	</c:forEach>  	
 </tbody>
 
 </table>
 <br>
 <%-- <a href="/modifyForm?id=${dto.track_id }">수정하기</a><br><br> --%>
 <%-- <a href="/reply?track_id=${dto.track_id }">답글</a><br><br> --%>
-<a href="/hjs_music_top100">목록으로</a><br><br>
+<a href="/hjs_music_top100"  id="list_button">목록으로</a><br><br>
 </section>
 </div>
+
+
 
 </body>
 <footer>

@@ -13,6 +13,8 @@ public interface HjsmusicService {
 	public abstract int writeDao(HjsmusicDTO musicDto);
 	abstract HjsmusicDTO viewDao(String track_id);
 	abstract int deleteDao(String track_id);
+	int deleteadminDao(String track_id);
+	
 	abstract int updateDao(HjsmusicDTO musicDto);
 
 	List<HjsmusicDTO> listDao(HjsmusicDTO musicDto);

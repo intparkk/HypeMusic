@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main test</title>
+<title>관리자 권한모드</title>
 
 <Style>
 
@@ -19,7 +19,10 @@
 <jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
-테스트용 페이지입니다. 
+테스트용 페이지입니다. <br><br>
+<div><a href="/hjs_music_userlist">회원리스트</a></div><br>
+<div><a href="/hjs_music_commentlist">댓글리스트</a></div>
+
 
 </body>
 <footer>
