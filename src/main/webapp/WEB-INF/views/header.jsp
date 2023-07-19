@@ -25,7 +25,7 @@
 <div id="header">
 	<div class = head_top>
 		<div class="head_top_left">
-			<a title="이용권구매" href = ""><button class="buy_ticket_btn">이용권구매</button></a>
+			<a title="이용권구매" href = "/pjs_ticket"><button class="buy_ticket_btn">이용권구매</button></a>
 		</div>
 		<div class="head_top_right">
 		<!-- rank 수정 부탁드립니다! -->
@@ -98,13 +98,17 @@
 	    </div> 
 	    <div class="head_bottom_right">
 	    <!-- 내정보 부분 -->
-	    <!-- 등급에 따른 조건 수정해야함 -->
+	    <!-- 등급에 따른 조건 수정해야함(수정함) -->
 			<c:choose>
 			  <c:when test="${empty userInfo.id}">
 			    <a href="/login" title="로그인"><button class="login_btn">로그인</button></a>
 			    <a href="/signup" title="회원가입"><button class="signup_btn">회원가입</button></a>
 			  </c:when>
 			  <c:when test="${userInfo.rank eq 'normal'}">
+			    <a href="/myInfo" title="내정보"><button class="myInfo_btn">내정보</button></a>
+			    <a href="/logout" title="로그아웃"><button class="logout_btn">로그아웃</button></a>
+			  </c:when>
+			  <c:when test="${userInfo.rank eq 'ticket'}">
 			    <a href="/myInfo" title="내정보"><button class="myInfo_btn">내정보</button></a>
 			    <a href="/logout" title="로그아웃"><button class="logout_btn">로그아웃</button></a>
 			  </c:when>

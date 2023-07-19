@@ -32,7 +32,7 @@ public class pjs_detailpage_service
 	}
 	
 	// track_id 입력시 관련 데이터 리턴하는 메서드
-	public List<trackinfoDTO> musicinfo(int track_id) {
+	public List<trackinfoDTO> musicinfo(String track_id) {
 		
 	    List<trackinfoDTO> trackInfoList = detailpageDao.musicinfo(track_id);
 	    

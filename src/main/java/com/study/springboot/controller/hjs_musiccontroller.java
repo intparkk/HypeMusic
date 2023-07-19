@@ -263,8 +263,7 @@ public class hjs_musiccontroller {
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		
 		int startNum = ((pageNum-1) * countPerPage) + 1;
 		int endNum = startNum + (countPerPage - 1);
@@ -296,10 +295,6 @@ public class hjs_musiccontroller {
 
 
 	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
-	/*@RequestMapping("/music_info")
-
-	
-
 	
 //	// 원본 뮤직 Top100
 //	@RequestMapping("/hjs_music_top100")
@@ -320,7 +315,6 @@ public class hjs_musiccontroller {
 	
 	
 	
-//	원본
 //	@RequestMapping("/music_info")
 //	public String music_info(
 //			Model model,
@@ -336,7 +330,7 @@ public class hjs_musiccontroller {
 //		System.out.println(list);
 //		return "hjs_music_info";
 //	}
-//	
+	
 	
 ////////////////////////////////////////////////////////////////////////////////////////	
 	// 페이지 완성후에 오류코드를 확인후 수정하기 
@@ -387,7 +381,7 @@ public class hjs_musiccontroller {
 		
 		System.out.println(list);
 		return "hjs_music_info";
-	}*/
+	}
 	
 	
 	// 원본
@@ -427,13 +421,12 @@ public class hjs_musiccontroller {
 	
 	@RequestMapping("/write_comment")
 	public String write2(
-			UserDTO userDTO,
-			
+			UserDTO userDTO,			
 			@RequestParam(value="track_id", required=true, defaultValue="") 
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
-			HttpServletRequest req, String user_id
+			HttpServletRequest req, int user_id
 			) {
 		
 		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------

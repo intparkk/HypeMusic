@@ -9,7 +9,7 @@ import com.study.springboot.dto.trackinfoDTO;
 @Mapper
 public interface pjs_detailpageDAO
 {
-	List<trackinfoDTO> musicinfo(int track_id);
+	List<trackinfoDTO> musicinfo(String track_id);
 	List<trackinfoDTO> artistinfo(int artist_id);
 	List<trackinfoDTO> albuminfo(int album_id);
 	List<trackinfoDTO> relativeartist(int album_id);

@@ -277,7 +277,7 @@
 	
 	<!-- 중단 이용권 구매 -->
     <section id="body_middle_section" style="display: flex; justify-content: center; margin-top:50px;">
-        <a href = "#"><img src="/img/mainpage_ticket_logo.png" style="max-width: 100%;"></a>
+        <a href = "/pjs_ticket"><img src="/img/mainpage_ticket_logo.png" style="max-width: 100%;"></a>
     </section>
     
     <!--  하단 아티스트 항목 -->
