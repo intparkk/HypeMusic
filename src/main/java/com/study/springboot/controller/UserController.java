@@ -1,21 +1,27 @@
 package com.study.springboot.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.UserDTO;
+import com.study.springboot.dto.trackinfoDTO;
 import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -335,16 +341,76 @@ public class UserController {
 		
 		return "redirect:/myInfo";
 	}
+	
+	// 박정수 : 이용권 구매 페이지 컨트롤러
+	@RequestMapping("pjs_ticket")
+	public String buyticket(HttpSession session)
+	{
+		// 전체 유저 정보(세션)
+		UserDTO userinfo = (UserDTO)session.getAttribute("userInfo");
+		
+		//Integer test_user_id = (Integer)session.getAttribute("userInfo");
+		
+	    // 유저정보 확인용
+	    Integer now_userid;
+	    String now_rank;
+	    
+	    if (userinfo == null) {
+	        now_userid = null;
+	        now_rank = null;
+	    } else {
+	        now_userid = userinfo.getUser_id();
+	        now_rank = userinfo.getRank();
+	    }
+	    //System.out.println("세션에서 직접 가져온 유저아뒤 :" +test_user_id);
+		//System.out.println("현재 유저id : "+now_userid);
+		//System.out.println("현재 등급 : " +now_rank);
+		
+		return "pjs_ticket";
+	}
+	
+	// 박정수 : 이용권 구매
+	@PostMapping("/buyTicket")
+	@ResponseBody
+	public UserDTO getticket(@RequestBody UserDTO requestBody, HttpSession session) {
+		
+		// 페이지 에서 전달받는 user_id
+	    Integer now_user_id = requestBody.getUser_id();
+	    // getTicket 쿼리문 호출
+	    UserDTO getTicket = userService.buyticket(now_user_id);
+	    // 등급 티켓으로 변경 후, 업데이트 쿼리문 호출
+	    UserDTO updateTicket = userService.updateticket(now_user_id);
+	    
+	    // 세션에 담고 다시 받기
+	    session.setAttribute("userInfo", updateTicket);
+	    session.getAttribute("userInfo");
+	    
+	    //System.out.println("구매 후"+updateTicket);	    
 
+	    System.out.println("컨트롤러에서 구매 성공!");
+	    
+	    return getTicket;
+	}
+    
+	// 박정수 : 이용권 해제
+    @PostMapping("/cancelTicket")
+    @ResponseBody
+    public UserDTO sellticket(@RequestBody UserDTO requestBody,HttpSession session) {
+    	
+		// 페이지에서 전달받는 user_id
+    	Integer now_user_id = requestBody.getUser_id();
+	    // getTicket 쿼리문 호출    	
+        UserDTO sellTicket = userService.sellticket(now_user_id);
+	    // 등급 티켓으로 변경 후, 업데이트 쿼리문 호출        
+	    UserDTO updateTicket = userService.updateticket(now_user_id);
+	    
+	    // 세션에 담고 다시 받기
+	    session.setAttribute("userInfo", updateTicket);
+	    session.getAttribute("userInfo");
+	    
+	    //System.out.println("구매 후 rank : "+updateTicket.getRank());
+        System.out.println("컨트롤러에서 구매 취소 성공!");
+        		
+        return sellTicket;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-

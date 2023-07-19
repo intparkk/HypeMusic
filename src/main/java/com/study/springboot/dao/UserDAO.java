@@ -38,6 +38,17 @@ public interface UserDAO {
 	// 이메일 보기
 	UserDTO userEmail(UserDTO userDTO);
 	
+<<<<<<< HEAD
 	List<UserDTO> listDao(UserDTO userDTO);
+=======
+	// 이용권 구매	
+	UserDTO buyticket(int user_id);
+	
+	// 이용권 해제
+	UserDTO sellticket(int user_id);
+	
+	// 이용권 업데이트(세션)
+	UserDTO updateticket(int user_id);
+>>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
 	
 }

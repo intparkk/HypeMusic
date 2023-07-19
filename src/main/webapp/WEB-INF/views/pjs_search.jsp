@@ -22,7 +22,7 @@
 	<h1 id="ment">"${keyword }"&nbsp에 대한 검색결과입니다.</h1>
 	<!-- 트랙 검색결과 섹션 -->
 	<section id ="search_track_result">
-		<h2>관련 트랙</h2>
+		<h2>관련 트랙 ></h2>
 		<ul>
 	        <c:forEach var="track" items="${search_all}">
 	            <li>
@@ -54,7 +54,7 @@
 	</section>
 	<!--  아티스트 검색결과 섹션 -->
 	<section id="search_artist_result">
-	    <h2>관련 아티스트</h2>
+	    <h2>관련 아티스트 ></h2>
 	    <ul id="artist_ul">
 	        <c:set var="previousArtistId" value="" />
 	        <c:forEach var="artist" items="${search_all}">
@@ -77,7 +77,7 @@
 			
 	<!--  앨범 검색결과 섹션 -->
 	<section id ="search_album_result">
-		<h2>관련 앨범</h2>
+		<h2>관련 앨범 ></h2>
 		<ul id = "album_ul">
 	        <c:set var="previousAlbumId" value="" />
 	        <c:forEach var="album" items="${search_all}">

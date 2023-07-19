@@ -114,10 +114,44 @@
 	
 	</select>
 	
+<<<<<<< HEAD
 	<!-- userlist를 모두 조회하는 쿼리 -->
 	<select id="listDao" parameterType="UserDTO"
 			resultType="UserDTO">
 	select rownum as rnum, users.* from users order by user_id asc
+=======
+	<!--  박정수 : 이용권 구매 -->
+	<select id="buyticket" parameterType="UserDTO">
+	  UPDATE USERS
+	  SET rank = 'ticket'
+	  WHERE user_id = #{userId}
+	  AND rank = 'normal'
+	</select>
+	
+	<!--  박정수 : 이용권 해제 -->
+	<select id="sellticket" parameterType="UserDTO">
+	  UPDATE USERS
+	  SET rank = 'normal'
+	  WHERE user_id = #{userId}
+	  AND rank = 'ticket'
+	</select>
+	
+	<!--  박정수 : 구매,취소 유저정보 업데이트용 -->
+	<select id="updateticket" parameterType="UserDTO">
+		SELECT
+			user_id,
+			id,
+			pw,
+			name,
+			email,
+			profile_img,
+			rank,
+			join_date
+		FROM
+			users
+		WHERE
+			user_id = #{user_id}
+>>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
 	</select>
 	
 </mapper>
