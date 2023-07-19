@@ -262,14 +262,11 @@ public class hjs_musiccontroller {
 			countPerPage = Integer.parseInt(cpp); // 한 페이지당 표시 수
 			
 		}catch (Exception e) {
-<<<<<<< HEAD
+
 		//	e.printStackTrace();
 		}
 		
-=======
-			e.printStackTrace();
-		}		
->>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
+
 		
 		int startNum = ((pageNum-1) * countPerPage) + 1;
 		int endNum = startNum + (countPerPage - 1);
@@ -301,13 +298,13 @@ public class hjs_musiccontroller {
 
 
 	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
-<<<<<<< HEAD
-=======
+
+
 	//@RequestMapping("/music_info")
 
 	
 
->>>>>>> 78395019cd28d1b2dfd62bfef7aa8fc53b118547
+
 	
 //	// 원본 뮤직 Top100
 //	@RequestMapping("/hjs_music_top100")
@@ -416,24 +413,14 @@ public class hjs_musiccontroller {
 	
 	@RequestMapping("/write_comment")
 	public String write2(
-<<<<<<< HEAD
 			UserDTO userDTO,			
-=======
-			UserDTO userDTO,
-<<<<<<< HEAD
-=======
 			HjsmusicDTO musicDTO,
->>>>>>> 78395019cd28d1b2dfd62bfef7aa8fc53b118547
->>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
 			@RequestParam(value="track_id", required=true, defaultValue="") 
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
-<<<<<<< HEAD
-			HttpServletRequest req
-=======
 			HttpServletRequest req, int user_id
->>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
+
 			) {
 
 		HttpSession session = req.getSession();

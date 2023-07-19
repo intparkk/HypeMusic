@@ -114,12 +114,13 @@
 	
 	</select>
 	
-<<<<<<< HEAD
+
 	<!-- userlist를 모두 조회하는 쿼리 -->
 	<select id="listDao" parameterType="UserDTO"
 			resultType="UserDTO">
 	select rownum as rnum, users.* from users order by user_id asc
-=======
+	</select>
+
 	<!--  박정수 : 이용권 구매 -->
 	<select id="buyticket" parameterType="UserDTO">
 	  UPDATE USERS
@@ -151,7 +152,7 @@
 			users
 		WHERE
 			user_id = #{user_id}
->>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
+
 	</select>
 	
 </mapper>

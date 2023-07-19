@@ -132,16 +132,11 @@ public class UserServiceImpl implements UserService {
 	{
 	    UserDTO sell_result = new UserDTO();
 
-<<<<<<< HEAD
+
 	
-	@Override
-	public List<UserDTO> listDao(UserDTO userDTO) {
-		List<UserDTO> list = userDAO.listDao(userDTO);
-		return list;
-	}
 
 
-=======
+
 	    // 유저 아이디가 null 값이 아니거나
 	    if ((Integer)user_id != null) 
 	    {
@@ -159,6 +154,11 @@ public class UserServiceImpl implements UserService {
 		
 		return update_result;
 	}
->>>>>>> 7c7751fc9dab515fd4c14c3edfe43873ed8c3202
+
+	@Override
+	public List<UserDTO> listDao(UserDTO userDTO) {
+		List<UserDTO> list = userDAO.listDao(userDTO);
+		return list;
+	}
 
 }
