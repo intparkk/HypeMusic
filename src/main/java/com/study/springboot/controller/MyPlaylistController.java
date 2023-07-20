@@ -75,7 +75,6 @@ public class MyPlaylistController {
 			
 			// 재생목록 갯수
 			int numberOfPlaylist = playlistDAO.countNumberOfPlaylist(myPlaylistDTO);
-			System.out.println(numberOfPlaylist);
 			model.addAttribute("numberOfPlaylist", numberOfPlaylist);
 			
 			return "myPlaylist";
@@ -195,7 +194,6 @@ public class MyPlaylistController {
 		HttpSession session = req.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		
-//		System.out.println("playlist_id : " + playlist_id);
 		playlistDTO.setPlaylist_id(playlist_id);
 		
 		List<PlaylistDTO> playlist = playlistService.loadPlaylistTracks(playlistDTO);
@@ -269,7 +267,7 @@ public class MyPlaylistController {
 		System.out.println(playlistDTO);
 		
 		int deletedPlaylist = playlistService.deletePlaylist(playlistDTO);
-		System.out.println(deletedPlaylist);
+//		System.out.println(deletedPlaylist);
 		
 		return "";
 	}
@@ -282,10 +280,8 @@ public class MyPlaylistController {
 			PlaylistDTO playlistDTO
 			) {
 
-			System.out.println(playlistDTO);
-			
 			int deletedTrack = playlistService.deleteTrackFromPlaylist(playlistDTO);
-			System.out.println("deleted track : " + deletedTrack);
+//			System.out.println("deleted track : " + deletedTrack);
 			
 		return "";
 		

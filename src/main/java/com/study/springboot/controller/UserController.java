@@ -66,9 +66,6 @@ public class UserController {
 		UserDTO userInfo = (UserDTO) map.get("dto");
 		int countAcc = (int) map.get("count");
 		
-		System.out.println("[/doLogin]count : " + countAcc);	
-		System.out.println("[/doLogin]userInfo : " + userInfo);	
-		
 		if(countAcc == 1) {
 			// 계정 있음
 			HttpSession session = req.getSession();
@@ -77,8 +74,7 @@ public class UserController {
 			if(userInfo != null) {
 				
 				session.setAttribute("userInfo", userInfo);
-				System.out.println("[/doLogin]로그인 성공 id : " + userInfo.getId());
-				System.out.println("[/doLogin]userInfo : " + userInfo);
+//				System.out.println("[/doLogin]로그인 성공 id : " + userInfo.getId());
 				
 				return "redirect:/Mainpage";
 			}
@@ -154,7 +150,7 @@ public class UserController {
 		if (countId == 0 && countEmail == 0) {
 			// 이미 가입된 id와 email 가 아닐 경우 
 			userService.joinUser(userDTO);
-			System.out.println("회원가입 성공 id : " + userDTO.getId());
+//			System.out.println("회원가입 성공 id : " + userDTO.getId());
 			
 			return "redirect:/Mainpage";
 			
@@ -208,7 +204,7 @@ public class UserController {
 		
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 		model.addAttribute("userInfo", userInfo);
-		System.out.println("[./checkPw]" + userInfo);
+//		System.out.println("[/checkPw]" + userInfo);
 		
 		return "checkPw";
 	}
@@ -226,13 +222,12 @@ public class UserController {
 		}
 		
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-		System.out.println("doChcek : " + userInfo);
 		
 		String id = userInfo.getId();
 		model.addAttribute("id", id);
 		
         int count = userService.pwCheck(userDTO);
-        System.out.println("[/doCheckPw]Count : " + count);
+//      System.out.println("[/doCheckPw]Count : " + count);
         
         if (count == 1) {
         	// 비밀번호 일치
@@ -276,7 +271,7 @@ public class UserController {
 			) {
 
 		int count = userService.updatePw(userDTO);
-		System.out.println("[/doUpdatePw] count : " + count );
+//		System.out.println("[/doUpdatePw] count : " + count );
 		
 		try {
 			if (count == 1) {
