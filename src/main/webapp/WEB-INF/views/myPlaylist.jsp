@@ -7,16 +7,35 @@
 <meta charset="UTF-8">
 <title>my info</title>
 <style>
+#title {
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-left: 170px;
+}
+
+#list-wrapper{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	margin-top: 40px;
+	min-width: 800px;
+	width: 960px;
+	min-height: 200px;
+	background-color: rgb(240, 240, 240);
+	border-radius: 6px;
+}
 
 .addBtn {
-	background-color: rgb(162, 162, 162);
+	background-color: rgb(206, 206, 206);
 	color: white;
-	border-radius: 3px;
+	border-radius: 6px;
 	font-size: 20px;
-	margin-left: 250px;
-	padding: 3px;
-	border-bottom: 3px solid grey;
+	width: 120px;
+	height: 120px;
 	cursor: pointer;
+	margin-bottom: 16px;
 }
 
 .addBtn :hover {
@@ -28,27 +47,22 @@
 	display: none;
 }
 
-#list-wrapper{
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	margin: 0 auto;
-	margin-top: 40px;
-	border: 1px solid red;
-	min-width: 800px;
-	width: 1000px;
-	min-height: 200px;
-}
-
 .playlist-wrapper{
-	width: 200px;
-	height: 200px;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 160px;
+	height: 160px;
 }
 
 .playlist-img-wrapper{
-	width: 160px;
-	height: 160px;
+	width: 120px;
+	height: 120px;
 	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .playlist-img-wrapper :hover{
@@ -56,32 +70,27 @@
 }
 
 #playlist-img{
-	width: 160px;
-	height: 160px;
+	width: 120px;
+	height: 120px;
 	border-radius: 6px;
+	margin-bottom: 20px;
 }
 
-.playlist-title-wrapper {
-	display: flex;
-	justify-contnet: center;
-}
+/* .playlist-title-wrapper {
+} */
 
 .playlist-title {
-	margin: auto;
 	text-decoration: none;
 	color: black;
+	text-align: center;
 }
 </style>
 </head>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
 <body>
-	<h1> 내 재생목록 </h1>
-	<a href="/test-main">테스트 메인페이지</a>
-	<a href="/Mainpage">진짜 메인페이지</a>
-	<a href="#">내가 쓴 댓글</a>
-	<a href="#">좋아요</a>
-	<a href="/myPlaylist">나의 재생목록</a>
-	<a href="/logout">로그아웃</a>
-	<hr>
+	<div id="title">내 재생목록 </div>
 	<c:choose>
 		<c:when test="${isLoggedIn ne 'ok'}">
 			<h2>로그인이 필요한 서비스입니다.</h2><br>
@@ -90,11 +99,15 @@
 		<c:otherwise>
 			<input type="hidden" id="user-id" value="${userInfo.user_id}">
 			<input type="hidden" id="numberOfPlaylist" value="${numberOfPlaylist}">
-			<label for="add">
-				<span class="addBtn">재생목록 추가 +</span>
-				<button id="add"></button>
-			</label>
 			<div id="list-wrapper">
+				<div class="playlist-wrapper">
+					<div class="playlist-img-wrapper">
+						<label for="add">
+							<img class="addBtn" src="/public/playlist_add.png">
+							<button id="add"></button>
+						</label>
+					</div>
+				</div>
 				<!-- JS로 생성할 영역 -->
 			</div>
 		</c:otherwise>
@@ -184,8 +197,8 @@
 		const createNewPlaylist = (event) => {
 			const numberOfPlaylist = document.querySelector("#numberOfPlaylist").value.trim();
 			// ajax 요청 보내기
-			if (numberOfPlaylist >= 20) {
-				alert("재생목록은 20개까지 생성 가능합니다.");
+			if (numberOfPlaylist >= 23) {
+				alert("재생목록은 19개 까지 생성할 수 있습니다.");
 				event.preventDefault();
 			}
 			fetch("/myPlaylist/createNewPlaylist", {

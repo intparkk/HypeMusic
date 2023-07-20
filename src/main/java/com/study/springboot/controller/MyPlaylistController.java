@@ -58,10 +58,7 @@ public class MyPlaylistController {
 			) {
 		try {
 			
-//			System.out.println(playlistDTO);
-			
 			int insertedColumn = playlistService.insertTrackIntoPlaylist(playlistDTO);
-//			System.out.println("[/addToPlaylist]insertedColumn : " + insertedColumn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -10,13 +10,18 @@
 #playlist-info-wrapper {
 	display: flex;
 	border: 1px solid lightgrey;
+	border-radius: 8px 0px 0px 8px;
 	min-width: 800px;
 	width: 70%;
 	height: 264px;
 	margin: 0 auto;
 	position: relative;
+	margin-bottom: 20px;
 }
 
+.playlistImg {
+	border-radius: 6px;
+}
 .playlist-title {
 	padding: 20px 30px 10px 30px;
 	font-weight: bold;
@@ -67,6 +72,7 @@
 }
 
 #list-wrapper{
+	border-top: 1px solid lightgrey;
 	margin: 0 auto;
 	min-width: 800px;
 	width: 70%;
@@ -112,86 +118,59 @@
 
 </style>
 </head>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
 <body>
-	<h1> 내 재생목록 </h1>
-	<a href="/test-main">메인페이지</a>
-	<a href="#">내가 쓴 댓글</a>
-	<a href="#">좋아요</a>
-	<a href="/myPlaylist">나의 재생목록</a>
-	<a href="/logout">로그아웃</a>
-	<hr>
-	<c:choose>
-		<c:when test="${isLoggedIn ne 'ok'}">
-			<h2>로그인이 필요한 서비스입니다.</h2><br>
-			<a href="/login">로그인</a>
-		</c:when>
-		<c:otherwise>
-			<input type="hidden" id="user-id" value="${userInfo.user_id}">
-			<input type="hidden" id="playlist-id" value="${playlist_id}">
-			<div id="playlist-info-wrapper">
-				<div class="playlist-img-container">
-					<img class ="playlistImg" src="${playlistImg}" width="264px" height="264px">
-				</div>
-				<div class="playlist-text-wrapper">
-					<div class="playlist-title">
-						${playlistName}
-					</div>
-					<label for="playlist-title-update-btn">
-						<span class="title-update">
-							이름 변경
-						</span>
-						<button id="playlist-title-update-btn">
-						</button>
-					</label>
-					<div class="playlist-track-quantity">
-						${trackQuantity} 곡
-					</div>
-					<label for="img-update-btn">
-						<span class="img-update">
-							변경
-						</span>
-						<input type="file" id="img-update-btn">
-					</label>
-				</div>
-				<div class="playlist-delete-btn-wrapper">
-					<label for="playlist-delete-btn">
-						<span class="playlist-delete">
-							재생목록 삭제
-						</span>
-						<button id="playlist-delete-btn">
-						</button>
-					</label>
-				</div>
+	<input type="hidden" id="user-id" value="${userInfo.user_id}">
+	<input type="hidden" id="playlist-id" value="${playlist_id}">
+	<div id="playlist-info-wrapper">
+		<div class="playlist-img-container">
+			<img class ="playlistImg" src="${playlistImg}" width="264px" height="264px">
+		</div>
+		<div class="playlist-text-wrapper">
+			<div class="playlist-title">
+				${playlistName}
 			</div>
-			<hr>
-			<div id="list-wrapper">
-				<table id="playlist-table">
-					<thead class="playlist-thead">
-						<th class="playlist-th"></th>
-						<th class="playlist-th">제목</th>
-						<th class="playlist-th">앨범</th>
-						<th class="playlist-th">아티스트</th>
-						<th class="playlist-th"></th>
-					</thead>
-					<!-- JS로 동적으로 생성할 영역 테스트 -->
-<!-- 					<tbody class="playlist-tbody"> -->
-<!-- 							<tr class="playlist-tr"> -->
-<!-- 								<td class="playlist-td"> -->
-<!-- 									<img class="track-img" src="https://i.namu.wiki/i/GXR7tlVhYbYXvfwk37u5cKm2bA_vcpI0eN9_POSPCzC0ZdCcIBQgAwmZ-dvN-UwyZCVh-lMNKN8NeIxusd7urg.webp" width="64px" height="64px"> -->
-<!-- 								</td> -->
-<!-- 								<td class="playlist-td">제목</td> -->
-<!-- 								<td class="playlist-td">앨범</td> -->
-<!-- 								<td class="playlist-td">아티스트</td> -->
-<!-- 								<td class="playlist-td"> -->
-<!-- 									<button id="delete-btn">삭제</button> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 					</tbody>	 -->
-				</table>
+			<label for="playlist-title-update-btn">
+				<span class="title-update">
+					이름 변경
+				</span>
+				<button id="playlist-title-update-btn">
+				</button>
+			</label>
+			<div class="playlist-track-quantity">
+				${trackQuantity} 곡
 			</div>
-		</c:otherwise>
-	</c:choose>
-	
+			<label for="img-update-btn">
+				<span class="img-update">
+					변경
+				</span>
+				<input type="file" id="img-update-btn">
+			</label>
+		</div>
+		<div class="playlist-delete-btn-wrapper">
+			<label for="playlist-delete-btn">
+				<span class="playlist-delete">
+					재생목록 삭제
+				</span>
+				<button id="playlist-delete-btn">
+				</button>
+			</label>
+		</div>
+	</div>
+	<div id="list-wrapper">
+		<table id="playlist-table">
+			<thead class="playlist-thead">
+				<th class="playlist-th"></th>
+				<th class="playlist-th">제목</th>
+				<th class="playlist-th">앨범</th>
+				<th class="playlist-th">아티스트</th>
+				<th class="playlist-th"></th>
+			</thead>
+			<!-- JS로 동적으로 생성할 영역 -->
+		</table>
+	</div>
 	<script>
 	/* DOMContentLoaded */
 	window.addEventListener("DOMContentLoaded", () => {

@@ -1,7 +1,6 @@
 package com.study.springboot.controller;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.UserDTO;
-import com.study.springboot.dto.trackinfoDTO;
 import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,24 +34,6 @@ import jakarta.servlet.http.HttpSession;
  * 	2. Encryptor 패키지에서 MessageDigest 라이브러리로 뷰에서 넘어온 암호화된 비밀번호를
  * 	   SHA-256 알고리즘으로 한 번 더 암호화하여 DB에 저장합니다. 
  * 
- *  테스트용 메인페이지 /test-main
- *  
- *  로그인 : 가능
- *  		id : admin / pw : 1234
- *  회원가입 : 가능
- *  		 등급은 가입 시 기본으로 'normal'로 설정됨
- *  
- *  TODO : kAuth, oAuth 적용하기(마지막에)
- *  	   유저 정보 페이지
- *  	   	- 내 재생목록
- *  			- 재생목록 추가/삭제/업데이트
- *  	    - 내 정보 수정
- *  			- 비밀번호 변경
- *  				- 비밀번호 확인 후 변경하게
- *			- 내가 쓴 댓글 확인/삭제
- *			- 회원 탈퇴  	   
- *			- 이용권 사면 등급 올라가게
- *				- 이용권에 만료일 지정?
  * */
 
 
@@ -64,26 +42,10 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
-	 
-	// 메인페이지
-	@RequestMapping("/test-main")
-	public String main(
-			HttpServletRequest req,
-			Model model
-			) {
-		HttpSession session = req.getSession();
-		
-		// 로그인할 때 userInfo 라는 key 에 저장한 dto 가져오기
-		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
-		System.out.println("[/] UserDTO : " + dto);
-		System.out.println("[/]is Logged In? : " + session.getAttribute("isLoggedIn"));
-		
-		// jsp에 dto 라는 key 값으로 dto 전달
-		model.addAttribute("dto", dto);
-		
-		return "lsc_main_test2";
-	}
 	
+	@Autowired
+	UserDAO userDAO;
+	 
 	// 로그인 폼
 	@RequestMapping("/login")
 	public String loginForm() {
@@ -115,7 +77,7 @@ public class UserController {
 			if(userInfo != null) {
 				
 				session.setAttribute("userInfo", userInfo);
-				System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
+				System.out.println("[/doLogin]로그인 성공 id : " + userInfo.getId());
 				System.out.println("[/doLogin]userInfo : " + userInfo);
 				
 				return "redirect:/Mainpage";
@@ -128,6 +90,35 @@ public class UserController {
 			  }
 		
 		return "loginForm";
+	}
+	
+	// 비밀번호 찾기 페이지
+	@RequestMapping("/findPw")
+	public String findPw() {
+		
+		return "findPw";
+	}
+	
+	// 비밀번호 찾기 수행
+	@RequestMapping(value="/doFindPw", method=RequestMethod.POST)
+	public String doFindPw(
+			RedirectAttributes redirectAttributes,
+			@ModelAttribute
+			UserDTO userDTO,
+			Model model
+			) {
+		int countedAccout = userDAO.findPwById(userDTO);
+		
+		if(countedAccout == 1 ) {
+			
+			redirectAttributes.addFlashAttribute("userDTO", userDTO);
+			
+			return "redirect:/findPw/updatePw";
+		}
+		
+		model.addAttribute("errMsg", "일치하는 계정 정보가 없습니다.");
+		
+		return "redirect:/findPw";
 	}
 	
 	// 로그아웃 수행
@@ -153,7 +144,8 @@ public class UserController {
 	@RequestMapping(value="/doSignup", method=RequestMethod.POST)
 	public String doSignup(
 			HttpServletRequest req,
-			@ModelAttribute UserDTO userDTO,
+			@ModelAttribute 
+			UserDTO userDTO,
 			Model model
 			) {
 		
@@ -212,16 +204,13 @@ public class UserController {
 	// 비밀번호 변경 전 비밀번호 확인 페이지
 	@RequestMapping("/myInfo/checkPw")
 	public String checkPw(
-			HttpServletRequest req,
+			HttpSession session,
 			Model model
 			) {
 		
-		HttpSession session = req.getSession();
-		session.getAttribute("isLoggedIn");
-
-		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
-		model.addAttribute("dto", dto);
-		System.out.println("[./checkPw]" + dto);
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("userInfo", userInfo);
+		System.out.println("[./checkPw]" + userInfo);
 		
 		return "checkPw";
 	}
@@ -229,17 +218,24 @@ public class UserController {
 	// 비밀번호 확인 수행
 	@RequestMapping(value="/doCheckPw", method=RequestMethod.POST)
 	public String doCheckPw(
-			HttpServletRequest req,
+			HttpSession session,
 			@ModelAttribute
 			UserDTO userDTO,
 			Model model
 			) {
+		if (userDTO == null) {
+			return "redirect:/login";
+		}
 		
-		HttpSession session = req.getSession();
-        session.getAttribute("isLoggedIn");
-        
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		System.out.println("doChcek : " + userInfo);
+		
+		String id = userInfo.getId();
+		model.addAttribute("id", id);
+		
         int count = userService.pwCheck(userDTO);
         System.out.println("[/doCheckPw]Count : " + count);
+        
         if (count == 1) {
         	// 비밀번호 일치
         	System.out.println("비밀번호 일치");
@@ -255,7 +251,52 @@ public class UserController {
         }        
 	}
 	
-	// 비밀번호 변경 페이지
+	// 비밀번호 찾기 - 비밀번호 변경 페이지
+	@RequestMapping("/findPw/updatePw")
+	public String findAndUpdatePw(
+			@ModelAttribute
+			UserDTO userDTO,
+			Model model
+			) {
+		System.out.println(userDTO);
+		
+		if (userDTO == null) {
+			
+			return "redirect:/findPw";
+		}
+		model.addAttribute("userDTO", userDTO);
+		
+		return "findAndUpdatePw";
+	}
+	
+	// 내 정보 - 비밀번호 변경 수행
+	@RequestMapping("/findPw/doUpdatePw")
+	public String findAndDoUpdatePw (
+			@ModelAttribute
+			UserDTO userDTO,
+			Model model
+			) {
+
+		int count = userService.updatePw(userDTO);
+		System.out.println("[/doUpdatePw] count : " + count );
+		
+		try {
+			if (count == 1) {
+				// 변경 성공
+				return "redirect:/login";
+			} else {
+				
+				return "redirect:/error2";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/myInfo";
+		}
+		
+	}
+	
+	// 내 정보 - 비밀번호 변경 페이지
 	@RequestMapping("/myInfo/updatePw")
 	public String updatePw(
 			HttpServletRequest req,
@@ -273,7 +314,7 @@ public class UserController {
 		return "updatePw";
 	}
 	
-	// 비밀번호 변경 수행
+	// 내 정보 - 비밀번호 변경 수행
 	@RequestMapping("/doUpdatePw")
 	public String doUpdatePw (
 			HttpServletRequest req,
@@ -341,7 +382,7 @@ public class UserController {
 		
 		return "redirect:/myInfo";
 	}
-	
+
 	// 박정수 : 이용권 구매 페이지 컨트롤러
 	@RequestMapping("pjs_ticket")
 	public String buyticket(HttpSession session)
@@ -351,18 +392,18 @@ public class UserController {
 		
 		//Integer test_user_id = (Integer)session.getAttribute("userInfo");
 		
-	    // 유저정보 확인용
-	    Integer now_userid;
-	    String now_rank;
-	    
-	    if (userinfo == null) {
-	        now_userid = null;
-	        now_rank = null;
-	    } else {
-	        now_userid = userinfo.getUser_id();
-	        now_rank = userinfo.getRank();
-	    }
-	    //System.out.println("세션에서 직접 가져온 유저아뒤 :" +test_user_id);
+		// 유저정보 확인용
+		Integer now_userid;
+		String now_rank;
+		
+		if (userinfo == null) {
+			now_userid = null;
+			now_rank = null;
+		} else {
+			now_userid = userinfo.getUser_id();
+			now_rank = userinfo.getRank();
+		}
+		//System.out.println("세션에서 직접 가져온 유저아뒤 :" +test_user_id);
 		//System.out.println("현재 유저id : "+now_userid);
 		//System.out.println("현재 등급 : " +now_rank);
 		
@@ -375,42 +416,53 @@ public class UserController {
 	public UserDTO getticket(@RequestBody UserDTO requestBody, HttpSession session) {
 		
 		// 페이지 에서 전달받는 user_id
-	    Integer now_user_id = requestBody.getUser_id();
-	    // getTicket 쿼리문 호출
-	    UserDTO getTicket = userService.buyticket(now_user_id);
-	    // 등급 티켓으로 변경 후, 업데이트 쿼리문 호출
-	    UserDTO updateTicket = userService.updateticket(now_user_id);
-	    
-	    // 세션에 담고 다시 받기
-	    session.setAttribute("userInfo", updateTicket);
-	    session.getAttribute("userInfo");
-	    
-	    //System.out.println("구매 후"+updateTicket);	    
+		Integer now_user_id = requestBody.getUser_id();
+		// getTicket 쿼리문 호출
+		UserDTO getTicket = userService.buyticket(now_user_id);
+		// 등급 티켓으로 변경 후, 업데이트 쿼리문 호출
+		UserDTO updateTicket = userService.updateticket(now_user_id);
+		
+		// 세션에 담고 다시 받기
+		session.setAttribute("userInfo", updateTicket);
+		session.getAttribute("userInfo");
+		
+		//System.out.println("구매 후"+updateTicket);	    
 
-	    System.out.println("컨트롤러에서 구매 성공!");
-	    
-	    return getTicket;
+		System.out.println("컨트롤러에서 구매 성공!");
+		
+		return getTicket;
 	}
-    
+	
 	// 박정수 : 이용권 해제
-    @PostMapping("/cancelTicket")
-    @ResponseBody
-    public UserDTO sellticket(@RequestBody UserDTO requestBody,HttpSession session) {
-    	
+	@PostMapping("/cancelTicket")
+	@ResponseBody
+	public UserDTO sellticket(@RequestBody UserDTO requestBody,HttpSession session) {
+		
 		// 페이지에서 전달받는 user_id
-    	Integer now_user_id = requestBody.getUser_id();
-	    // getTicket 쿼리문 호출    	
-        UserDTO sellTicket = userService.sellticket(now_user_id);
-	    // 등급 티켓으로 변경 후, 업데이트 쿼리문 호출        
-	    UserDTO updateTicket = userService.updateticket(now_user_id);
-	    
-	    // 세션에 담고 다시 받기
-	    session.setAttribute("userInfo", updateTicket);
-	    session.getAttribute("userInfo");
-	    
-	    //System.out.println("구매 후 rank : "+updateTicket.getRank());
-        System.out.println("컨트롤러에서 구매 취소 성공!");
-        		
-        return sellTicket;
-    }
+		Integer now_user_id = requestBody.getUser_id();
+		// getTicket 쿼리문 호출    	
+		UserDTO sellTicket = userService.sellticket(now_user_id);
+		// 등급 티켓으로 변경 후, 업데이트 쿼리문 호출        
+		UserDTO updateTicket = userService.updateticket(now_user_id);
+		
+		// 세션에 담고 다시 받기
+		session.setAttribute("userInfo", updateTicket);
+		session.getAttribute("userInfo");
+		
+		//System.out.println("구매 후 rank : "+updateTicket.getRank());
+		System.out.println("컨트롤러에서 구매 취소 성공!");
+				
+		return sellTicket;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

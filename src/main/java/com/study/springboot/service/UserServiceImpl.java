@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.springboot.dao.UserDAO;
-import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
 import com.study.springboot.encryptor.Encryptor;
 
@@ -110,41 +109,41 @@ public class UserServiceImpl implements UserService {
 		
 		return result;
 	}
-	
+
 	// 박정수 : 이용권 구매
 	@Override
 	public UserDTO buyticket(int user_id)
 	{
-	    UserDTO buy_result = new UserDTO();
-	    
-	    // 유저 아이디가 null 값이 아니거나
-	    if ((Integer)user_id != null) 
-	    {
-	    	buy_result = userDAO.buyticket(user_id);
-	        System.out.println("서비스단에서 구매 성공!");
-	    }
-	    return buy_result;	
+		UserDTO buy_result = new UserDTO();
+		
+		// 유저 아이디가 null 값이 아니거나
+		if ((Integer)user_id != null) 
+		{
+			buy_result = userDAO.buyticket(user_id);
+			System.out.println("서비스단에서 구매 성공!");
+		}
+		return buy_result;	
 	}
 	
 	// 박정수 : 이용권 해제
 	@Override
 	public UserDTO sellticket(int user_id)
 	{
-	    UserDTO sell_result = new UserDTO();
+		UserDTO sell_result = new UserDTO();
 
 
 	
 
 
 
-	    // 유저 아이디가 null 값이 아니거나
-	    if ((Integer)user_id != null) 
-	    {
-	    	sell_result = userDAO.sellticket(user_id);
-	        System.out.println("서비스단에서 구매해제 성공!");
-	    }
-	    
-	    return sell_result;		
+		// 유저 아이디가 null 값이 아니거나
+		if ((Integer)user_id != null) 
+		{
+			sell_result = userDAO.sellticket(user_id);
+			System.out.println("서비스단에서 구매해제 성공!");
+		}
+		
+		return sell_result;		
 	}
 	
 	// 박정수 : 이용권 업데이트(세션)

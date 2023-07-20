@@ -7,69 +7,175 @@
 <meta charset="UTF-8">
 <title>my info</title>
 <style>
-
-#my-info-wrapper {
-	margin: 0 auto;
-	border: 1px solid lightgrey;
-	min-width: 800px;
-	width: 50%;
-	min-height: 600px;
-	justify-content: space-evenly;
-	flex-direction: column;
+#title {
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 40px;
+	margin-left: 270px;
 }
 
-.contents {
-	display: flex;
-	align-items: center;
-	padding-left: 40px;
-	border-bottom: 1px solid grey;
-	height: 80px;
+#myInfo-wrapper {
+    margin: 0 auto;
+    min-width: 700px;
+    width: 900px;
+    height: 550px;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid rgb(210, 210, 210);
+}
+
+#myInfo-contents {
+    margin:0 auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
+    min-width: 700px;
+    width: 760px;
+    height: 360px;
+    display: flex;
+    
 }
 
 #profileImage {
-	margin-left: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+}
+
+#upload {
+    padding: 3px;
+    border-radius: 3px;
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+}
+
+#fileInput {
+    display: none;
+}
+
+.container1 {
+    width: 240px;
+    text-align: right;
+}
+
+.container2 {
+    width: 160px;
+}
+
+.container3 {
+    width: 190px;
+    margin-top: 260px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px
+}
+
+.id {
+    text-align: right;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.email {
+    font-size: 18px;
+}
+
+.name {
+    margin-top: 46px;
+    color: grey;
+}
+
+#ticket {
+    background-color: grey;
+    padding: 2px 10px 2px 10px;
+    color: black;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+#ticket :hover {
+	color: white;
+	font-weight: normal;
+}
+
+.ticket-link {
+    text-decoration: none;
+    color: white;
+}
+
+#update-pw {
+    background-color: grey;
+    padding: 2px;
+    border: 1px solid  gray;
+    border-radius: 3px;
+}
+
+#update-pw :hover {
+	color: white;
+	font-weight: normal;
+}
+
+.update-pw-link {
+    text-decoration: none;
+    color: white;
 }
 
 </style>
 </head>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
 <body>
-	<h1> 내 정보 </h1>
-	<a href="/test-main">테스트 메인페이지</a>
-	<a href="/Mainpage">진짜 메인페이지</a>
-	<a href="#">내가 쓴 댓글</a>
-	<a href="#">좋아요</a>
-	<a href="/myPlaylist">나의 재생목록</a>
-	<a href="/logout">로그아웃</a>
-	<hr>
-	<div id="my-info-wrapper">
-		<div class="contents">
-			아이디 : ${userDTO.id}
-		</div>
-		<div class="contents">
-			이름 : ${userDTO.name}
-		</div>
-		<div class="contents">
-			이메일 : ${userDTO.email}
-		</div>
-		<form action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-			<div class="contents">
-				프로필 사진    
-				<img id="profileImage" src="${userDTO.profile_img}" style="width: 64px; height: 64px; border-radius: 32px;">
-			</div>
-			<div class="contents">
-				<input type="file" name="filename" id="fileInput" value="파일 선택">
-			</div>
-		</form>
-		<div class="contents">
-			회원등급 : ${userDTO.rank}
-		</div>
-		<div class="contents">
-			<a href="/myInfo/checkPw">
-				비밀번호 변경
-			</a>
-		</div>
-		<br>
-	</div>
+	<div id="title">내 정보</div>
+    <div id="myInfo-wrapper">
+        <div id="myInfo-contents">
+            <div id="profile-img">
+                <img id="profileImage" src="${userDTO.profile_img}">
+            </div>
+            <div class="container1">
+                <p class="id">
+                    ${userDTO.id}
+                </p>
+                <p class="email">
+                    ${userDTO.email}
+                </p>
+                <p class="rank">
+                    ${userDTO.rank}
+                </p>
+                <label for="fileInput">
+                    <span id="upload">사진 변경</span>
+                    <input type="file" id="fileInput">
+                </label>
+            </div>
+            <div class="container2">
+                <p class="name">
+                    &nbsp#${userDTO.name}
+                </p>
+            </div>
+            <div class="container3">
+                <label for="ticket-btn">
+                    <span id="ticket">
+                        <a class="ticket-link" href="#">
+                            이용권 구매
+                        </a>
+                    </span>
+                </label>
+                <label for="update-pw-btn">
+                    <span id="update-pw">
+                        <a class="update-pw-link" href="/myInfo/checkPw">
+                            비밀번호 변경
+                        </a>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
 	
 	<script>
 		
