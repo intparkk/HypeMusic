@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>playlist</title>
+<title>:: ${playlistName} ::</title>
 <style>
 #playlist-info-wrapper {
 	display: flex;

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>checkPw</title>
+<title>:: 비밀번호 확인 ::</title>
 <link rel="stylesheet" href="/login.css">
 </head>
 <body>

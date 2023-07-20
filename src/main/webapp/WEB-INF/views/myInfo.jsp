@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>my info</title>
+<title>:: 내 정보 ::</title>
 <style>
 #title {
 	font-size: 30px;

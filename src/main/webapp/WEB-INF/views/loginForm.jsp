@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HYPE MUSIC 로그인</title>
+<title>:: HYPE MUSIC 로그인 ::</title>
 </head>
 <link rel="stylesheet" href="/login.css">
 <body>

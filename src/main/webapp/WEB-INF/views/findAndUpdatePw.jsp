@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>update my info</title>
+<title>:: 비밀번호 변경 ::</title>
 <link rel="stylesheet" href="/login.css">
 </head>
 <body>
