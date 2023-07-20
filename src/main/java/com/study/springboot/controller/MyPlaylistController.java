@@ -215,10 +215,6 @@ public class MyPlaylistController {
 	    int playlist_id = updatePlaylistNameDTO.getPlaylist_id();
 	    String playlist_name = updatePlaylistNameDTO.getPlaylist_name();
 	    
-		System.out.println(updatePlaylistNameDTO);
-
-	    System.out.println(playlist_id + playlist_name);
-	    
 	    int countUpdated = playlistService.updatePlaylistName(updatePlaylistNameDTO);
 	    
 	    String updatedName = updatePlaylistNameDTO.getPlaylist_name();
