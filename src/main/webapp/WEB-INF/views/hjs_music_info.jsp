@@ -149,10 +149,11 @@ max-width: 250px;
                     <img width="30" height="25" src = "/img/pink_heart1.jpg"> &nbsp;
                     <span id ="icon_nextword">${trackInfo[0].like_count} &nbsp; &nbsp;</span>
                     
-                    <button type="button" title="재생" class="btn play-btn" >
-                    <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
-                	</button> &nbsp;
-                	<span id ="icon_nextword">듣기</span> &nbsp; 
+                	<!--  재생 버튼 완성본 입니다 -->
+                    <button type="button" title="재생" class="btn play-btn">
+                        <a href="${trackInfo[0].youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
+                    </button> &nbsp;
+                	<span id ="icon_nextword"></span> &nbsp; 
 					<jsp:include page = "addbutton.jsp"></jsp:include>
                 	</dt>         
                 </dl>   

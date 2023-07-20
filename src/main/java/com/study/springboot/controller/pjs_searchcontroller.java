@@ -39,8 +39,10 @@ public class pjs_searchcontroller
     	// 서치가 한번 들어가면 3개의 쿼리문이 실행됩니다.
     	// 각각 트랙정보,아티스트정보,앨범정보 입니다.
     	List<trackinfoDTO> search_all = search_service.searchresultbind(Keyword);
+    	List<trackinfoDTO> search_relative_artist = search_service.searchByRelatvieArtist(Keyword);
     	
     	model.addAttribute("search_all",search_all);
+    	model.addAttribute("search_relative_artist",search_relative_artist);
     	
     	System.out.println("검색 페이지 진입");
     	return "/pjs_search";

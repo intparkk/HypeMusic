@@ -29,7 +29,7 @@
 		</div>
 		<div class="head_top_right">
 		<!-- rank 수정 부탁드립니다! -->
-			<a title="환영코드">
+			<span title="환영코드">
 			  <c:choose>
 			    <c:when test="${empty userInfo.id}">
 			      <span class="user_states">방문객</span>
@@ -47,7 +47,7 @@
 			    </c:otherwise>
 			  </c:choose>
 			  님 환영합니다!
-			</a>
+			</span>
 		</div>
 	</div>
 	<!-- 로고 클릭시 메인페이지 이동 -->
@@ -90,7 +90,7 @@
 	<!-- 메뉴 부분 -->
 	    <div class="head_bottom_left">
 	      <a href="/hjs_music_top100" title="top100"><button class="music_chart_btn">음악차트</button></a>
-	      <a href="" title="newmusic"><button class="new_music_btn">최신음악</button></a>
+	      <a href="/nowmusic" title="newmusic"><button class="new_music_btn">최신음악</button></a>
 	      <a href="hjs_music_genre" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
 	      <a href="/pjs_news" title="starmagazine"><button class="star_magazine_btn">스타매거진</button></a>
 	      <a href="" title="music4u"><button class="music_4u_btn">뮤직4U</button></a>

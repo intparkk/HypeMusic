@@ -148,9 +148,10 @@
 			            <img id="song_img" src="${track.album_img}" alt="Album Image">
 			            </a>&nbsp;&nbsp;&nbsp;&nbsp;
 			            <a href="/music_info?track_id=${track.track_id}">${track.title}</a>&nbsp; - &nbsp;<a href="/artistinfo/${track.artist_id}">${track.artist}</a>
-			            <button type="button" title="재생" class="btn play-btn">
-			                <img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;">
-			            </button>
+                    	<!--  재생 버튼 완성본 입니다 -->
+                        <button type="button" title="재생" class="btn play-btn">
+                            <a href="${track.youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
+                        </button>
 			            &nbsp;
 			            <button type="button" title="담기" class="btn add-btn">
 			                <img src="/img/hjs_put.png" alt="담기" style="width: 30px; height: 30px;">
@@ -204,9 +205,30 @@
 	<section>
 	
 	</section>
-	
-	
 </div>
+<!-- 재생 버튼의 스크립트입니다 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 재생 버튼 지정 (querySelectorAll로 변경)
+        const playButtons = document.querySelectorAll('.btn.play-btn');
+        const nowRank = '${userInfo.rank}'; // 현재 랭크값 가져오기
+        console.log(nowRank);
+
+        // 재생 버튼 이벤트 등록 (for문으로 모든 버튼에 적용)
+        for (let i = 0; i < playButtons.length; i++) {
+            playButtons[i].addEventListener('click', function (event) {
+                // 만약 rank가 null 또는 "normal"이면
+                // 기본 링크 동작을 막고, 알림 메시지를 표시
+                if (nowRank == '' || nowRank === "normal") {
+                    event.preventDefault(); // 기본 링크 동작 막기
+                    alert("로그인 또는 이용권을 구매해주세요.");
+                }
+                // 만약 rank가 "ticket" 또는 "admin"이면
+                // 링크는 새 창에서 열립니다.
+            });
+        }
+    });
+</script>
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
