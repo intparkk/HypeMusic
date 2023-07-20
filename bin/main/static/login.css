@@ -65,6 +65,7 @@ html {
 	}
 	
 	.find-a {
+		text-decoration: none;
 		background-color: transparent;
 		border: none;
 		color: #808080;

@@ -6,14 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HYPE MUSIC 로그인</title>
+<title>:: HYPE MUSIC 로그인 ::</title>
 </head>
 <link rel="stylesheet" href="/login.css">
 <body>
 	<div id="wrap">
-	
 		<header class="pageHeader">
-			<a href="http://localhost:8081/test-main" class="logo">
+			<a href="http://localhost:8081/Mainpage" class="logo">
 				<img width="180px" height="100px" src="/img/logo_ex.jpg">
 			</a>
 		</header>
@@ -37,7 +36,7 @@
 				<p style="color:red">${errMsg }</p>
 			</c:if>
    			<div id="find">
-  				<button class="find-a" onclick="location.href='#'">아이디 찾기</button>&nbsp;<a id="divide">|</a>&nbsp;<button class="find-a" onclick="location.href='#'">비밀번호 찾기</button>
+  				<a class="find-a" href="#">아이디 찾기</a>&nbsp;<a id="divide">|</a>&nbsp;<a class="find-a" href="/findPw">비밀번호 찾기</a>
 			</div>
    			<div id="input">
 				<input type="submit" id="submit" value="로그인">
@@ -78,7 +77,6 @@
 				}	
 		}
 	</script>
-	
 	<footer id="footer">
 		<div class="copyright"> ⓒ HMC HypeMusicStudio Corp. All rights reserved.</div>
 	</footer>
