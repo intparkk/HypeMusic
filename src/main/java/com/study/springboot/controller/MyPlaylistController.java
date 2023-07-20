@@ -248,8 +248,6 @@ public class MyPlaylistController {
 	            ClassPathResource resource = new ClassPathResource(fullFilePath);
 	            System.out.println(resource);
 
-	            
-
 	            MyPlaylistDTO myPlaylistDTO = new MyPlaylistDTO();
 	            myPlaylistDTO.setPlayList_id(playlist_id);
 	            myPlaylistDTO.setPlaylist_img(imageUrl);
