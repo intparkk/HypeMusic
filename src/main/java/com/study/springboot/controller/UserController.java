@@ -22,11 +22,10 @@ import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import oracle.core.lmx.CoreException;
 /**
  * @author 이승찬
  * @apiNote
- * 	로그인/회원가입 컨트롤러입니다.
+ * 	계정 관련 컨트롤러입니다.
  * 	
  * 	:: 비밀번호 암호화 순서 ::
  *  1. 뷰(signupForm)의 form에서 전달받은 비밀번호를 CryptoJS(JavaScript 라이브러리)를 사용해 
@@ -105,8 +104,7 @@ public class UserController {
 	public String doFindPw(
 			RedirectAttributes redirectAttributes,
 			@ModelAttribute
-			UserDTO userDTO,
-			Model model
+			UserDTO userDTO
 			) {
 		int countedAccout = userDAO.findPwById(userDTO);
 		
@@ -117,7 +115,7 @@ public class UserController {
 			return "redirect:/findPw/updatePw";
 		}
 		
-		model.addAttribute("errMsg", "일치하는 계정 정보가 없습니다.");
+		redirectAttributes.addFlashAttribute("errMsg", "일치하는 계정 정보가 없습니다.");
 		
 		return "redirect:/findPw";
 	}
@@ -129,7 +127,7 @@ public class UserController {
 			) {
 		HttpSession session = req.getSession();
 		session.invalidate();
-		System.out.println("로그아웃");
+//		System.out.println("로그아웃");
 		
 		return "redirect:/Mainpage";
 	}
@@ -175,9 +173,9 @@ public class UserController {
 			return "signupForm";
 			
 		} else {
-			System.out.println("회원가입 실패");
+//			System.out.println("회원가입 실패");
 			
-			return "error2";
+			return "error";
 		}
 				
 	}
@@ -189,7 +187,6 @@ public class UserController {
 			Model model) {
 		
 		HttpSession session = req.getSession();
-		session.getAttribute("isLoggedIn");
 		
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		model.addAttribute("userDTO", userDTO);
@@ -286,15 +283,12 @@ public class UserController {
 				// 변경 성공
 				return "redirect:/login";
 			} else {
-				
 				return "redirect:/error2";
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/myInfo";
 		}
-		
 	}
 	
 	// 내 정보 - 비밀번호 변경 페이지
@@ -305,12 +299,11 @@ public class UserController {
 			) {
 		
 		HttpSession session = req.getSession();
-		System.out.println("[./updatePw]" + session.getAttribute("isLoggedIn"));
 		
 		UserDTO dto = (UserDTO) session.getAttribute("userInfo");
 		
 		model.addAttribute("dto", dto);
-		System.out.println("[./udpatePw]Dto : " + dto);
+//		System.out.println("[./udpatePw]Dto : " + dto);
 		
 		return "updatePw";
 	}
@@ -327,17 +320,15 @@ public class UserController {
 		HttpSession session = req.getSession();
 
 		int count = userService.updatePw(userDTO);
-		System.out.println("[/doUpdatePw] count : " + count );
+//		System.out.println("[/doUpdatePw] count : " + count );
 		
 		try {
 			if (count == 1) {
 				// 변경 성공
 				return "redirect:/myInfo";
 			} else {
-				
 				return "redirect:/error2";
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/myInfo";

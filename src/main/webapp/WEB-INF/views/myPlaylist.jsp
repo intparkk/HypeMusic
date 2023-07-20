@@ -91,12 +91,6 @@
 </header>
 <body>
 	<div id="title">내 재생목록 </div>
-	<c:choose>
-		<c:when test="${isLoggedIn ne 'ok'}">
-			<h2>로그인이 필요한 서비스입니다.</h2><br>
-			<a href="/login">로그인</a>
-		</c:when>
-		<c:otherwise>
 			<input type="hidden" id="user-id" value="${userInfo.user_id}">
 			<input type="hidden" id="numberOfPlaylist" value="${numberOfPlaylist}">
 			<div id="list-wrapper">
@@ -110,8 +104,6 @@
 				</div>
 				<!-- JS로 생성할 영역 -->
 			</div>
-		</c:otherwise>
-	</c:choose>
 	
 	<script>
 		window.onload = () => {

@@ -29,9 +29,7 @@
 				</div>
 				<input type="text" name="email"><br>
 			</div>
-			<c:if test="${not empty errMsg}">
-				<p style="color:red">${errMsg }</p>
-			</c:if>
+			<p style="color: red;">${errMsg}</p>
    			<div id="input">
 				<input type="submit" id="submit" value="비밀번호 찾기">
 			</div>

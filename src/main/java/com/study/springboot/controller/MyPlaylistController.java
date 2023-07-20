@@ -30,14 +30,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  * @author 이승찬
- * @apiNote 유저 재생목록 컨트롤러
+ * @apiNote 
+ * 유저 재생목록 관리 컨트롤러입니다.
  * 	
- * TODO DB에 저장된 재생목록 표시하기
- * 		재생목록에 곡 추가하기
- * 		재생목록 삭제, 이름 변경
- * 		재생목록 이미지?
- * 		재생목록 안에서 곡 삭제
- * 		
  * */
 @Controller
 public class MyPlaylistController {
@@ -48,7 +43,7 @@ public class MyPlaylistController {
 	@Autowired
 	PlaylistDAO playlistDAO;
 	
-	// 재생목록에 담기
+	// 재생목록에 곡 담기
 	@RequestMapping(value="/myPlaylist/addToPlaylist", method=RequestMethod.POST)
 	@ResponseBody
 	public PlaylistDTO addToPlaylist(
@@ -56,9 +51,7 @@ public class MyPlaylistController {
 			PlaylistDTO playlistDTO
 			) {
 		try {
-			
 			int insertedColumn = playlistService.insertTrackIntoPlaylist(playlistDTO);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +69,6 @@ public class MyPlaylistController {
 			) {
 		HttpSession session = req.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
-		session.getAttribute("isLoggedIn");
 		
 		if(userDTO != null) {
 			myPlaylistDTO.setUser_id(userDTO.getUser_id());
@@ -103,14 +95,10 @@ public class MyPlaylistController {
 			) {
 		
 		HttpSession session = req.getSession();
-		// 세션에서 유저 정보 불러오기
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 
-		// 유저ID 추출
 		int user_id = userDTO.getUser_id();
-		System.out.println("user id :" + user_id);
 		
-		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
 
 		// 새 재생목록 생성 (Mapper 에서 Insert한 행의 갯수가 아닌 재생목록ID를 반환
@@ -119,9 +107,7 @@ public class MyPlaylistController {
 		// 재생목록DTO에 재생목록ID, 재생목록 이름 설정
 		myPlaylistDTO.setPlayList_id(myPlaylistDTO.getPlayList_id());
 		myPlaylistDTO.setPlayList_name(playlistDAO.selectPlaylistName(myPlaylistDTO));
-
 		
-		// jsp에 모델로 전달
 		model.addAttribute("playlist", myPlaylistDTO);
 		
 		return myPlaylistDTO;
@@ -138,12 +124,9 @@ public class MyPlaylistController {
 			) {
 		
 		HttpSession session = req.getSession();
-		// 세션에서 유저 정보 불러오기
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		
-		// 유저ID 추출
 		int user_id = userDTO.getUser_id();
-		System.out.println("user id :" + user_id);
 		// 재생목록DTO에 유저ID 설정
 		myPlaylistDTO.setUser_id(user_id);
 		
@@ -212,11 +195,11 @@ public class MyPlaylistController {
 		HttpSession session = req.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
 		
-		System.out.println("playlist_id : " + playlist_id);
+//		System.out.println("playlist_id : " + playlist_id);
 		playlistDTO.setPlaylist_id(playlist_id);
 		
 		List<PlaylistDTO> playlist = playlistService.loadPlaylistTracks(playlistDTO);
-		System.out.println("[/loadTracks] List : " + playlist);
+//		System.out.println("[/loadTracks] List : " + playlist);
 		
 		return playlist;
 	}
@@ -260,14 +243,6 @@ public class MyPlaylistController {
 	            File destination = new File(fullFilePath);
 	            file.transferTo(destination);
 	            
-//	            String binFilePath = "C:\\Users\\User\\Desktop\\HypeMusic\\bin\\main\\static\\playlist_img";
-//	            String binOriginalFileName = file.getOriginalFilename();
-//	            String binFullFilePath = binFilePath + "\\" + binOriginalFileName;
-//	            
-//	            File binDestination = new File(binFullFilePath);
-//	            file.transferTo(binDestination);
-	            
-	            
 	            // 이미지 주소 반환
 	            String imageUrl = "/playlist_img/" + originalFileName;
 	            ClassPathResource resource = new ClassPathResource(fullFilePath);
@@ -286,7 +261,6 @@ public class MyPlaylistController {
 	            e.printStackTrace();
 	        }
 	    }
-			
 		
 		 return "";
 	}
@@ -306,7 +280,6 @@ public class MyPlaylistController {
 		return "";
 	}
 	
-	
 	// 재생목록에서 곡 삭제
 	@RequestMapping(value="/myPlaylist/playlist/deleteTrack", method=RequestMethod.DELETE)
 	@ResponseBody
@@ -319,7 +292,6 @@ public class MyPlaylistController {
 			
 			int deletedTrack = playlistService.deleteTrackFromPlaylist(playlistDTO);
 			System.out.println("deleted track : " + deletedTrack);
-			
 			
 		return "";
 		
