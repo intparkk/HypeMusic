@@ -1,5 +1,6 @@
 package com.study.springboot.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.study.springboot.service.HjscommentService;
 import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -37,12 +39,26 @@ public class hjs_admincontroller {
 	public String userlist(
 			UserDTO userDTO,
 			Model model,
-			HttpServletRequest req
+			HttpServletRequest req,
+			HttpServletResponse resp
 			) {
 		
 	//	HttpSession session = req.getSession();
 	//	UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 	//	System.out.println("userInfo: "+userInfo);
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		//null이면 로그인 페이지로 유도 
+		if(userInfo == null) {
+			try {
+				resp.sendRedirect("/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		UserDTO userD = userDTO;
 		
@@ -58,8 +74,23 @@ public class hjs_admincontroller {
 	public String commentlist(
 			HjscommentDTO hjscommentDTO,
 			Model model,
-			HttpServletRequest req
+			HttpServletRequest req,
+			HttpServletResponse resp
 			) {
+		
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		//null이면 로그인 페이지로 유도 
+		if(userInfo == null) {
+			try {
+				resp.sendRedirect("/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		HjscommentDTO commentDTO = hjscommentDTO;
 		

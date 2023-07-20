@@ -37,6 +37,7 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 		return list;
 	}
 
+	
 	@Override
 	public int writeDao(HjsmusicDTO musicDto) {
 		int result = hjsmusicDAO.writeDao(musicDto);
@@ -74,4 +75,14 @@ public class HjsmusicserviceImpl implements HjsmusicService{
 		int result = hjsmusicDAO.deleteadminDao(track_id);
 		return result;
 	}
+
+
+
+	@Override
+	public List<HjsmusicDTO> youtubeDao(String youtube_url) {
+		List<HjsmusicDTO> list = hjsmusicDAO.youtubeDao(youtube_url);
+		return list;
+	}
+
+
 }

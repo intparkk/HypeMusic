@@ -12,7 +12,16 @@ public class HjscommentDTO {
 	private String parent_id;
 	
 	private Integer rnum;
+	private String name;
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Integer getRnum() {
 		return rnum;
 	}
@@ -61,7 +70,12 @@ public class HjscommentDTO {
 	public String toString() {
 		return "HjscommentDTO [track_id=" + track_id + ", comment_id=" + comment_id + ", user_id=" + user_id
 				+ ", comment_content=" + comment_content + ", comment_time=" + comment_time + ", parent_id=" + parent_id
-				+ "]";
+				+ ", rnum=" + rnum + ", name=" + name + ", getName()=" + getName() + ", getRnum()=" + getRnum()
+				+ ", getTrack_id()=" + getTrack_id() + ", getComment_id()=" + getComment_id() + ", getUser_id()="
+				+ getUser_id() + ", getComment_content()=" + getComment_content() + ", getComment_time()="
+				+ getComment_time() + ", getParent_id()=" + getParent_id() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+	
 	
 }

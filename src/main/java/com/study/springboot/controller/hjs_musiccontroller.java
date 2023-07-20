@@ -1,6 +1,7 @@
 package com.study.springboot.controller;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ import com.study.springboot.service.HjsmusicService;
 import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -243,7 +245,7 @@ public class hjs_musiccontroller {
 			HttpServletRequest req, 
 			HjsmusicDTO musicDto,
 			@RequestParam(value="pageNum", required=false)
-			Integer pageNum
+			Integer pageNum, String youtube_url
 			) {
 		
 		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
@@ -282,6 +284,7 @@ public class hjs_musiccontroller {
 //		model.addAttribute("list",list);
 //		System.out.println(list);
 		
+//		int url = hjsmusicService.youtubeDao(youtube_url);
 		
 		Map map = hjsmusicService.list(musicDto);
 //		model.addAttribute("map", map);
@@ -289,6 +292,7 @@ public class hjs_musiccontroller {
 		List<HjsmusicDTO> list = (List<HjsmusicDTO>) map.get("list");
 		model.addAttribute("list", list);
 		
+		System.out.println("list"+list);
 		
 		int total = (int) map.get("totalCount");
 		req.setAttribute("total", total);
@@ -419,7 +423,8 @@ public class hjs_musiccontroller {
 			String track_id,
 			@ModelAttribute HjscommentDTO dto2,
 			Model model,
-			HttpServletRequest req, int user_id
+			HttpServletRequest req,
+			HttpServletResponse resp
 
 			) {
 
@@ -427,6 +432,15 @@ public class hjs_musiccontroller {
 		//user_id를 세션에서 가져오기
 		
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		//null이면 로그인 페이지로 유도 
+		if(userInfo == null) {
+			try {
+				resp.sendRedirect("loginForm.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		int user_id2 = userInfo.getUser_id();
 		
@@ -562,7 +576,7 @@ public class hjs_musiccontroller {
 			HttpServletRequest req,
 			@ModelAttribute HjsmusicDTO musicDto
 			) {
-		
+		long before = System.currentTimeMillis();
 		// 웹 페이지의 전달 내용을 받아옴
 		String preference = req.getParameter("preference"); // 곡의 장르 값을 가져옴
 		System.out.println(preference);
@@ -573,12 +587,32 @@ public class hjs_musiccontroller {
 		List list = hjsmusicDAO.testIf(musicDto);
 		model.addAttribute("list", list);
 		
+		System.out.println("걸린시간: "+(System.currentTimeMillis() - before));
+		
 		return "hjs_music_genre";
 	}
 	
 	// 관리자 음악정보 insert기능
 	@RequestMapping("/hjs_music_admintest")
-	public String admintest() {
+	public String admintest(
+			HttpServletRequest req,
+			HttpServletResponse resp
+			) {
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		//null이면 로그인 페이지로 유도 
+		if(userInfo == null) {
+			try {
+				resp.sendRedirect("/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+
 		return "hjs_music_admintest";
 	}
 	
@@ -587,9 +621,25 @@ public class hjs_musiccontroller {
 	public String admintest(
 			HjsmusicDTO musicDto2,
 			Model model,
-			HttpServletRequest req
+			HttpServletRequest req,
+			HttpServletResponse resp
 			) {
 
+		HttpSession session = req.getSession();
+		//user_id를 세션에서 가져오기
+		
+		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
+		
+		//null이면 로그인 페이지로 유도 
+		if(userInfo == null) {
+			try {
+				resp.sendRedirect("/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		
 		 String track_id = musicDto2.getTrack_id(); 
 		 String artist_id = musicDto2.getArtist_id(); 
 		 String album_img = musicDto2.getAlbum_img();

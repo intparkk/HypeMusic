@@ -6,7 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Collections" %>
+<%-- <%@ page import="java.util.Collections" %> --%>
 <%@ page import="com.study.springboot.controller.hjs_musiccontroller" %>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,56 @@
 <meta charset="UTF-8">
 <title>HYPEMUSIC Top100</title>
 <link rel="stylesheet" href="/top100.css">
+<Style>
+table{
+	border-collapse:collapse;
+	margin: auto;
+	width: 90%;	
+}
+th {
+background-color: #EAEAEA;
+}
+table,th, td{
+	border: none;
+	border-bottom: 1px solid #F6F6F6;
+	border-top: 1px solid #F6F6F6;
+	color: #333333;
+	text-align: center;
+}
+tr:hover {
+background-color:#F6F6F6; 
+}
+th,td{
+max-width: 250px;
+}
+h1, h2{
+text-align: center;
+color: #333333;
+}
+
+a {
+	color : #333333;
+	text-decoration : none;
+}
+
+a:hover {
+	color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+} 
+
+#paging_number,
+#paging_text_1,
+#paging_text_2 {
+text-decoration: none;
+font-weight: bold;
+color: gray;
+font-size : 20px;
+letter-spacing: 5px;
+}
+
+</Style>
+
 </head>
 <header>
 <jsp:include page="header.jsp"></jsp:include>
@@ -61,7 +111,7 @@
 						<%-- &nbsp;${loop.index + 1} --%>
 						${dto.rnum}
 					</td>
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" class="music_info_icon2"></a></td>
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
