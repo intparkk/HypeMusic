@@ -356,34 +356,40 @@
 	
 	/* 재생목록 이름 변경 */
 	const updatePlaylistName = () => {
-	    const playlist = {
-	        playlist_id: document.querySelector("#playlist-id").value.trim(),
-	        playlist_name: prompt("새로운 재생목록 이름을 입력하세요:")
-	    };
-	    
-	    if (playlist.playlist_name) {
-	        fetch("/myPlaylist/playlist/updatePlaylistName", {
-	            method: "PUT",
-	            headers: {
-	                "Content-Type": "application/json"
-	            },
-	            body: JSON.stringify(playlist)
-	        })
-	        .then((response) => {
-	            if (response.ok) {
-	                alert("재생목록 이름이 변경되었습니다.");
-	                console.log("재생목록 이름 변경");
-	                // 페이지 새로고침 또는 필요한 작업 수행
- 	                location.reload();
-	            } else {
-	                console.log("재생목록 이름 변경 실패");
-	            }
-	        })
-	        .catch((error) => {
-	            console.log("Error", error);
-	        });
-	    }
-	};
+    const playlist = {
+        playlist_id: document.querySelector("#playlist-id").value.trim(),
+        playlist_name: ""
+    };
+    
+    let maxLength = 10; // 최대 14자로 제한
+
+    do {
+        playlist.playlist_name = prompt(`새로운 재생목록 이름을 입력하세요 (최대 10자):`);
+    } while (playlist.playlist_name.trim().length > maxLength);
+
+    if (playlist.playlist_name) {
+        fetch("/myPlaylist/playlist/updatePlaylistName", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(playlist)
+        })
+        .then((response) => {
+            if (response.ok) {
+                alert("재생목록 이름이 변경되었습니다.");
+                console.log("재생목록 이름 변경");
+                // 페이지 새로고침 또는 필요한 작업 수행
+                location.reload();
+            } else {
+                console.log("재생목록 이름 변경 실패");
+            }
+        })
+        .catch((error) => {
+            console.log("Error", error);
+        });
+    }
+};
 	
 
 	
