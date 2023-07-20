@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>:: HYPE MUSIC 회원가입 ::</title>
-</head>
 <link rel="stylesheet" href="/signup.css">
+</head>
 <body>
 	<div id="wrap">
 		<!-- 헤더 -->

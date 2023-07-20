@@ -1,0 +1,118 @@
+@charset "UTF-8";
+#playlist-info-wrapper {
+	display: flex;
+	border: 1px solid lightgrey;
+	border-radius: 8px 0px 0px 8px;
+	min-width: 800px;
+	width: 70%;
+	height: 264px;
+	margin: 0 auto;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.playlistImg {
+	border-radius: 6px;
+}
+.playlist-title {
+	padding: 20px 30px 10px 30px;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.playlist-track-quantity {
+	padding: 36px 30px 0px 30px;
+	font-size: 18px;
+}
+
+#playlist-title-update-btn {
+	display: none;
+}
+
+.title-update {
+	position: absolute;
+	margin-left: 30px;
+	border-bottom: 2px solid lightgrey;
+	border-radius: 3px;
+	background-color: grey;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
+}
+
+.playlist-delete-btn-wrapper {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin-bottom: 8px;
+	margin-right: 10px;
+}
+
+#playlist-delete-btn {
+	display: none;
+}
+
+.playlist-delete {
+	border-bottom: 2px solid lightgrey;
+	border-radius: 3px;
+	background-color: grey;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
+}
+
+#list-wrapper{
+	border-top: 1px solid lightgrey;
+	margin: 0 auto;
+	min-width: 800px;
+	width: 70%;
+	min-height: 200px;
+	}
+	
+#playlist-table {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.playlist-thead {
+	height: 30px;
+}
+
+.playlist-tr {
+	height: 64px;
+	justify-content: center;
+	text-align: center;
+}
+
+#img-update-btn {
+	color: white;
+	font-size: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.img-update {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 8px;
+	margin-left: 30px;
+	border-bottom: 2px solid lightgrey;
+	border-radius: 3px;
+	background-color: grey;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px;
+}
+
+#delete-btn,
+#mv-btn,
+#play-btn {
+	border: none;
+	cursor: pointer;
+	background-color: lightgrey;
+	border-radius: 2px;
+	height: 20px;
+}
