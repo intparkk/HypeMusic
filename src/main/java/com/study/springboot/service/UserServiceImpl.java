@@ -20,6 +20,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	Encryptor encryptor;
 	
+	/**
+	 * @author 이승찬
+	 * */
+	
 	// 로그인
 	@Override
 	public Map login(UserDTO userDTO) {
@@ -101,6 +105,9 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	/**
+	 * @author 허진서
+	 * */
 	// user 이메일보기
 	@Override
 	public UserDTO userEmail(UserDTO userDTO) {
@@ -110,6 +117,9 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	/**
+	 * @author 박정수
+	 * */
 	// 박정수 : 이용권 구매
 	@Override
 	public UserDTO buyticket(int user_id)

@@ -31,7 +31,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * @author 이승찬
  * @apiNote 
- * 유저 재생목록 관리 컨트롤러입니다.
+ *  재생목록 관리 컨트롤러입니다.
  * 	
  * */
 @Controller
