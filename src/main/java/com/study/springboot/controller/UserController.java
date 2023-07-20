@@ -22,6 +22,7 @@ import com.study.springboot.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import oracle.core.lmx.CoreException;
 /**
  * @author 이승찬
  * @apiNote

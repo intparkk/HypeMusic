@@ -181,6 +181,7 @@
 		
 	document.querySelector("#fileInput").onchange = () => {
 		uploadFile();
+		location.reload();
 	};
 
 	const uploadFile = () => {

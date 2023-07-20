@@ -52,7 +52,6 @@ public class MyPlaylistController {
 	@RequestMapping(value="/myPlaylist/addToPlaylist", method=RequestMethod.POST)
 	@ResponseBody
 	public PlaylistDTO addToPlaylist(
-			// POST 방식으로 요청했기때문에 @RequestBody
 			@RequestBody
 			PlaylistDTO playlistDTO
 			) {
@@ -182,24 +181,17 @@ public class MyPlaylistController {
 			MyPlaylistDTO myPlaylistDTO,
 			Model model
 			) {
-
+		
 		myPlaylistDTO.setPlayList_id(playlist_id);
 		String playlistName = playlistDAO.selectPlaylistName(myPlaylistDTO);
 		int trackQuantity = playlistDAO.countTracksFromPlaylist(playlist_id);
 		
-//		if (trackQuantity == 0) {
-//			String playlistImg = "/public/playlist_img.svg";	
-//			model.addAttribute("playlistImg", playlistImg);
-//		} else {
-			String playlistImg = playlistDAO.selectPlaylistImg(playlist_id);
-			model.addAttribute("playlistImg", playlistImg);
-//		}
-		
+		String playlistImg = playlistDAO.selectPlaylistImg(playlist_id);
+		model.addAttribute("playlistImg", playlistImg);
 		
 		model.addAttribute("playlist_id", playlist_id);
 		model.addAttribute("playlistName", playlistName);
 		model.addAttribute("trackQuantity", trackQuantity);
-//		model.addAttribute("playlistImg", playlistImg);
 		
 		return "playlist";
 	}

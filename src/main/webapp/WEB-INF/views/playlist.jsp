@@ -115,6 +115,16 @@
 	padding: 2px;
 }
 
+#delete-btn,
+#mv-btn,
+#play-btn {
+	border: none;
+	cursor: pointer;
+	background-color: lightgrey;
+	border-radius: 2px;
+	height: 20px;
+}
+
 
 </style>
 </head>
