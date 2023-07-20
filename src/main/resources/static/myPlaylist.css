@@ -16,7 +16,7 @@
 	min-width: 800px;
 	width: 960px;
 	min-height: 200px;
-	background-color: rgb(240, 240, 240);
+	background-color: rgb(236, 236, 236);
 	border-radius: 6px;
 }
 
@@ -67,6 +67,7 @@
 	height: 120px;
 	border-radius: 6px;
 	margin-bottom: 20px;
+	border: 2px solid #dbdbdb;
 }
 
 .playlist-title {

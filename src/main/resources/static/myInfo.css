@@ -3,36 +3,43 @@
 	font-size: 30px;
 	font-weight: bold;
 	margin-top: 40px;
-	margin-left: 270px;
+	margin-left: 200px;
 }
 
 #myInfo-wrapper {
     margin: 0 auto;
     min-width: 700px;
-    width: 900px;
-    height: 550px;
-    border-left: 1px solid lightgrey;
-    border-right: 1px solid rgb(210, 210, 210);
+    width: 1000px;
+    height: 362px;
+    border-left: 1px solid rgb(190, 190, 190);
+    border-right: 1px solid rgb(190, 190, 190);
 }
 
 #myInfo-contents {
     margin:0 auto;
     margin-top: 20px;
     border-radius: 10px;
-    background-color: rgb(230, 230, 230);
+    border: 3px solid rgb(200, 200, 200);
+    background-color: rgb(219, 219, 219);
     min-width: 700px;
-    width: 760px;
+    width: 900px;
     height: 360px;
     display: flex;
     
 }
 
+#profile-img-container {
+	width: 280px;
+	margin: 0 auto;
+}
+
 #profileImage {
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 30px;
+    margin-left: 100px;
     width: 160px;
     height: 160px;
     border-radius: 80px;
+    border: 3px solid grey;
 }
 
 #upload {

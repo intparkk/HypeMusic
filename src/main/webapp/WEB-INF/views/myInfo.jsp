@@ -15,7 +15,7 @@
 	<div id="title">내 정보</div>
     <div id="myInfo-wrapper">
         <div id="myInfo-contents">
-            <div id="profile-img">
+            <div id="profile-img-container">
                 <img id="profileImage" src="${userDTO.profile_img}">
             </div>
             <div class="container1">
@@ -41,7 +41,7 @@
             <div class="container3">
                 <label for="ticket-btn">
                     <span id="ticket">
-                        <a class="ticket-link" href="#">
+                        <a class="ticket-link" href="/pjs_ticket">
                             이용권 구매
                         </a>
                     </span>
