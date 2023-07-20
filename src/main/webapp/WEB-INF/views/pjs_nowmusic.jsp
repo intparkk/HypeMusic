@@ -140,8 +140,7 @@ letter-spacing: 5px;
             });
         }
     });
-</script>
- 
+</script> 
 </body>
 <!-- 풋터 -->
 <footer><jsp:include page="footer.jsp"></jsp:include></footer>

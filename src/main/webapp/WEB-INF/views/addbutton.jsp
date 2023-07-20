@@ -30,7 +30,7 @@
 	
 	// 현재 url에서 TrackId 추출
 	const url = window.location.href;
-	const trackId = url.split("/").pop();
+	const trackId = url.split("=").pop();
 	console.log(trackId);
 	
 	const showPlaylistPopup = () => {

@@ -59,8 +59,18 @@
 		WHERE
 			id = #{id} AND pw = #{pw}
 	</select>
-	
+
+	<!-- 비밀번호 찾기 (id와 email이 모두 일치하는 행 count하여 int로 반환)-->
+	<select id="findPwById" parameterType="UserDTO" resultType="int">
+		SELECT
+			COUNT(*) AS count
+		FROM
+			users
+		WHERE
+			id = #{id} AND email = #{email}
+	</select>
 	<!-- 유저 정보 선택 -->
+
 	<select id="selectUserInfo" parameterType="UserDTO" resultType="UserDTO">
 		SELECT
 			user_id,
