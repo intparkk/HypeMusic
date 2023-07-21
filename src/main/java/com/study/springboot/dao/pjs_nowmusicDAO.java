@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.study.springboot.dto.trackinfoDTO;
 
 @Mapper
-public interface pjs_top100DAO
+public interface pjs_nowmusicDAO
 {
-	List<trackinfoDTO> getTop100Tracks();
+	List<trackinfoDTO> getnowmusictracks();
 }

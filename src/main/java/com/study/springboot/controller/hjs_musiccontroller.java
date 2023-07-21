@@ -35,8 +35,10 @@ import com.study.springboot.dao.UserDAO;
 import com.study.springboot.dto.HjscommentDTO;
 import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
+import com.study.springboot.dto.trackinfoDTO;
 import com.study.springboot.service.HjsmusicService;
 import com.study.springboot.service.UserService;
+import com.study.springboot.service.pjs_detailpage_service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -60,6 +62,9 @@ public class hjs_musiccontroller {
 	
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	pjs_detailpage_service detailpage_Service;
 		
 	@RequestMapping("/hjs_main_test")
 	public String test1() {
@@ -389,6 +394,10 @@ public class hjs_musiccontroller {
 		model.addAttribute("dto2",dto3);
 		System.out.println(dto3);
 		
+		// 박정수 : 답글 페이지에 el 태그 값 호출
+		List<trackinfoDTO> trackInfo = detailpage_Service.musicinfo(track_id);
+		model.addAttribute("trackInfo",trackInfo);
+		
 		model.addAttribute("track_id", track_id);
 		
 
@@ -428,6 +437,10 @@ public class hjs_musiccontroller {
 		
 		HjscommentDTO dto3 = hjscommentDAO.viewDao(comment_id);
 		model.addAttribute("dto2",dto3);
+		
+		// 박정수 : 수정페이지에 trackInfo 값이 없어서 추가하였습니다
+		List<trackinfoDTO> trackInfo = detailpage_Service.musicinfo(track_id);
+		model.addAttribute("trackInfo",trackInfo);
 		
 		model.addAttribute("track_id", track_id);
 		

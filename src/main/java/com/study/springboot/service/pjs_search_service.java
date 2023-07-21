@@ -51,6 +51,29 @@ public class pjs_search_service
 	}
 	
 	
+	// 관련 아티스트용 
+	public List<trackinfoDTO> searchByRelatvieArtist(String keyword) {
+	    List<trackinfoDTO> searchByTrackList = searchDao.searchbytrack(keyword);
+	    List<trackinfoDTO> searchByArtistList = searchDao.searchbyartist(keyword);
+
+	    System.out.println("관련 아티스트 검색 성공");
+
+	    // Combine the two lists
+	    List<trackinfoDTO> combinedList = new ArrayList<>();
+	    combinedList.addAll(searchByTrackList);
+	    combinedList.addAll(searchByArtistList);
+
+	    // Remove duplicates based on artist_id
+	    Set<Integer> uniqueArtistIds = new HashSet<>();
+	    List<trackinfoDTO> resultList = new ArrayList<>();
+	    for (trackinfoDTO track : combinedList) {
+	        if (uniqueArtistIds.add(track.getArtist_id())) {
+	            resultList.add(track);
+	        }
+	    }
+	    return resultList;
+	}	
+	
 	// 앨범명(keyword)과 일치하는 search 결과를 반환하는 메서드
 	public List<trackinfoDTO> searchbyalbum(String keyword)
 	{

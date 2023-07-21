@@ -19,7 +19,33 @@
 	a:hover {
 		color: #000000;
      	 font-weight: bold;
-	}	
+	}
+	 .admin_btn
+     {
+        background-color: white;
+        border: none;
+        color: gray;
+        padding: 8px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+     .admin_btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+	}  	
+	#welcome	{
+		display:flex;
+	}
+	#get_ticket {
+		margin-right:10px;
+		margin-top:9px;
+	}
 </style>
 <header>
 <div id="header">
@@ -29,7 +55,7 @@
 		</div>
 		<div class="head_top_right">
 		<!-- rank 수정 부탁드립니다! -->
-			<a title="환영코드">
+			<span title="환영코드" id="welcome">
 			  <c:choose>
 			    <c:when test="${empty userInfo.id}">
 			      <span class="user_states">방문객</span>
@@ -37,17 +63,17 @@
 			    <c:otherwise>
 			      <c:choose>
 			        <c:when test="${userInfo.rank eq 'ticket'}">
-			          <img src="/img/ticket_icon.png" alt="이용권 아이콘" style="width: 20px; height: 20px;"/>
+			          <div id ="get_ticket"><img src="/img/ticket_icon.png" alt="이용권 아이콘" style="width: 25px; height: 30px;"/></div>
 			        </c:when>
 			        <c:when test="${userInfo.rank eq 'admin'}">
-			          <img src="/img/admin_icon.png" alt="관리자 아이콘" style="width: 20px; height: 20px; margin-left: 20px; margin-top: -5px;" />
+			          <img src="/img/admin_icon.png" alt="관리자 아이콘" style="width: 25px; height: 25px; margin-right: 7px; margin-top: 10px;" />
 			        </c:when>
 			      </c:choose>
 			      <span class="user_states">${userInfo.id}</span>
 			    </c:otherwise>
 			  </c:choose>
 			  님 환영합니다!
-			</a>
+			</span>
 		</div>
 	</div>
 	<!-- 로고 클릭시 메인페이지 이동 -->
@@ -90,7 +116,7 @@
 	<!-- 메뉴 부분 -->
 	    <div class="head_bottom_left">
 	      <a href="/hjs_music_top100" title="top100"><button class="music_chart_btn">음악차트</button></a>
-	      <a href="" title="newmusic"><button class="new_music_btn">최신음악</button></a>
+	      <a href="/nowmusic" title="newmusic"><button class="new_music_btn">최신음악</button></a>
 	      <a href="hjs_music_genre" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
 	      <a href="/pjs_news" title="starmagazine"><button class="star_magazine_btn">스타매거진</button></a>
 	      <a href="" title="music4u"><button class="music_4u_btn">뮤직4U</button></a>
