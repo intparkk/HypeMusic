@@ -31,6 +31,8 @@ public interface HjsmusicDAO {
 	int totalCount();
 	List<HjsmusicDTO> selectHjsmusicDTO(HjsmusicDTO musicDto);
 	
+	List<HjsmusicDTO> youtubeDao(String youtube_url);
+	
 }	
 
 	

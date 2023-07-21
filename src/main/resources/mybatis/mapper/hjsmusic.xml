@@ -15,7 +15,7 @@
 	</select>
 	
 	
-	<select id="selectHjsmusicDTO" 
+<!-- 	<select id="selectHjsmusicDTO" 
 			resultType="HjsmusicDTO" 
 			parameterType="com.study.springboot.dto.HjsmusicDTO">
 		select * from (
@@ -33,7 +33,28 @@
 		  AND rnum <![CDATA[ <= ]]> #{endNum}
 		
 	</select>
- 	
+ 	 -->
+ 	 
+ 	 <select id="selectHjsmusicDTO" 
+			resultType="HjsmusicDTO" 
+			parameterType="com.study.springboot.dto.HjsmusicDTO">
+		select * from (
+			SELECT *
+			FROM ( 
+			 SELECT rownum AS rnum, a.* from(
+            select m.*, t.youtube_url
+			  FROM tb_music m, tracks t
+			  where m.track_id = t.track_id
+			  ORDER BY m.like_count DESC
+			)a
+	 		) 
+	 		WHERE rnum <![CDATA[<=]]> 100 
+ 		)
+		WHERE rnum <![CDATA[ >= ]]> #{startNum}
+		  AND rnum <![CDATA[ <= ]]> #{endNum}
+		
+	</select>
+ 	 
 	<select id="listDao" resultType="com.study.springboot.dto.HjsmusicDTO">
 		SELECT *
 		FROM (
@@ -43,6 +64,7 @@
  		) WHERE ROWNUM <![CDATA[<=]]> 100 
 	</select>
 
+	<!-- 관리자 곡추가 -->
 	<select id="listDao2" resultType="com.study.springboot.dto.HjsmusicDTO">
 		SELECT *
 		FROM (
@@ -53,7 +75,15 @@
 	</select>
 
 
-
+	<select id="youtubeDao" resultType="com.study.springboot.dto.HjsmusicDTO">
+		select youtube_url 
+		from( select * 
+		from tb_music m, tracks t
+		where m.track_id = t.track_id
+		order by m.like_count DESC
+		) WHERE ROWNUM <![CDATA[<=]]> 100 
+		
+	</select>
 
 	
 	<select id="viewDao" 
@@ -156,22 +186,42 @@
 		 		track_id= #{track_id}
 	</update>
 	
+	<!-- 원본 -->
 	<!-- 추후 검색 기능을 위해 남겨둡니다.  -->
   	
 	<select id="testIf"
 		parameterType="com.study.springboot.dto.HjsmusicDTO"
 		resultType="com.study.springboot.dto.HjsmusicDTO">
-		select * from tb_music
+			select * from tb_music
 <!-- 		<where>
 	 		<if test=" genre != null and genre !='' ">
 				AND genre LIKE '%'||#{genre}||'%'
 			</if>
- 		</where>
- -->		
+ 		</where> -->
+		
  			where genre Like '%'||#{genre}||'%'
  			order by 
 			release_date desc
 	</select>
 
 
+
+<!--  
+ 	<select id="testIf"
+		parameterType="com.study.springboot.dto.HjsmusicDTO"
+		resultType="com.study.springboot.dto.HjsmusicDTO">
+			select  
+			genre, album_img, title, artist, album_name, release_date 
+			from tb_music
+		<where>
+	 		<if test=" genre != null and genre !='' ">
+				AND genre LIKE '%'||#{genre}||'%'
+			</if>
+ 		</where>
+ 			where genre Like '%'||#{genre}||'%'
+ 			order by 
+			release_date desc
+	</select>
+ --> 
+ 
 </mapper>

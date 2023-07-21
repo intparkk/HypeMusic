@@ -10,17 +10,74 @@ body {
 }
 
 h1 {
-	color:gray;
+	text-align: center;
+	color: #333333;
 	margin-left:40px;
 	margin-bottom:0;
 	padding-bottom:0;
 }
 h2 {
 	text-align:center;
-	color:gray;
+	color: #333333;;
 	margin:0;
 	padding:0;
 }
+
+table{
+	border-collapse:collapse;
+	margin: auto;
+	width: 90%;	
+}
+table,th, td{
+	border: none;
+	border-bottom: 1px solid #F6F6F6;
+	border-top: 1px solid #F6F6F6;
+	color: #333333;
+	text-align: center;
+}
+
+th {
+padding-top: 15px;
+padding-bottom: 15px;
+max-width: 250px;
+background-color: #E4E4E4;
+}
+
+td{
+max-width: 250px;
+}
+
+tr:hover {
+background-color:#F6F6F6; 
+}
+
+a {
+	color : #333333;
+	text-decoration : none;
+}
+
+a:hover {
+	color: #000000;
+    font-weight: bold;
+    text-decoration:underline;
+}
+
+#paging_number,
+#paging_text_1,
+#paging_text_2 {
+text-decoration: none;
+font-weight: bold;
+color: gray;
+font-size : 20px;
+letter-spacing: 5px;
+}
+
+#paging_number:hover,
+#paging_text_1:hover,
+#paging_text_2:hover {
+color: #B8B8B8;	
+}
+
 .section_3 {
 	margin-top:0;
 	margin-bottom:0;
@@ -68,24 +125,7 @@ h2 {
     color: white;
     cursor: pointer;
 }	
-table{
-	border-collapse:collapse;
-	
-}
-
-table,th, td{
-	border: none;
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray;
-}
-th, td{
-	padding-left: 20px;
-	padding-right: 20px;
-	color: gray;
-	
-	
-}
-
+ 
 .checkmark {
     position: absolute;
     top: 0;
@@ -158,3 +198,12 @@ th, td{
 	height:45px;
 }
 
+.music_info_icon2{
+	width:15px;
+	height:15px;
+}
+
+.logo1:hover,
+.music_info_icon2:hover {
+	transform: scale(1.3);
+}

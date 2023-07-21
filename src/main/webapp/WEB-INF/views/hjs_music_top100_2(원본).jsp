@@ -6,7 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Collections" %>
+<%-- <%@ page import="java.util.Collections" %> --%>
 <%@ page import="com.study.springboot.controller.hjs_musiccontroller" %>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,56 @@
 <meta charset="UTF-8">
 <title>HYPEMUSIC Top100</title>
 <link rel="stylesheet" href="/top100.css">
+<Style>
+table{
+	border-collapse:collapse;
+	margin: auto;
+	width: 90%;	
+}
+th {
+background-color: #EAEAEA;
+}
+table,th, td{
+	border: none;
+	border-bottom: 1px solid #F6F6F6;
+	border-top: 1px solid #F6F6F6;
+	color: #333333;
+	text-align: center;
+}
+tr:hover {
+background-color:#F6F6F6; 
+}
+th,td{
+max-width: 250px;
+}
+h1, h2{
+text-align: center;
+color: #333333;
+}
+
+a {
+	color : #333333;
+	text-decoration : none;
+}
+
+a:hover {
+	color: #000000;
+    font-weight: bold;
+    text-decoration: underline;
+} 
+
+#paging_number,
+#paging_text_1,
+#paging_text_2 {
+text-decoration: none;
+font-weight: bold;
+color: gray;
+font-size : 20px;
+letter-spacing: 5px;
+}
+
+</Style>
+
 </head>
 <header>
 <jsp:include page="header.jsp"></jsp:include>
@@ -53,51 +103,53 @@
 				<th>담기</th>
 			</thead>			
     	<tbody>    	
-        <c:forEach var="tracks" items="${list}" begin="0" end="99"> 	 			
+        <c:forEach var="dto" items="${list}" begin="0" end="99"> 	 			
 				<tr>
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
 						<%-- &nbsp;${loop.index + 1} --%>
-						${tracks.rnum}
+						${dto.rnum}
 					</td>
-					<td><a href="/music_info?track_id=${tracks.track_id }" id="atag_track_id" data-value="${tracks.track_id}">
-					<img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;">
-					</a>
-					</td>
-
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" class="music_info_icon2"></a></td>
-
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
-          				 <img src="${tracks.album_img}" alt="album_image" style="width: 100px;height: 100px;">
+          				 <img src="${dto.album_img}" alt="album_image" style="width: 100px;height: 100px;">
         				 	<div class="caption">
-                			<p>${tracks.title }</p>
-                			<p>${tracks.artist }</p>
+                			<p>${dto.title }</p>
+                			<p>${dto.artist }</p>
             				</div>
         				 </div>
 					</td>
 					<td>
 					<div class="caption1">
-				     <p><a href="/music_info?track_id=${tracks.track_id}">${tracks.title }</a></p>
-                	 <p><a href="/artistinfo/${tracks.artist_id}">${tracks.artist }</a></p>
+				     <p><a href="/music_info?track_id=${dto.track_id}">${dto.title }</a></p>
+                	 <p><a href="/artistinfo/${dto.artist_id}">${dto.artist }</a></p>
 				    </div>
 					</td>
 					<td>
 					<div class="caption2">
-				     ${tracks.album_name }
+				     ${dto.album_name }
 				    </div>
 					</td>
 					<td>
 					<div class="caption3">
-     				<p>${tracks.like_count }</p>
+     				<p>${dto.like_count }</p>
      				</div>
 					</td> 
 					<!-- target="_blank" -->
 					<td><a href="${dto.youtube_url }"><img src="img/hjs_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
 					<td>
-						<jsp:include page="addbutton.jsp"></jsp:include>
+					<!-- 담기 버튼 -->
+					    <c:if test="${rank == null || rank < 1}">
+				            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+					    </c:if>
+					    <c:if test="${rank != null && rank >= 1}">
+					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
+					            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+					        </a>
+					    </c:if>
 					</td>
 				</tr>   
     	  </c:forEach>    	

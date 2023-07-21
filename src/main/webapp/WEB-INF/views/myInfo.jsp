@@ -58,7 +58,7 @@
     </div>
 	
 	<script>
-		
+	/* 파일 업로드 */
 	document.querySelector("#fileInput").onchange = () => {
 		uploadFile();
 		location.reload();

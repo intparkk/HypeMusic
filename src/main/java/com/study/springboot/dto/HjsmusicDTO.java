@@ -16,12 +16,28 @@ public class HjsmusicDTO {
 	private String genre; 
 	private String release_date;
 	private String lyrics;
+	private String youtube_url;
 	
+	private int user_id;
 	private Integer rnum;
-
+	
 	private int startNum;
 	private int endNum;
 	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	
+	
+	public String getYoutube_url() {
+		return youtube_url;
+	}
+	public void setYoutube_url(String youtube_url) {
+		this.youtube_url = youtube_url;
+	}
 	
 	public Integer getRnum() {
 		return rnum;
@@ -103,16 +119,14 @@ public class HjsmusicDTO {
 	public void setLyrics(String lyrics) {
 		this.lyrics = lyrics;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "HjsmusicDTO [track_id=" + track_id + ", artist_id=" + artist_id + ", album_img=" + album_img
 				+ ", title=" + title + ", artist=" + artist + ", album_name=" + album_name + ", like_count="
-				+ like_count + ", genre=" + genre + ", release_date=" + release_date + "]";
+				+ like_count + ", genre=" + genre + ", release_date=" + release_date + ", lyrics=" + lyrics
+				+ ", youtube_url=" + youtube_url + ", rnum=" + rnum + ", startNum=" + startNum + ", endNum=" + endNum
+				+ "]";
 	}
-	
-		
 	
 	
 }

@@ -39,7 +39,8 @@ ${dto.lyrics }<br><br>
 부모글:${dto2.comment_id}<br>
 <!-- 원본 -->
 <%-- 작성자:${dto2.member_id}<br> --%>
-작성자:${userInfo.user_id}<br>
+<%-- 작성자:${userInfo.user_id}<br> --%>
+작성자:${userInfo.name}<br>
 글내용: <textarea class="text" name="comment_content">${dto2.comment_content}</textarea><br>
 <input type="submit" value="수정하기">
 </form>

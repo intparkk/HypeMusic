@@ -23,4 +23,6 @@ public interface HjsmusicService {
 	List testIf(HjsmusicDTO musicDto);
 //	List testForeach(HjsmusicDTO musicDto);
 	Map list(HjsmusicDTO musicDto);
+	
+	List<HjsmusicDTO> youtubeDao(String youtube_url);
 }
