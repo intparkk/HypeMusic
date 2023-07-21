@@ -12,6 +12,24 @@
 table,td {
 border: 1px solid lightgray;
 }
+table{
+	border-collapse:collapse;
+	margin: auto;
+	width: 85%;
+}
+h1 {
+text-align: center;
+}	
+.list {
+text-align: center;
+}
+th {
+background-color: #E4E4E4;
+}
+tr:hover {
+background-color:#f3f3f5; 
+}
+
 </style>
 </head>
 <header>
@@ -19,19 +37,19 @@ border: 1px solid lightgray;
 </header>
 <body>
 <h1>댓글리스트</h1>
-<br>
-<div><a href="/hjs_music_admin">관리자목록으로</a></div>
+
+<div class="list"><a href="/hjs_music_admin">관리자목록으로</a></div>
 <br>
 <table>
 
 	<tr>
-		<td>순번</td>
-		<td>track_id</td>
-		<td>comment_id</td>
-		<td>user_id</td>
-		<td>comment_content</td>
-		<td>comment_time</td>
-		<td>parent_id</td>
+		<th>순번</th>
+		<th>track_id</th>
+		<th>comment_id</th>
+		<th>user_id</th>
+		<th>comment_content</th>
+		<th>comment_time</th>
+		<th>parent_id</th>
 	</tr>
 <c:forEach var="hjscommentDTO" items="${list}">
 	<tr>

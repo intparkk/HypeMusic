@@ -21,8 +21,9 @@
 <body>
 
 <!-- 타이틀 로고 -->
-<div class="section_1"></div>
-	<h1>Top100</h1>
+<div class="section_1">
+	<img src="/img/hjs_music_top100_logo.png">
+</div>
 
 <!-- 날짜 -->
 <div class="section_2">
@@ -58,9 +59,11 @@
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
+					<div class="rnum">
 						${dto.rnum}
+					</div>
 					</td>
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" class="music_info_icon2"></a></td>
+					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/hjs_music_musicinfo.png" class="music_info_icon2"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
@@ -88,15 +91,15 @@
      				</div>
 					</td> 
 					<!-- target="_blank" -->
-					<td><a href="${dto.youtube_url }"><img src="img/hjs_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
+					<td><a href="${dto.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
 					<td>
 					<!-- 담기 버튼 -->
 					    <c:if test="${rank == null || rank < 1}">
-				            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+				            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					    </c:if>
 					    <c:if test="${rank != null && rank >= 1}">
 					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
-					            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
+					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					        </a>
 					    </c:if>
 					</td>

@@ -12,10 +12,18 @@
 table{
 	border-collapse:collapse;
 	margin: auto;
+	width: 85%;
 }
 table,th, td{
 	border: 1px solid lightgray;
 }
+th {
+background-color: #E4E4E4;
+}
+tr:hover {
+background-color:#f3f3f5; 
+}
+
 h1, h2{
 text-align: center;
 }
@@ -33,8 +41,8 @@ color: #FFA7A7;
 <jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
-<div><a href="/hjs_music_admintest">곡추가</a></div><br>
-<div><a href="/hjs_music_admin">관리자목록으로</a></div>
+<div style="text-align:right; padding-right:260px;"><a href="/hjs_music_admintest">곡추가</a></div><br>
+<div style="text-align:right; padding-right:260px;"><a href="/hjs_music_admin">관리자목록으로</a></div><br>
 <table>
 
 	<tr>

@@ -72,15 +72,15 @@ table{
 	border-collapse:collapse;
 	margin: auto;
 	border: none;
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray;
+	border-bottom: 1px solid #F6F6F6;
+	border-top: 1px solid #F6F6F6;
 	color: #333333;	
 	/* width:950px; */
 }
 th, td{
 	border: none;
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray;
+	border-bottom: 1px solid #F6F6F6;
+	border-top: 1px solid #F6F6F6;
 	color: #333333;
 	margin-left:20px;
 	margin-right:20px;
@@ -96,7 +96,12 @@ th, td{
     text-overflow: ellipsis;
     max-width: 250px;
   }
-  
+th {
+background-color: #E4E4E4;
+}
+tr:hover {
+background-color:#f3f3f5; 
+}
   .text_over{
   	white-space: nowrap;
     overflow: hidden;

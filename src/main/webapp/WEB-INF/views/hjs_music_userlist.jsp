@@ -9,8 +9,25 @@
 <meta charset="UTF-8">
 <title>userlist</title>
 <style>
+table{
+	border-collapse:collapse;
+	margin: auto;
+	width: 85%;	
+}
 table,td {
 border: 1px solid lightgray;
+}
+h1 {
+text-align: center;
+}
+.list {
+text-align: center;
+}
+th {
+background-color: #E4E4E4;
+}
+tr:hover {
+background-color:#f3f3f5; 
 }
 
 </style>
@@ -20,21 +37,21 @@ border: 1px solid lightgray;
 </header>
 <body>
 <h1>회원리스트</h1>
-<br>
-<div><a href="/hjs_music_admin">관리자목록으로</a></div>
+
+<div class="list"><a href="/hjs_music_admin">관리자목록으로</a></div>
 <br>
 <table>
 
 	<tr>
-		<td>순번</td>
-		<td>user_id</td>
-		<td>id</td>
-		<td>pw</td>
-		<td>name</td>
-		<td>email</td>
-		<td>profile_img</td>
-		<td>rank</td>
-		<td>join_date</td>
+		<th>순번</th>
+		<th>user_id</th>
+		<th>id</th>
+		<th>pw</th>
+		<th>name</th>
+		<th>email</th>
+		<th>profile_img</th>
+		<th>rank</th>
+		<th>join_date</th>
 	</tr>
 <c:forEach var="userDTO" items="${list}">
 	<tr>

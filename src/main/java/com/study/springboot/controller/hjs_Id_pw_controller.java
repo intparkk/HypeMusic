@@ -47,22 +47,24 @@ public class hjs_Id_pw_controller {
 		System.out.println(email);
 		System.out.println(userDTO1);
 		
-		if(email.equals(userDTO1.getEmail())){
+		if(userDTO1 != null && email.equals(userDTO1.getEmail())){
 			System.out.println(email);
 			
 			System.out.println(userDTO1.getId());
-			model.addAttribute("id", userDTO1.getId());
+	//		model.addAttribute("id", userDTO1.getId());
+			String mes = "당신의 id는"+ userDTO1.getId()+"입니다";
+			model.addAttribute("message_1",mes);
 			return "hjs_music_findId";
 		}
 		else {
 			
+			System.out.println("아이디찾기");
 			model.addAttribute("message","이메일이 일치하지 않습니다.다시 입력해 주세요.");
 			System.out.println("이메일이 일치하지 않습니다.다시 입력해 주세요.");
+			return "/hjs_music_findId";
 		}	
 
-		System.out.println("아이디찾기");
 		
-			return "hjs_music_findId";
 	}
 	
 	

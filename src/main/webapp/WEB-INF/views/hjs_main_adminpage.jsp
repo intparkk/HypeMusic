@@ -11,10 +11,6 @@
 <title>관리자 권한모드</title>
 
 <Style>
-h3{
-text-align: center;
-
-}
 .img {
 text-align: center;
 }
@@ -22,8 +18,8 @@ table {
 margin: auto;
 }
 td {
-padding-left: 30px;
-padding-right: 30px;
+padding-left: 60px;
+padding-right: 60px;
 }
 </Style>
 
@@ -32,42 +28,40 @@ padding-right: 30px;
 <jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
-<h3>관리자 페이지입니다</h3> 
+<br>
 <table>
-<tr>
-	<td>
-	<div><a href="/hjs_music_admintest">곡추가</a></div><br>
-	<div><a href="/hjs_music_viewtest">곡추가리스트</a></div><br>
-	<div><a href="/hjs_music_userlist">회원리스트</a></div><br>
-	<div><a href="/hjs_music_commentlist">댓글리스트</a></div><br>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	<div>&nbsp;</div>
-	</td>
-	<td>
-	<div class="img"><img src="/img/hjs_TeamStructure.png"></a></div>
-	</td>
-</tr>
+	<tr>
+		<td>
+		    <div style="font-weight: bold; font-size: 18px;">관리자</div><br>
+			<div><a href="/hjs_music_admintest">곡추가</a></div><br>
+			<div><a href="/hjs_music_viewtest">곡추가리스트</a></div><br>
+			<div><a href="/hjs_music_userlist">회원리스트</a></div><br>
+			<div><a href="/hjs_music_commentlist">댓글리스트</a></div><br>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+		</td>
+		<td>
+			<div class="img"><img src="/img/hjs_TeamStructure.png"></a></div>
+		</td>
+	</tr>
 </table>
-
-
-
+<br><br>
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 

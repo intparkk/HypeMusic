@@ -16,7 +16,7 @@ margin: auto;
 
  button {
             padding: 10px 20px;
-            background-color: #FFD6FF;
+            background-color: rgb(244, 218, 241);
             color: black;
             border: none;
             cursor: pointer;
@@ -24,7 +24,7 @@ margin: auto;
         }
  #list-button {
  			padding: 0;
-            background-color: #FFD6FF;
+            background-color: rgb(244, 218, 241);
             color: black;
             border: none;
             cursor: pointer;
@@ -40,7 +40,7 @@ margin: auto;
  }      
  h1 {
  margin: auto;
- background-color: #FFD6FF;
+ background-color: rgb(244, 218, 241);
  color: gray;
  font-weight: bold;
  padding: 0 px;

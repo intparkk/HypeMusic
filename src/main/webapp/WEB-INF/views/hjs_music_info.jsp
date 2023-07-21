@@ -19,7 +19,7 @@
 width: 700px;
 height:60px;
 font-size: 15px;
-background-color: #FFFFE9;
+background-color: rgb(255, 243, 230);
 border: none;
 }
 #submit_button {
@@ -42,19 +42,17 @@ color: #5D5D5D;
 table {
     border-collapse:collapse;
     width: 800px;
+    border: none;
+    border-top: 1px solid rgb(255, 243, 230);
+    border-bottom: 1px solid rgb(255, 243, 230);
 }
-table,th,td{
-	border: none;
-	border-bottom: 1px solid #EAEAEA;
-	/* border-top: 1px solid #faaad8; */
-	
-}
-table, th {
-border-top: 2px solid gray;
-border-bottom: 2px solid gray;
+
+th ,td{
+border-top: 1px solid rgb(212, 193, 177);
+border-bottom: 1px solid rgb(212, 193, 177);
 }
 th {
-background-color : #FFFFE9;
+background-color : rgb(204, 179, 166);
 }
 th,td {
 max-width: 250px;
@@ -62,6 +60,9 @@ max-width: 250px;
 
 td {
 padding-left: 25px;
+}
+tr:hover {
+background-color:rgb(237, 233, 221); 
 }
 	/* 박정수 CSS*/
     #detailsong_body {
