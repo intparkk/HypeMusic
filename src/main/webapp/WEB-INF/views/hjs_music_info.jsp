@@ -163,7 +163,7 @@ padding-left: 25px;
                     
                 	<!--  재생 버튼 완성본 입니다 -->
                     <button type="button" title="재생" class="btn play-btn">
-                        <a href="${tracks.youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
+                        <a href="${trackInfo[0].youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
                     </button> &nbsp;
                 	<jsp:include page="addbutton.jsp"></jsp:include>                	
                 	</dt>         
@@ -273,7 +273,7 @@ padding-left: 25px;
 
 </table>
 <br>
-<a href="/hjs_music_top100"  id="list_button">목록으로</a><br><br>
+<a href="javascript:history.back()"  id="list_button">이전으로</a><br><br>
 </section>
 </div>
 <script>

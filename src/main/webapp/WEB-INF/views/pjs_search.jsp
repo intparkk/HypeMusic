@@ -131,7 +131,7 @@
 	                    </a>
 	                </li>
 	                <li id="artist_name_ul">
-	                    ${artist.artist}
+	                    <a href="/artistinfo/${artist.artist}">${artist.artist }</a>
 	                </li>
 	                </div>
 	            </c:if>
