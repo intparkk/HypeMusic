@@ -46,7 +46,6 @@ public class hjs_Id_pw_controller {
 		UserDTO userDTO1 = userService.userEmail(userDTO);
 		System.out.println(email);
 		System.out.println(userDTO1);
-//		System.out.println(userDTO);
 		
 		if(email.equals(userDTO1.getEmail())){
 			System.out.println(email);
@@ -62,7 +61,7 @@ public class hjs_Id_pw_controller {
 		}	
 
 		System.out.println("아이디찾기");
-	//	return "hjs_music_findId";
+		
 			return "hjs_music_findId";
 	}
 	

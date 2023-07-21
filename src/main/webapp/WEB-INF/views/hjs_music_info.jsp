@@ -202,18 +202,14 @@ padding-left: 25px;
 </script>
 
 <!-- 진서님 댓글 파트 -->
-<!--   -->
 <section id = "reply_section">
 <c:choose>
 <c:when test="${not empty userInfo }">
 <h3 id ="blackword">댓글달기</h3>
 <form action="/write_comment" method="post">
 <input type="hidden" name="track_id" value="${trackInfo[0].track_id }">
-<%-- <input type="hidden" name="user_id" value="${userInfo.user_id }"> --%>
-글번호 : ${dto2.comment_id }<!-- <input type="text" name="comment_id"> --><br>
-<!-- 원본 -->
-<!-- 작성자 : <input type="text" name="member_id"><br> -->
-작성자 :${userInfo.name } <!-- <input type="text" name="user_id"><br> --><br>
+글번호 : ${dto2.comment_id }<br>
+작성자 :${userInfo.name }<br>
 댓글&nbsp;&nbsp;&nbsp; : <textarea class="text" name="comment_content"></textarea>
 <input type="submit" value="등록" id="submit_button">
 </form>
@@ -250,8 +246,6 @@ padding-left: 25px;
 	 <tr>
 		<td>${dto2.comment_id }</td>
 		<td>${dto2.parent_id }</td>
-	<%-- 	<td>${dto2.member_id }</td> --%>
-		<%-- <td>${dto2.user_id }</td> --%>
 		<td>${dto2.name }</td>
 		<td>${dto2.comment_content }</td>
 		<td>${dto2.comment_time }</td>
@@ -279,8 +273,6 @@ padding-left: 25px;
 
 </table>
 <br>
-<%-- <a href="/modifyForm?id=${dto.track_id }">수정하기</a><br><br> --%>
-<%-- <a href="/reply?track_id=${dto.track_id }">답글</a><br><br> --%>
 <a href="/hjs_music_top100"  id="list_button">목록으로</a><br><br>
 </section>
 </div>

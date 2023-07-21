@@ -60,6 +60,7 @@
 					<td>
 						<%-- &nbsp;${loop.index + 1} --%>
 						${tracks.rnum}
+						${dto.rnum}
 					</td>
 					<td><a href="/music_info?track_id=${tracks.track_id }" id="atag_track_id" data-value="${tracks.track_id}">
 					<img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;">
@@ -109,7 +110,6 @@
 
 			int total = (int) request.getAttribute("total");
 			int countPerPage = (int) request.getAttribute("countPerPage");
-// 			ceil(101/10) == 11
 			double lastPage = Math.ceil( (double)total / (double)countPerPage);
 
 			// 페이징 그룹
@@ -141,12 +141,7 @@
 			session.setAttribute("test", 3);
 			application.setAttribute("test2", 4);
 		%>
-		
-	<!-- 화면 페이징에 대한 정보는 주석처리함 -->	
-<%--  		total: <%= total%><br>
- 		countPerPage: <%= countPerPage%><br>
- 		lastPage: <%= lastPage%><br>
- --%> 		
+
 		<div style="width:350px; margin: 0 auto; margin-top: 20px; margin-bottom: 20px;">
 		<%
 			if(begin != 1){

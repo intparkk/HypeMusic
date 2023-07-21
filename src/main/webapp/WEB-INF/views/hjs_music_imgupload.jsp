@@ -28,14 +28,6 @@
     <td><img src="/hjs_readMail?id=${lastFile.name}"></td>
 </tr>
 
-<%-- 	
-	<c:forEach var="map" items="${fileList}">
-		<tr>
-			<td><img src="/hjs_readMail?id=${map.name }"></td>
-		</tr>
-	</c:forEach>
-	
---%>
 </table>
 		
 </body>

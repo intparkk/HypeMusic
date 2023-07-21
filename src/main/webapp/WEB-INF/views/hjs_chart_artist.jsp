@@ -8,15 +8,7 @@
 </head>
 <body>
  <h1>가수별 좋아요 수 변화</h1>
- <!--    <form action="/hjs_chart_artist" method="get">
-        <label for="artist">가수 이름:</label>
-        <input type="text" id="artist" name="artist" required>
-        <button type="button">조회</button>
-    </form>
-    <br><br>
-     <img src="/hjs_chart_artist?artist=아이유" alt="" style="width: 650px;height: 650px;">
- -->   
- 
+  
  <form id="chartForm">
  <label for="artist">가수이름:</label>
  <input type="text" id="artist" name="artist" required>
