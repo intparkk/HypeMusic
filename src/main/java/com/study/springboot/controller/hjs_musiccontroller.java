@@ -101,14 +101,7 @@ public class hjs_musiccontroller {
 	                    Cell cell = row.getCell(0);
 	                    double track_id2 = cell.getNumericCellValue();
 	                    
-	                    // 0.88%의 곡이 DB에 담기지 않네요. 분명히 처리하는 방법이
-	                    // 있겠지만, 지금 당장은 이 정도만 담아둘께요. (추후 수정 예정)
-	                    // 23 ÷ 2612 * 100 = 0.8805...
-	                    // 그래도 2589 ÷ 2612 * 100 = 99.1194 
-	                    // 99.12%의 곡을 담았으니 성공입니다. ^^
-	                    
-	                    // 에러가 나는 데이터
-	                    // 날짜형식 오류,long 타입이 없는데 long 타입오류가 납니다.
+	                    // 날짜형식 오류,long 타입오류
 	                    // track_id2 = 53969.0
 	                    // track_id2 = 31856628.0
 	                    // track_id2 = 31470006.0
@@ -189,7 +182,7 @@ public class hjs_musiccontroller {
 
 	                    // release_date를 String으로 받았는데, 만약 String이 되지 않을 때에는 
 	                    // java 날짜형식으로 변환한 다음, sql날짜 형식으로 변환해서 담을 수도 있습니다. 
-	                    
+	                    // 예시
 	                    // Cell cell8 = row.getCell(5);
 	                    // double release_date2 = cell8.getNumericCellValue();
 	                    // java.util.Date utilDate = DateUtil.getJavaDate(release_date2);
@@ -217,7 +210,6 @@ public class hjs_musiccontroller {
 	                    musicDto.setAlbum_name(album_name2);
 	                    musicDto.setLike_count(like_count2);
 	                    musicDto.setGenre(genre2);
-//	                    musicDto.setRelease_date(sqlDate);
 	                    musicDto.setRelease_date(release_date2);
 	                    musicDto.setLyrics(lyrics2);
 	               
@@ -280,14 +272,7 @@ public class hjs_musiccontroller {
 		req.setAttribute("pageNum", pageNum);
 		model.addAttribute("countPerPage", countPerPage);
 		
-//		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
-//		model.addAttribute("list",list);
-//		System.out.println(list);
-		
-//		int url = hjsmusicService.youtubeDao(youtube_url);
-		
 		Map map = hjsmusicService.list(musicDto);
-//		model.addAttribute("map", map);
 
 		List<HjsmusicDTO> list = (List<HjsmusicDTO>) map.get("list");
 		model.addAttribute("list", list);
@@ -300,53 +285,6 @@ public class hjs_musiccontroller {
 		return "hjs_music_top100";
 	}
 
-
-	// 박정수 : 페이지 업데이트를 위해 우선 주석처리하였습니다.
-
-
-	//@RequestMapping("/music_info")
-
-	
-
-
-	
-//	// 원본 뮤직 Top100
-//	@RequestMapping("/hjs_music_top100")
-//	public String music_top100(
-//			Model model,
-//			HttpServletRequest req, 
-//			HjsmusicDTO musicDto
-//			) {
-//		
-//		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
-//		HjsmusicDTO dto = musicDto;
-//		
-//		List<HjsmusicDTO> list = hjsmusicDAO.listDao(musicDto);
-//		model.addAttribute("list",list);
-//		System.out.println(list);
-//		return "hjs_music_top100";
-//	}
-	
-	
-	
-//	@RequestMapping("/music_info")
-//	public String music_info(
-//			Model model,
-//			@RequestParam("track_id") String track_id,
-//			@ModelAttribute HjscommentDTO dto2,
-//			HttpServletRequest req
-//			) {
-//		HjsmusicDTO dto = hjsmusicDAO.viewDao(track_id);
-//		model.addAttribute("dto",dto);
-//		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
-//		model.addAttribute("list",list);
-//		
-//		System.out.println(list);
-//		return "hjs_music_info";
-//	}
-	
-	
-////////////////////////////////////////////////////////////////////////////////////////	
 	// 페이지 완성후에 오류코드를 확인후 수정하기 
 	@RequestMapping("/music_info")
 
@@ -358,17 +296,11 @@ public class hjs_musiccontroller {
 			) {
 		
 		HttpSession session = req.getSession();
-		//user_id를 세션에서 가져오기
 		
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 		int user_id = userInfo.getUser_id();
 		
 		System.out.println("user_id:"+user_id);
-	//	session.setAttribute("userInfo", userInfo);
-	//	System.out.println("[/doLogin]로그인 성공 id : " + userDTO.getId());
-	//	System.out.println("[/doLogin]userInfo : " + userInfo);
-		
-		
 		
 		HjsmusicDTO dto = hjsmusicDAO.viewDao(track_id);
 		model.addAttribute("dto",dto);
@@ -378,42 +310,6 @@ public class hjs_musiccontroller {
 		System.out.println(list);
 		return "hjs_music_info";
 	}
-	
-	
-	// 원본
-	/* DB에 댓글을 저장하는 컨트롤러 */
-//	@RequestMapping("/write_comment")
-//	public String write2(
-//			@ModelAttribute HjsmusicDTO dto,
-//			@RequestParam(value="track_id", required=true, defaultValue="") 
-//			String track_id,
-//			@ModelAttribute HjscommentDTO dto2,
-//			Model model,
-//			HttpServletRequest req
-//			) {
-//		
-//		model.addAttribute("track_id", track_id);
-//		System.out.println(track_id);
-//		
-//		String comment_id = dto2.getComment_id();
-//		String member_id = dto2.getMember_id();
-//		String comment_content = dto2.getComment_content();
-//		String parent_id = dto2.getParent_id();
-//		
-//		System.out.println("comment_id : "+ comment_id);
-//		System.out.println("member_id : "+ member_id);
-//		System.out.println("comment_content: "+ comment_content);
-//		System.out.println("parent_id : "+ parent_id);
-//		
-//		int result = hjscommentDAO.writeDao(dto2);
-//		
-//		System.out.println("writeDao result : "+ result);
-//		
-//		
-//		return "redirect:/music_info?track_id="+track_id;
-//		
-//	}
-//
 	
 	@RequestMapping("/write_comment")
 	public String write2(
@@ -429,7 +325,6 @@ public class hjs_musiccontroller {
 			) {
 
 		HttpSession session = req.getSession();
-		//user_id를 세션에서 가져오기
 		
 		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
 		
@@ -444,15 +339,12 @@ public class hjs_musiccontroller {
 		
 		int user_id2 = userInfo.getUser_id();
 		
-		
 		System.out.println("user_id:"+user_id2);
 		
 		// --------- 박정수 : 여기서부터 수정한 내용입니다 --------------
 		// 박정수 : track_id 를 처리하기 위한 변수입니다
 		HjsmusicDTO trackId = hjsmusicDAO.viewDao(track_id);
 		String trackIdString = trackId.getTrack_id();
-		
-		//System.out.println("trackId : "+trackIdString);
 		
 		// 박정수 : 댓글 달기위해 호출하였습니다
 		List<HjscommentDTO> list = hjscommentDAO.listDao(track_id);
@@ -474,7 +366,6 @@ public class hjs_musiccontroller {
 		
 		int result = hjscommentDAO.writeDao(dto2);
 		System.out.println("writeDao result : "+ result);
-	//	System.out.println(user_id);
 		return "redirect:/music_info?track_id="+trackIdString;		
 	}
 	
@@ -590,105 +481,6 @@ public class hjs_musiccontroller {
 		System.out.println("걸린시간: "+(System.currentTimeMillis() - before));
 		
 		return "hjs_music_genre";
-	}
-	
-	// 관리자 음악정보 insert기능
-	@RequestMapping("/hjs_music_admintest")
-	public String admintest(
-			HttpServletRequest req,
-			HttpServletResponse resp
-			) {
-		HttpSession session = req.getSession();
-		//user_id를 세션에서 가져오기
-		
-		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-		
-		//null이면 로그인 페이지로 유도 
-		if(userInfo == null) {
-			try {
-				resp.sendRedirect("/login");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-
-		return "hjs_music_admintest";
-	}
-	
-	// 관리자 음악정보 insert기능 
-	@RequestMapping("/hjs_music_admininsert")
-	public String admintest(
-			HjsmusicDTO musicDto2,
-			Model model,
-			HttpServletRequest req,
-			HttpServletResponse resp
-			) {
-
-		HttpSession session = req.getSession();
-		//user_id를 세션에서 가져오기
-		
-		UserDTO userInfo = (UserDTO) session.getAttribute("userInfo");
-		
-		//null이면 로그인 페이지로 유도 
-		if(userInfo == null) {
-			try {
-				resp.sendRedirect("/login");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		
-		 String track_id = musicDto2.getTrack_id(); 
-		 String artist_id = musicDto2.getArtist_id(); 
-		 String album_img = musicDto2.getAlbum_img();
-		 String title = musicDto2.getTitle(); 
-		 String artist = musicDto2.getArtist(); 
-		 String album_name = musicDto2.getAlbum_name();
-		 int like_count = musicDto2.getLike_count(); 
-		 String genre = musicDto2.getGenre(); 
-		 String release_date = musicDto2.getRelease_date();
-		 String lyrics = musicDto2.getLyrics();
-		
-		 System.out.println("track_id : "+ track_id);
-		 
-		 int result = hjsmusicDAO.writeDao2(musicDto2);
-		
-		 System.out.println("writeDao2 result : "+ result);
-		 
-		return "hjs_music_admintest";
-	}
-	
-	// 관리자 음악정보 insert후에 리스트 확인
-	@RequestMapping("/hjs_music_viewtest")
-	public String viewtest(
-			HjsmusicDTO musicDto2,
-			Model model,
-			HttpServletRequest req
-			
-			) {
-		HjsmusicDTO newmusic = musicDto2;
-		
-		List<HjsmusicDTO> list = hjsmusicDAO.listDao2(musicDto2);
-		model.addAttribute("list", list);
-		System.out.println(list);
-		
-		
-		return "hjs_music_viewtest";
-	}
-	
-	
-	@RequestMapping("/admin_delete")
-	public String admin_delete(
-			@ModelAttribute("dto") HjsmusicDTO dto,
-			@RequestParam(value = "track_id", required = true, defaultValue = "") String track_id
-			) {
-		System.out.println(track_id);
-		int result = hjsmusicDAO.deleteadminDao(track_id);
-		System.out.println("삭제 개수 : "+ result);
-		
-		return "redirect:/hjs_music_viewtest";
 	}
 	
 }

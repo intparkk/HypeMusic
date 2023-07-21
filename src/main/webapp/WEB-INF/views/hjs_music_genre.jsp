@@ -185,7 +185,6 @@ a:hover {
 			      <td class ="text_over">${dto.release_date}</td>
 			      <td>
 			      <!--  재생 버튼 -->
-			      <!-- 유튜브 url 필요 -->                    
 			      <a href=""><button type="button" title="재생" class="btn play-btn" >
                     <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
                 	</button>

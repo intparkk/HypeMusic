@@ -15,9 +15,6 @@ table{
 }
 table,th, td{
 	border: 1px solid lightgray;
-	
-/* 	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray; */
 }
 h1, h2{
 text-align: center;
@@ -33,9 +30,11 @@ color: #FFA7A7;
 
 </head>
 <header>
-<jsp:include page="hjs_music_header2.jsp"></jsp:include> 
+<jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
+<div><a href="/hjs_music_admintest">곡추가</a></div><br>
+<div><a href="/hjs_music_admin">관리자목록으로</a></div>
 <table>
 
 	<tr>
@@ -66,8 +65,6 @@ color: #FFA7A7;
 		<td>${dto.release_date }</td>
 		<td>${dto.lyrics }</td>
 		<td><a href="/admin_delete?track_id=${dto.track_id }" class="delete">곡삭제</a></td>
-		
-<!-- <a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">삭제</a> -->		
 	</tr>
 </c:forEach>
 	

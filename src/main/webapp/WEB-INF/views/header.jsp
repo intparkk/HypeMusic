@@ -115,7 +115,7 @@
 			  <c:when test="${userInfo.rank eq 'admin'}">
 			    <a href="/myInfo" title="내정보"><button class="myInfo_btn">내정보</button></a>
 			    <a href="/logout" title="로그아웃"><button class="logout_btn">로그아웃</button></a>
-			    <a href="/admin" title="관리자"><button class="admin_btn">관리자</button></a>
+			    <a href="/hjs_music_admin" title="관리자"><button class="admin_btn">관리자</button></a>
 			  </c:when>
 			</c:choose>
 	    </div>

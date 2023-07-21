@@ -20,6 +20,9 @@ border: 1px solid lightgray;
 </header>
 <body>
 <h1>회원리스트</h1>
+<br>
+<div><a href="/hjs_music_admin">관리자목록으로</a></div>
+<br>
 <table>
 
 	<tr>

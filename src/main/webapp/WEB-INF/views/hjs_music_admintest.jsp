@@ -61,7 +61,11 @@ width: 257px;
 height: 27px;
 border: 2px solid lightgray;
 color: gray;
-}        
+}    
+
+#admin_button {
+margin: 0 auto;
+}    
 </style>
 
 </head>
@@ -148,16 +152,18 @@ color: gray;
             
             <div id="list-button">
     		
-        <button onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">목록으로</button>
+        <button onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">추가곡확인</button>
     		
 			</div>
             </td>
-      <!-- 업데이트 테스트 -->      
+           
         </tr>
          
 </form>
 </table>
-	
+<br>
+<div style="text-align:center">
+<a href="/hjs_music_admin" id="admin_button">관리자목록으로</a></div>	
 
 
 <br><br><br><br>

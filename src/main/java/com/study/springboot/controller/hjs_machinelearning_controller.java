@@ -43,7 +43,7 @@ public class hjs_machinelearning_controller {
 	private String fontPath;
 
 	
-	// 가수별 평균 좋아요 수 
+	// 가수별 평균 좋아요 수  // 막대그래프
 	@RequestMapping("/hjs_chart_likecount")
 	public void likecount_chart(HttpServletResponse response) {
 	    // 가수별 좋아요 수의 평균 데이터를 담을 데이터셋 생성
@@ -94,13 +94,6 @@ public class hjs_machinelearning_controller {
 	        // 폰트 객체 생성
 	        Font customFont;
 	        customFont = new Font("NotoSansKR-Medium", Font.PLAIN, 12);
-//	        try {
-//	        	customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontPath));
-//	        	customFont = customFont.deriveFont(Font.PLAIN, 12); // 폰트 크기 및 스타일 설정
-//	        } catch (FontFormatException | IOException e) {
-//	            e.printStackTrace();
-//	            // 폰트 생성에 실패한 경우 기본 폰트를 사용하도록 설정
-//	        }
 
 	        // 폰트 설정
 	        chart.getTitle().setFont(customFont); // 차트 제목 폰트 설정
@@ -121,7 +114,6 @@ public class hjs_machinelearning_controller {
 	        e.printStackTrace();
 	    }
 	
-	//	return "hjs_img_chart";
 }	
 	
 	
@@ -146,8 +138,6 @@ public class hjs_machinelearning_controller {
         try (Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@1.247.146.31:51521/xe", "hypemusic", "hype1234")) {
             // SQL 쿼리 실행
             String query = "SELECT LIKE_COUNT,release_date FROM TB_MUSIC WHERE artist Like '%'||?||'%' ORDER BY release_date ASC";
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(query);
             
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, artist); // Bind the artist parameter with the provided value
@@ -160,17 +150,15 @@ public class hjs_machinelearning_controller {
             while (resultSet.next()) {
                 String release_date = resultSet.getString("release_date");
                 int likeCount = resultSet.getInt("LIKE_COUNT");
-//                System.out.println(artist +","+ likeCount);
-        //        if(release_date == null) release_date = "noname";
                 dataset.addValue(likeCount, "좋아요 수", release_date);
             }
 
             // 선 그래프 생성
             JFreeChart chart = ChartFactory.createLineChart(
                     "like_count change",   // 차트 제목
-                    "release_date",                  // x축 레이블
-                    "like_count",             // y축 레이블
-                    dataset                  // 데이터셋
+                    "release_date",        // x축 레이블
+                    "like_count",          // y축 레이블
+                    dataset                // 데이터셋
             );
 
             // 그래프 스타일 설정 SansSerif
