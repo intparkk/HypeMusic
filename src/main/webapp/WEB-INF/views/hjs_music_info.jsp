@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>HYPEMUSIC : ${trackInfo[0].title}</title>
 <style>
 /* 진서님 CSS*/
 .text {
@@ -161,9 +161,10 @@ padding-left: 25px;
                     <img width="30" height="25" src = "/img/pink_heart1.jpg"> &nbsp;
                     <span id ="icon_nextword">${trackInfo[0].like_count} &nbsp; &nbsp;</span>
                     
-                    <button type="button" title="재생" class="btn play-btn" >
-                    <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
-                	</button> &nbsp;
+                	<!--  재생 버튼 완성본 입니다 -->
+                    <button type="button" title="재생" class="btn play-btn">
+                        <a href="${tracks.youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
+                    </button> &nbsp;
                 	<jsp:include page="addbutton.jsp"></jsp:include>                	
                 	</dt>         
                 </dl>   
@@ -175,6 +176,30 @@ padding-left: 25px;
       	<p>${trackInfo[0].lyrics }</p>
       </div>     
 </section>
+
+<!-- 재생 버튼의 스크립트입니다 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 재생 버튼 지정 (querySelectorAll로 변경)
+        const playButtons = document.querySelectorAll('.btn.play-btn');
+        const nowRank = '${userInfo.rank}'; // 현재 랭크값 가져오기
+        console.log(nowRank);
+
+        // 재생 버튼 이벤트 등록 (for문으로 모든 버튼에 적용)
+        for (let i = 0; i < playButtons.length; i++) {
+            playButtons[i].addEventListener('click', function (event) {
+                // 만약 rank가 null 또는 "normal"이면
+                // 기본 링크 동작을 막고, 알림 메시지를 표시
+                if (nowRank == '' || nowRank === "normal") {
+                    event.preventDefault(); // 기본 링크 동작 막기
+                    alert("로그인 또는 이용권을 구매해주세요.");
+                }
+                // 만약 rank가 "ticket" 또는 "admin"이면
+                // 링크는 새 창에서 열립니다.
+            });
+        }
+    });
+</script>
 
 <!-- 진서님 댓글 파트 -->
 <!--   -->

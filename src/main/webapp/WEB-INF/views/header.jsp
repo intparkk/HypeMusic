@@ -39,6 +39,13 @@
       color: #000000;
       font-weight: bold;
 	}  	
+	#welcome	{
+		display:flex;
+	}
+	#get_ticket {
+		margin-right:10px;
+		margin-top:9px;
+	}
 </style>
 <header>
 <div id="header">
@@ -48,7 +55,7 @@
 		</div>
 		<div class="head_top_right">
 		<!-- rank 수정 부탁드립니다! -->
-			<span title="환영코드">
+			<span title="환영코드" id="welcome">
 			  <c:choose>
 			    <c:when test="${empty userInfo.id}">
 			      <span class="user_states">방문객</span>
@@ -56,10 +63,10 @@
 			    <c:otherwise>
 			      <c:choose>
 			        <c:when test="${userInfo.rank eq 'ticket'}">
-			          <img src="/img/ticket_icon.png" alt="이용권 아이콘" style="width: 20px; height: 20px;"/>
+			          <div id ="get_ticket"><img src="/img/ticket_icon.png" alt="이용권 아이콘" style="width: 25px; height: 30px;"/></div>
 			        </c:when>
 			        <c:when test="${userInfo.rank eq 'admin'}">
-			          <img src="/img/admin_icon.png" alt="관리자 아이콘" style="width: 20px; height: 20px; margin-left: 20px; margin-top: -5px;" />
+			          <img src="/img/admin_icon.png" alt="관리자 아이콘" style="width: 25px; height: 25px; margin-right: 7px; margin-top: 10px;" />
 			        </c:when>
 			      </c:choose>
 			      <span class="user_states">${userInfo.id}</span>
