@@ -105,17 +105,15 @@
 	  <div class="album_tracks">
 	    <h2 id="blackword">앨범 수록곡</h2>
 	    <ul>
-	        <c:forEach var="track" items="${albumInfo}">
+	        <c:forEach var="tracks" items="${albumInfo}">
 	            <li>
-	                <a href="/albuminfo/${track.album_id}"><img src="${track.album_img}" alt="Album Image"></a>
-	                <a href="/music_info?track_id=${track.track_id}">${track.title}</a> - <a href="/artistinfo/${track.artist_id}">${track.artist}</a> &nbsp;&nbsp;&nbsp;&nbsp;	                
+	                <a href="/albuminfo/${tracks.album_id}"><img src="${tracks.album_img}" alt="Album Image"></a>
+	                <a href="/music_info?track_id=${tracks.track_id}" id="atag_track_id" data-value="${tracks.track_id}">${tracks.title}</a> - <a href="/artistinfo/${tracks.artist_id}">${tracks.artist}</a> &nbsp;&nbsp;&nbsp;&nbsp;	                
                 	<!--  재생 버튼 완성본 입니다 -->
                     <button type="button" title="재생" class="btn play-btn">
-                        <a href="${track.youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
+                        <a href="${tracks.youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
                     </button>
-                    <button type="button" title="담기" class="btn add-btn" >
-                    <img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
-                	</button>
+                    <jsp:include page="addbutton.jsp"></jsp:include>
 	            </li>
 	        </c:forEach>
 	    </ul>

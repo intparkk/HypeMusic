@@ -95,52 +95,47 @@ letter-spacing: 5px;
 				<th>담기</th>
 			</thead>			
     	<tbody>    	
-        <c:forEach var="dto" items="${list}" begin="0" end="99"> 	 			
+        <c:forEach var="tracks" items="${list}" begin="0" end="99"> 	 			
 				<tr>
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
 						<%-- &nbsp;${loop.index + 1} --%>
-						${dto.rnum}
+						${tracks.rnum}
 					</td>
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;"></a></td>
+					<td><a href="/music_info?track_id=${tracks.track_id }" id="atag_track_id" data-value="${tracks.track_id}">
+					<img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;">
+					</a>
+					</td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
-          				 <img src="${dto.album_img}" alt="album_image" style="width: 100px;height: 100px;">
+          				 <img src="${tracks.album_img}" alt="album_image" style="width: 100px;height: 100px;">
         				 	<div class="caption">
-                			<p>${dto.title }</p>
-                			<p>${dto.artist }</p>
+                			<p>${tracks.title }</p>
+                			<p>${tracks.artist }</p>
             				</div>
         				 </div>
 					</td>
 					<td>
 					<div class="caption1">
-				     <p><a href="/music_info?track_id=${dto.track_id}">${dto.title }</a></p>
-                	 <p><a href="/artistinfo/${dto.artist_id}">${dto.artist }</a></p>
+				     <p><a href="/music_info?track_id=${tracks.track_id}">${tracks.title }</a></p>
+                	 <p><a href="/artistinfo/${tracks.artist_id}">${tracks.artist }</a></p>
 				    </div>
 					</td>
 					<td>
 					<div class="caption2">
-				     ${dto.album_name }
+				     ${tracks.album_name }
 				    </div>
 					</td>
 					<td>
 					<div class="caption3">
-     				<p>${dto.like_count }</p>
+     				<p>${tracks.like_count }</p>
      				</div>
 					</td>
 					<td><a href="#"><img src="img/hjs_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
 					<td>
-					<!-- 담기 버튼 -->
-					    <c:if test="${rank == null || rank < 1}">
-				            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					    </c:if>
-					    <c:if test="${rank != null && rank >= 1}">
-					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
-					            <img src="/img/hjs_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					        </a>
-					    </c:if>
+						<jsp:include page="addbutton.jsp"></jsp:include>
 					</td>
 				</tr>   
     	  </c:forEach>    	

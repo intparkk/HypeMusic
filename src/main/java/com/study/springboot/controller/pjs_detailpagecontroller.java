@@ -39,8 +39,8 @@ public class pjs_detailpagecontroller
     	// 진서님 listDao 쓰기위해 String 형변환
     	//Integer track_id = trackId;
     	//String track_id_reply = track_id.toString();
-        
-    	// 진서님 listDao 호출
+    	
+     	// 진서님 listDao 호출
     	List<trackinfoDTO> trackInfo = detailpageService.musicinfo(trackId);
         List<HjscommentDTO> replyAll = commentService.listDao(trackId);
         

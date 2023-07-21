@@ -173,16 +173,16 @@ a:hover {
 			  </tr>
 			  <div id ="table_header_blank"></div>
 			    <tr class = "table_contents">
-			  	  <c:forEach var="dto" items="${list}" begin="0" end="99" varStatus="loop">
+			  	  <c:forEach var="tracks" items="${list}" begin="0" end="99" varStatus="loop">
 			      <td>${loop.index + 1}</td>
-			      <td class ="text_over">${dto.genre}</td>
-			      <td><a href="/music_info?track_id=${dto.track_id}"><img id="table_img" src="${dto.album_img}" alt="album_image" style="width: 100px; height: 100px;"></a></td>
+			      <td class ="text_over">${tracks.genre}</td>
+			      <td><a href="/music_info?track_id=${tracks.track_id}" id="atag_track_id" data-value="${tracks.track_id}"><img id="table_img" src="${tracks.album_img}" alt="album_image" style="width: 100px; height: 100px;"></a></td>
 			      <td>
-			        <p><a href="/music_info?track_id=${dto.track_id}">${dto.title}</a></p>
-			        <p><a href="/artistinfo/${dto.artist_id}">${dto.artist}</a></p>
+			        <p><a href="/music_info?track_id=${tracks.track_id}">${tracks.title}</a></p>
+			        <p><a href="/artistinfo/${tracks.artist_id}">${tracks.artist}</a></p>
 			      </td>
-			      <td><a href="/albuminfo/${dto.track_id}">${dto.album_name}</a></td>
-			      <td class ="text_over">${dto.release_date}</td>
+			      <td><a href="/albuminfo/${tracks.track_id}">${tracks.album_name}</a></td>
+			      <td class ="text_over">${tracks.release_date}</td>
 			      <td>
 			      <!--  재생 버튼 -->
 			      <!-- 유튜브 url 필요 -->                    

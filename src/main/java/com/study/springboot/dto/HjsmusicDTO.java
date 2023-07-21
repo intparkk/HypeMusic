@@ -21,7 +21,6 @@ public class HjsmusicDTO {
 
 	private int startNum;
 	private int endNum;
-
 	
 	
 	public Integer getRnum() {

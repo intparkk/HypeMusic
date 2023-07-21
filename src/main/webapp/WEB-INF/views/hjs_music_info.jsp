@@ -16,10 +16,10 @@
 <style>
 /* 진서님 CSS*/
 .text {
-width: 500px;
-height:40px;
+width: 700px;
+height:60px;
 font-size: 15px;
-background-color: #FFD6FF;
+background-color: #FFFFE9;
 border: none;
 }
 #submit_button {
@@ -45,11 +45,23 @@ table {
 }
 table,th,td{
 	border: none;
-	border-bottom: 1px solid #faaad8;
-	border-top: 1px solid #faaad8;
+	border-bottom: 1px solid #EAEAEA;
+	/* border-top: 1px solid #faaad8; */
+	
+}
+table, th {
+border-top: 2px solid gray;
+border-bottom: 2px solid gray;
+}
+th {
+background-color : #FFFFE9;
 }
 th,td {
 max-width: 250px;
+}
+
+td {
+padding-left: 25px;
 }
 	/* 박정수 CSS*/
     #detailsong_body {
@@ -122,7 +134,7 @@ max-width: 250px;
 <section class="detailsong_section">
 			<!-- 자켓 커버  -->
 			<div class = "detailpage_img">			
-            <a href="#" class="image_typeAll">
+            <a href="/music_info?track_id=${trackInfo[0].track_id }" class="image_typeAll" id="atag_track_id" data-value="${trackInfo[0].track_id}">
                 <img width="255" height="255" src="${trackInfo[0].album_img}">
             </a>
             </div>
@@ -149,12 +161,10 @@ max-width: 250px;
                     <img width="30" height="25" src = "/img/pink_heart1.jpg"> &nbsp;
                     <span id ="icon_nextword">${trackInfo[0].like_count} &nbsp; &nbsp;</span>
                     
-                	<!--  재생 버튼 완성본 입니다 -->
-                    <button type="button" title="재생" class="btn play-btn">
-                        <a href="${trackInfo[0].youtube_url}" target="_blank"><img src="/img/hjs_play.png" alt="재생" style="width: 30px; height: 30px;"></a>
-                    </button> &nbsp;
-                	<span id ="icon_nextword"></span> &nbsp; 
-					<jsp:include page = "addbutton.jsp"></jsp:include>
+                    <button type="button" title="재생" class="btn play-btn" >
+                    <img src="/img/hjs_play.png" alt="재생" style="width: 30px;  height: 30px;">
+                	</button> &nbsp;
+                	<jsp:include page="addbutton.jsp"></jsp:include>                	
                 	</dt>         
                 </dl>   
 </section>
@@ -178,8 +188,8 @@ max-width: 250px;
 글번호 : ${dto2.comment_id }<!-- <input type="text" name="comment_id"> --><br>
 <!-- 원본 -->
 <!-- 작성자 : <input type="text" name="member_id"><br> -->
-작성자 :${userInfo.user_id } <!-- <input type="text" name="user_id"><br> --><br>
-댓글 : <textarea class="text" name="comment_content"></textarea>
+작성자 :${userInfo.name } <!-- <input type="text" name="user_id"><br> --><br>
+댓글&nbsp;&nbsp;&nbsp; : <textarea class="text" name="comment_content"></textarea>
 <input type="submit" value="등록" id="submit_button">
 </form>
 </c:when>
@@ -200,9 +210,9 @@ max-width: 250px;
 		<th>작성시간</th>
 <c:choose>
 <c:when test="${not empty userInfo }">	
-		<th>답글</th>
-		<th>수정</th>
-		<th>삭제</th>
+		<th>&nbsp; &nbsp; 답글</th>
+		<th>&nbsp; &nbsp; 수정</th>
+		<th>&nbsp; &nbsp; 삭제</th>
 </c:when>
 <c:otherwise>
 </c:otherwise>
@@ -216,7 +226,8 @@ max-width: 250px;
 		<td>${dto2.comment_id }</td>
 		<td>${dto2.parent_id }</td>
 	<%-- 	<td>${dto2.member_id }</td> --%>
-		<td>${dto2.user_id }</td>
+		<%-- <td>${dto2.user_id }</td> --%>
+		<td>${dto2.name }</td>
 		<td>${dto2.comment_content }</td>
 		<td>${dto2.comment_time }</td>
 <c:choose>
@@ -230,6 +241,7 @@ max-width: 250px;
 	<c:otherwise>
 		<td><a href="#" class="edit-link">수정</a></td>
 		<td><a href="#" class="delete-link">삭제</a></td>
+		
 	</c:otherwise>
 	</c:choose>	
 </c:when>
@@ -247,9 +259,30 @@ max-width: 250px;
 <a href="/hjs_music_top100"  id="list_button">목록으로</a><br><br>
 </section>
 </div>
+<script>
+    // 로그인 경고창을 띄우는 함수
+    function showLoginAlert() {
+        alert("권한이 없습니다! 관리자에게 문의해주세요.");
+    }
 
+    // "수정" 링크에 클릭 이벤트 리스너 추가
+    const editLinks = document.querySelectorAll('.edit-link');
+    editLinks.forEach((editLink) => {
+        editLink.addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 방지
+            showLoginAlert();
+        });
+    });
 
-
+    // "삭제" 링크에 클릭 이벤트 리스너 추가
+    const deleteLinks = document.querySelectorAll('.delete-link');
+    deleteLinks.forEach((deleteLink) => {
+        deleteLink.addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 방지
+            showLoginAlert();
+        });
+    });
+</script>
 </body>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include> 

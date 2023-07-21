@@ -19,7 +19,26 @@
 	a:hover {
 		color: #000000;
      	 font-weight: bold;
-	}	
+	}
+	 .admin_btn
+     {
+        background-color: white;
+        border: none;
+        color: gray;
+        padding: 8px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+     .admin_btn:hover {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+	}  	
 </style>
 <header>
 <div id="header">

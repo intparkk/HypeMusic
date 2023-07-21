@@ -10,7 +10,6 @@
 <title>담기 버튼입니다</title>
 </head>
 <style>
-
 	.btn {
     display: inline-block;
     padding: 5px;
@@ -22,12 +21,12 @@
 </style>
 <body>
 	<!--  담기 버튼 여기서 작업하시면 됩니다 -->
-   	<button type="button" title="담기" class="btn add-btn" onclick="showPlaylistPopup()">
-    <img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
+   	<button type="button" title="담기" class="btn add-btn" data-track_id="${param.track_id }" onclick="showPlaylistPopup(this)">
+    	<img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
 	</button>
-	<span id ="icon_nextword"></span>
-	<script>
 	
+	
+	<script>	
 	/* 현재 url에서 TrackId 추출 */
 	const url = window.location.href;
 	const trackId = url.split("=").pop();
