@@ -59,26 +59,13 @@
 					<td><input type="checkbox" name="check" id="checkbox">
                             <span class="checkmark"></span></td>					
 					<td>
-<<<<<<< HEAD
+
 					<div class="rnum">
-=======
-						<%-- &nbsp;${loop.index + 1} --%>
-						${tracks.rnum}
->>>>>>> b86936a9d353678f09e4fb30fa628e1d6b588a75
-						${dto.rnum}
+						${tracks.rnum} 
 					</div>
 					</td>
-<<<<<<< HEAD
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/hjs_music_musicinfo.png" class="music_info_icon2"></a></td>
-=======
 					<td><a href="/music_info?track_id=${tracks.track_id }" id="atag_track_id" data-value="${tracks.track_id}">
-					<img src = "/img/music_info_icon2.jpg" style="border: none; width: 14px; height: 14px;">
-					</a>
-					</td>
-
-					<td><a href="/music_info?track_id=${dto.track_id }"><img src = "/img/music_info_icon2.jpg" class="music_info_icon2"></a></td>
-
->>>>>>> b86936a9d353678f09e4fb30fa628e1d6b588a75
+					<img src = "/img/hjs_music_musicinfo.png" class="music_info_icon2"></a></td>
 					<!-- 박정수 : dto 에 album_id,youtube_url이 필요합니다! -->
 					<td>
 						 <div class="track">
@@ -106,21 +93,20 @@
      				</div>
 					</td> 
 					<!-- target="_blank" -->
-					<td><a href="${dto.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 20px; height: 20px;"></a></td>
+					<td><a href="${tracks.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
 					<td>
-<<<<<<< HEAD
 					<!-- 담기 버튼 -->
-					    <c:if test="${rank == null || rank < 1}">
+					 <%--    <c:if test="${rank == null || rank < 1}">
 				            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					    </c:if>
 					    <c:if test="${rank != null && rank >= 1}">
 					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
 					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					        </a>
-					    </c:if>
-=======
+					    </c:if> --%>
+
 						<jsp:include page="addbutton.jsp"></jsp:include>
->>>>>>> b86936a9d353678f09e4fb30fa628e1d6b588a75
+
 					</td>
 				</tr>   
     	  </c:forEach>    	

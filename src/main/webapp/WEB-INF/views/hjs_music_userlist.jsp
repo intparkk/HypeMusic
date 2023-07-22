@@ -12,10 +12,13 @@
 table{
 	border-collapse:collapse;
 	margin: auto;
-	width: 85%;	
+	width: 100%;	
 }
 table,td {
 border: 1px solid lightgray;
+max-width: 400px;
+padding-left: 15px;
+padding-right: 15px;
 }
 h1 {
 text-align: center;
@@ -24,7 +27,11 @@ text-align: center;
 text-align: center;
 }
 th {
-background-color: #E4E4E4;
+padding-top: 10px;
+padding-bottom: 10px;
+background-color: rgb(204, 179, 166);
+color: rgb(241, 241, 241);
+max-width: 400px;
 }
 tr:hover {
 background-color:#f3f3f5; 
@@ -58,7 +65,7 @@ background-color:#f3f3f5;
 		<td>${userDTO.rnum }</td>
 		<td>${userDTO.user_id }</td>
 		<td>${userDTO.id }</td>
-		<td>${userDTO.pw }</td>
+		<td><img src="/img/hjs_music_rnum.png" style="width: 15px;height: 15px;"></td>
 		<td>${userDTO.name }</td>
 		<td>${userDTO.email }</td>
 		<td>${userDTO.profile_img }</td>

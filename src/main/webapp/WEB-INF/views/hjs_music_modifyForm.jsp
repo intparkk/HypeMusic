@@ -11,8 +11,22 @@
 <title>HYPEMUSIC 댓글 수정</title>
 <style>
 .text {
-width: 500px;
-height: 40px;
+width: 1060px;
+height:60px;
+font-size: 15px;
+background-color: rgb(255, 243, 230);
+border: none;
+}
+#submit_button {
+border: none;
+background-color: white;
+font-size: 17px;
+font-weight: bold;
+color:#5D5D5D;
+cursor:pointer;
+}
+#submit_button:hover{
+color: #030303;
 }
 table,th,td{
 border: 1px solid lightgray;
@@ -138,8 +152,8 @@ border: 1px solid lightgray;
 글내용:${dto2.comment_content}<br>
 부모글:${dto2.comment_id}<br>
 작성자:${userInfo.name}<br>
-글내용: <textarea class="text" name="comment_content">${dto2.comment_content}</textarea><br>
-<input type="submit" value="수정하기">
+글내용: <textarea class="text" name="comment_content">${dto2.comment_content}</textarea>
+<input type="submit" value="수정하기" id="submit_button">
 </form>
 <br><br>
 

@@ -11,21 +11,21 @@
 <style>
 
 table {
-margin: auto;
+	margin: auto;
 }
 
  button {
             padding: 10px 20px;
-            background-color: rgb(244, 218, 241);
-            color: black;
+            background-color: rgb(204, 179, 166);
+			color: rgb(241, 241, 241);
             border: none;
             cursor: pointer;
             width: 390px;
         }
  #list-button {
  			padding: 0;
-            background-color: rgb(244, 218, 241);
-            color: black;
+            background-color: rgb(204, 179, 166);
+			color: rgb(241, 241, 241);
             border: none;
             cursor: pointer;
             width: 390px;
@@ -40,8 +40,8 @@ margin: auto;
  }      
  h1 {
  margin: auto;
- background-color: rgb(244, 218, 241);
- color: gray;
+ background-color: rgb(204, 179, 166);
+ color: rgb(241, 241, 241);
  font-weight: bold;
  padding: 0 px;
  display: inline-bolck;

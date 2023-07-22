@@ -36,11 +36,9 @@
 				<p style="color:red">${errMsg }</p>
 			</c:if>
    			<div id="find">
-<<<<<<< HEAD
+
   				<a class="find-a" href="/hjs_find">아이디 찾기</a>&nbsp;<a id="divide">|</a>&nbsp;<a class="find-a" href="/findPw">비밀번호 찾기</a>
-=======
-  				<a class="find-a" href="/hjs_find_id">아이디 찾기</a>&nbsp;<a id="divide">|</a>&nbsp;<a class="find-a" href="/findPw">비밀번호 찾기</a>
->>>>>>> b86936a9d353678f09e4fb30fa628e1d6b588a75
+
 			</div>
    			<div id="input">
 				<input type="submit" id="submit" value="로그인">

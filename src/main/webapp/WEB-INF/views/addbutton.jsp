@@ -18,11 +18,14 @@
     outline: none;
     cursor: pointer;
 	}
+	.btn:hover {
+	transform: scale(1.3);
+	}
 </style>
 <body>
 	<!--  담기 버튼 여기서 작업하시면 됩니다 -->
    	<button type="button" title="담기" class="btn add-btn" data-track_id="${param.track_id }" onclick="showPlaylistPopup(this)">
-    	<img src="/img/hjs_put.png" alt="담기" style="width: 30px;  height: 30px;">
+    	<img src="/img/hjs_music_put.png" alt="담기" style="width: 20px;  height: 20px;">
 	</button>
 	
 	

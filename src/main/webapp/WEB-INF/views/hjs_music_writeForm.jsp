@@ -11,8 +11,22 @@
 <title>HYPEMUSIC : 답글쓰기</title>
 <style>
 .text {
-width: 500px;
-height: 40px;
+width: 1060px;
+height:60px;
+font-size: 15px;
+background-color: rgb(255, 243, 230);
+border: none;
+}
+#submit_button {
+border: none;
+background-color: white;
+font-size: 17px;
+font-weight: bold;
+color:#5D5D5D;
+cursor:pointer;
+}
+#submit_button:hover {
+color: #030303;
 }
 table,th,td{
 border: 1px solid lightgray;
@@ -138,7 +152,7 @@ border: 1px solid lightgray;
 <br>
 작성자 :${userInfo.name }<br>
 답글 : <textarea class="text" name="comment_content"></textarea>
-<input type="submit" value="저장하기">
+<input type="submit" value="저장하기" id="submit_button">
 </form>
 <br><br>
 <!-- 박정수 : 무조건 이전페이지로 이동하게 수정하였습니다 -->

@@ -11,6 +11,8 @@
 <style>
 table,td {
 border: 1px solid lightgray;
+padding-left: 15px;
+padding-right: 15px;
 }
 table{
 	border-collapse:collapse;
@@ -24,7 +26,10 @@ text-align: center;
 text-align: center;
 }
 th {
-background-color: #E4E4E4;
+padding-top: 10px;
+padding-bottom: 10px;
+background-color: rgb(204, 179, 166);
+color: rgb(241, 241, 241);
 }
 tr:hover {
 background-color:#f3f3f5; 

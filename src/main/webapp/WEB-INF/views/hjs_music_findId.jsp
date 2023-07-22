@@ -17,11 +17,13 @@ text-align: center;
 font-size: 22px;
 color: gray;
 }
-.submit {
+.submit,
+.login_button {
 text-align: center;
 
 }
-.submit_button {
+.submit_button,
+#login_btn {
 display: block;
 margin: 0 auto;
 width: 260px;
@@ -30,7 +32,8 @@ font-size: 20px;
 color: white;
 background-color: #fec5e5;
 }
-.submit_button:hover {
+.submit_button:hover,
+#login_btn:hover{
 background-color: #faaad8;
 cursor: pointer;
 font-weight: bold;
@@ -42,9 +45,7 @@ height: 45px;
 border: 1px solid lightgray;
 font-size: 25px;
 }
-#user_id{
-color: #03C75A;
-}
+
 </style>
 </head>
 <link rel="stylesheet" href="/login.css">
@@ -67,15 +68,18 @@ color: #03C75A;
 				<br>
 			<div class="submit">
 				<input type="submit" value="입력하기" class="submit_button">
+			</div><br>
+			<div class="login_button">
+				<input type="button" id="login_btn" value="로그인하기" onclick="location.href='http://localhost:8081/login'">
 			</div>
 		</form>
 	
 	<br><br>
-	 <div id="body_middle_section" style="display: flex; justify-content: center; margin-top:50px;">
+	<!--  <div id="body_middle_section" style="display: flex; justify-content: center; margin-top:50px;">
          <div style="display: flex; justify-content: center;">
         <img src="/img/mainpage_ticket_logo.png" style="width:33%;height: 60%;">
          </div>
-    </div>
+    </div> -->
 <footer id="footer">
 		<div class="copyright"> ⓒ HMC HypeMusicStudio Corp. All rights reserved.</div>
 </footer>

@@ -16,9 +16,16 @@ table{
 }
 table,th, td{
 	border: 1px solid lightgray;
+	text-align: center;
 }
 th {
-background-color: #E4E4E4;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 8px;
+padding-bottom: 8px;
+background-color: rgb(204, 179, 166);
+color: rgb(241, 241, 241);
+max-width: 400px;
 }
 tr:hover {
 background-color:#f3f3f5; 
@@ -57,7 +64,7 @@ color: #FFA7A7;
 		<th>genre</th>
 		<th>release_date</th>
 		<th>lyrics</th>
-		<th>곡삭제</th>
+		<th>삭제</th>
 	</tr>
 <c:forEach var="dto" items="${list}" begin="0" end="200" varStatus="loop">
 	<tr>
@@ -72,7 +79,7 @@ color: #FFA7A7;
 		<td>${dto.genre }</td>
 		<td>${dto.release_date }</td>
 		<td>${dto.lyrics }</td>
-		<td><a href="/admin_delete?track_id=${dto.track_id }" class="delete">곡삭제</a></td>
+		<td><a href="/admin_delete?track_id=${dto.track_id }" class="delete">삭제</a></td>
 	</tr>
 </c:forEach>
 	

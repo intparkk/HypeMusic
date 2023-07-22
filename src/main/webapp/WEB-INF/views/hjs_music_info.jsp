@@ -16,7 +16,7 @@
 <style>
 /* 진서님 CSS*/
 .text {
-width: 700px;
+width: 1060px;
 height:60px;
 font-size: 15px;
 background-color: rgb(255, 243, 230);
@@ -41,7 +41,7 @@ color: #5D5D5D;
 }
 table {
     border-collapse:collapse;
-    width: 800px;
+    width: 1200px;
     border: none;
     border-top: 1px solid rgb(255, 243, 230);
     border-bottom: 1px solid rgb(255, 243, 230);
@@ -232,9 +232,9 @@ background-color:rgb(237, 233, 221);
 		<th>작성시간</th>
 <c:choose>
 <c:when test="${not empty userInfo }">	
-		<th>&nbsp; &nbsp; 답글</th>
-		<th>&nbsp; &nbsp; 수정</th>
-		<th>&nbsp; &nbsp; 삭제</th>
+		<th>답글</th>
+		<th>수정</th>
+		<th>삭제</th>
 </c:when>
 <c:otherwise>
 </c:otherwise>
@@ -252,15 +252,15 @@ background-color:rgb(237, 233, 221);
 		<td>${dto2.comment_time }</td>
 <c:choose>
 <c:when test="${not empty userInfo }">
-		<td><a href="/reply?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">답글</a></td>
+		<td><a href="/reply?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">&nbsp;&nbsp;답글</a></td>
 	<c:choose>
 	<c:when test="${userInfo.user_id eq dto2.user_id}">
-		<td><a href="/modifyForm?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">수정</a></td>
-		<td><a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">삭제</a></td>
+		<td><a href="/modifyForm?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">&nbsp;수정</a></td>
+		<td><a href="/delete?track_id=${trackInfo[0].track_id }&comment_id=${dto2.comment_id }">&nbsp;삭제</a></td>
 	</c:when>
 	<c:otherwise>
-		<td><a href="#" class="edit-link">수정</a></td>
-		<td><a href="#" class="delete-link">삭제</a></td>
+		<td><a href="#" class="edit-link">&nbsp;수정</a></td>
+		<td><a href="#" class="delete-link">&nbsp;삭제</a></td>
 		
 	</c:otherwise>
 	</c:choose>	
