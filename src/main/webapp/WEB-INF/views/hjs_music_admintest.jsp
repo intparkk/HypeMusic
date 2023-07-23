@@ -14,7 +14,7 @@ table {
 	margin: auto;
 }
 
- button {
+ #trackpage_button {
             padding: 10px 20px;
             background-color: rgb(204, 179, 166);
 			color: rgb(241, 241, 241);
@@ -140,7 +140,7 @@ margin: 0 auto;
             <td>&nbsp</td>
         </tr>
          <tr>
-            <td colspan="2"><button type="submit">등록하기</button></td>
+            <td colspan="2"><button id ="trackpage_button" type="submit">등록하기</button></td>
             <td></td>
         </tr>
         <tr>
@@ -152,7 +152,7 @@ margin: 0 auto;
             
             <div id="list-button">
     		
-        <button onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">추가곡확인</button>
+        <button id ="trackpage_button" onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">추가곡확인</button>
     		
 			</div>
             </td>

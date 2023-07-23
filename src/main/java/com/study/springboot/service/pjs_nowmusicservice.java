@@ -29,4 +29,14 @@ public class pjs_nowmusicservice
 	    
 	    return uniqueTracks;
 	}
+	
+	// 연도별 50곡 추출
+	public List<trackinfoDTO> getyearmusictracks(String select_year)
+	{
+		
+		List<trackinfoDTO> selectyearTracks = pjs_nowmusicDAO.getyearmusictracks(select_year);
+		Collections.shuffle(selectyearTracks);
+		
+		return selectyearTracks;		
+	}
 }

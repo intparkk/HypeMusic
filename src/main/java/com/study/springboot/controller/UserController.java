@@ -369,10 +369,6 @@ public class UserController {
 		
 		return "redirect:/myInfo";
 	}
-
-	/**
-	 * @author 박정수
-	 * */
 	
 	// 박정수 : 이용권 구매 페이지 컨트롤러
 	@RequestMapping("pjs_ticket")
