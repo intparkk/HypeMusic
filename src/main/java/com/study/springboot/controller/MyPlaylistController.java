@@ -103,12 +103,6 @@ public class MyPlaylistController {
 		// 새 재생목록 생성 (Mapper 에서 Insert한 행의 갯수가 아닌 재생목록ID를 반환
 		int playlist_id = playlistService.createNewPlaylist(myPlaylistDTO);
 		
-		// 재생목록DTO에 재생목록ID, 재생목록 이름 설정
-		myPlaylistDTO.setPlayList_id(myPlaylistDTO.getPlayList_id());
-		myPlaylistDTO.setPlayList_name(playlistDAO.selectPlaylistName(myPlaylistDTO));
-		
-		model.addAttribute("playlist", myPlaylistDTO);
-		
 		return myPlaylistDTO;
 	}
 	
