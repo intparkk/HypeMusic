@@ -6,8 +6,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="com.study.springboot.controller.hjs_musiccontroller" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,20 +94,6 @@
 					<td><a href="${tracks.youtube_url }">
 					<img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
 					<td>
-<<<<<<< HEAD
-						<jsp:include page="addbutton.jsp"></jsp:include>
-
-					</td>
-=======
-					<!-- 담기 버튼 -->
-					 <%--    <c:if test="${rank == null || rank < 1}">
-				            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					    </c:if>
-					    <c:if test="${rank != null && rank >= 1}">
-					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
-					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					        </a>
-					    </c:if> --%>
 							<button type="button" title="담기" class="add-btn"
 								data-track-id="${tracks.track_id }"
 								onclick="showPlaylistPopup(this)">
@@ -117,7 +101,7 @@
 									style="width: 20px; height: 20px;">
 							</button>
 						</td>
->>>>>>> 9956b9baa1b34d31ce338e27794ff2bb5b6c4a9c
+
 				</tr>   
     	  </c:forEach>    	
 				</tbody>
