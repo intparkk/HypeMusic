@@ -123,7 +123,7 @@ public class UserController {
 		
 		return "loginForm";
 	}
-	
+
 	// 로그아웃 수행
 	@RequestMapping("/logout")
 	public String logout (

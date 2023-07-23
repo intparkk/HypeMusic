@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.lju_music4uDAO">
+	
+	<select id="musiclist" resultType="lju_music4uDTO">
+	  SELECT album_img, track_id, title FROM TB_MUSIC
+	</select>
+	<select id="good_fast_id" resultType="lju_music4uDTO">
+	  SELECT album_img, track_id, title FROM TB_MUSIC WHERE score > 0.5 AND magnitude > 0.5
+	</select>
+	<select id="bad_slow_id" resultType="lju_music4uDTO">
+	  SELECT album_img, track_id, title FROM TB_MUSIC WHERE -0.1 > score AND 0.5 > magnitude
+	</select>
+	<select id="runresult" resultType="lju_music4uDTO">
+	  SELECT track_id, runresult FROM TB_MUSIC ORDER BY runresult DESC
+	</select>
+	<update id="updateRunresult" parameterType="int">
+    UPDATE TB_MUSIC
+    SET runresult = 1
+    WHERE track_id = #{track_Id}
+	</update>
+	<update id="endRunresult">
+    UPDATE TB_MUSIC
+    SET runresult = 0
+	</update>
+    <select id="checkIfIdExists" parameterType="int" resultType="int">
+        SELECT track_id FROM TB_MUSIC WHERE runresult  = 1
+    </select>
+    
+</mapper>
+
+
+
+
+
+
