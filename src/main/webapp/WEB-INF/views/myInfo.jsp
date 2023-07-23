@@ -26,7 +26,7 @@
                     ${userDTO.email}
                 </p>
                 <p class="rank">
-                    ${userDTO.rank}
+                    나의 등급은 "${userDTO.rank}" 입니다
                 </p>
                 <label for="fileInput">
                     <span id="upload">사진 변경</span>

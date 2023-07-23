@@ -117,11 +117,26 @@
 	    <div class="head_bottom_left">
 	      <a href="/hjs_music_top100" title="top100"><button class="music_chart_btn">음악차트</button></a>
 	      <a href="/nowmusic" title="newmusic"><button class="new_music_btn">최신음악</button></a>
-	      <a href="hjs_music_genre" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
+	      <a href="/hjs_music_genre" title="genremusic"><button class="genre_music_btn">장르음악</button></a>
 	      <a href="/pjs_news" title="starmagazine"><button class="star_magazine_btn">스타매거진</button></a>
-	      <a href="" title="music4u"><button class="music_4u_btn">뮤직4U</button></a>
+	      <a href="/music4u" title="music4u"><button class="music_4u_btn"  onclick="checkUserId()">뮤직4U</button></a>
 	      <a href="/myPlaylist" title="mymusic"><button class="my_music_btn">마이뮤직</button></a>	      
-	    </div> 
+	    </div>
+	    <script>
+	    let user_states ='${userInfo.rank}';
+	    console.log(user_states);
+	    
+	    function checkUserId() {
+	    	  // userInfo.id 값을 가져옵니다.
+	    	  var userId = "${userInfo.id}";
+
+	    	  // userId가 비어있는 경우에만 알람을 띄웁니다.
+	    	  if (userId.trim() === "") {
+	    	    alert("유저 아이디가 비어있습니다. 로그인이 필요합니다.");
+	    	  }
+	    	}
+	    </script>
+	     
 	    <div class="head_bottom_right">
 	    <!-- 내정보 부분 -->
 	    <!-- 등급에 따른 조건 수정해야함(수정함) -->

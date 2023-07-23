@@ -10,4 +10,5 @@ import com.study.springboot.dto.trackinfoDTO;
 public interface pjs_nowmusicDAO
 {
 	List<trackinfoDTO> getnowmusictracks();
+	List<trackinfoDTO> getyearmusictracks(String select_year);
 }
