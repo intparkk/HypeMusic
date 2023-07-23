@@ -55,6 +55,19 @@ a:hover {
 	font-size: 20px;
 	letter-spacing: 5px;
 }
+.add-btn {
+    display: inline-block;
+    padding: 5px;
+    background-color: transparent;
+    border: none; 
+    outline: none;
+    cursor: pointer;
+	}
+	
+.add-btn:hover {
+transform: scale(1.3);
+}
+
 </Style>
 <body>
 	<div id="nowmusic_body">
@@ -118,12 +131,11 @@ a:hover {
 								</button>
 							</td>
 							<td>
-								<!--담기 버튼 -->
-								<button type="button" title="담기" class="btn add-btn"
-									data-track_id="${tracks.track_id}"
+								<button type="button" title="담기" class="add-btn"
+									data-track-id="${tracks.track_id }"
 									onclick="showPlaylistPopup(this)">
-									<img src="/img/hjs_put.png" alt="담기"
-										style="width: 30px; height: 30px;">
+									<img src="/img/hjs_music_put.png" alt="담기"
+										style="width: 20px; height: 20px;">
 								</button>
 							</td>
 						</tr>
@@ -136,19 +148,9 @@ a:hover {
 	<!-- 담기 버튼의 스크립트 입니다 -->
 
 	<script>	
-	/* 현재 url에서 TrackId 추출 */
-	//const url = window.location.href;
-	
-		const showPlaylistPopup = (event) => {
-			/*
-		    if (!event.target) {
-		        console.error("이벤트 타겟이 존재하지 않습니다.");
-		        return;
-		    }
-		let trackId = event.target.getAttribute("data-track_id");
-		console.log("방법 1:", trackId);
-		console.log(event);*/
-		// 박정수 : 주석처리부분이 제가 작성한 것입니다 아직 미해결 상태.
+	const showPlaylistPopup = (element) => {
+		const trackId = element.dataset.trackId;
+		
 		const popup = document.createElement("div");
 		popup.id = "playlistPopup";
 		popup.style.position = "fixed";
@@ -159,7 +161,7 @@ a:hover {
 		popup.style.backgroundColor = "white";
 		popup.style.padding = "20px";
 		popup.style.border = "1px solid #ccc";
-	
+
 		/* 팝업 내용을 구성하고 표시하는 코드 추가 */
 		fetch("/myPlaylist/loadPlaylist")
 			.then(
@@ -171,7 +173,7 @@ a:hover {
 				playlistSelect.id = "playlistSelect";
 			
 			   	/* 내가 가지고 있는 재생목록을 선택 */
-				playlists.forEach(playlists => {		
+				playlists.forEach(playlists => {
 					const option = document.createElement("option");
 					option.value = playlists.playList_id;
 					option.textContent = playlists.playList_name;
@@ -204,21 +206,15 @@ a:hover {
 		    });
 		};
 		
-	    /*document.querySelector(".add-btn").addEventListener("click", (event) => {
+    	const userInfo = "${userInfo.user_id}";
+	    document.querySelector(".add-btn").addEventListener("click", (event) => {
+			if (userInfo == ""){
+				alert("로그인 후 이용 가능한 서비스입니다.");
+				event.preventDefault();
+			}
 			showPlaylistPopup(event);
-	    });*/
-	    // 박정수 : forEach 문안에서 버튼이 여러개 선택되서 우선 주석처리 하였습니다. 
-	    
-	    // 모든 .add-btn 클래스를 가진 버튼들을 선택
-	    const addBtns = document.querySelectorAll(".btn.add-btn");
-	    console.log(addBtns);
-	    // 각 버튼에 대해 이벤트 리스너 등록
-	    addBtns.forEach(btn => {
-	        btn.addEventListener("click", (event) => {
-	            showPlaylistPopup(event);
-	        });
 	    });
-	    
+		
 		/* 재생목록에 추가 */
 		const addToPlaylist = (playlistId, trackId) => {
 		    const data = {

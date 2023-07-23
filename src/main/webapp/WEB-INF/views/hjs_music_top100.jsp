@@ -104,14 +104,12 @@
 					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					        </a>
 					    </c:if> --%>
- 
 							<button type="button" title="담기" class="add-btn"
 								data-track-id="${tracks.track_id }"
 								onclick="showPlaylistPopup(this)">
 								<img src="/img/hjs_music_put.png" alt="담기"
 									style="width: 20px; height: 20px;">
 							</button>
-
 						</td>
 				</tr>   
     	  </c:forEach>    	
@@ -248,7 +246,12 @@
 		    });
 		};
 		
+    	const userInfo = "${userInfo.user_id}";
 	    document.querySelector(".add-btn").addEventListener("click", (event) => {
+			if (userInfo == ""){
+				alert("로그인 후 이용 가능한 서비스입니다.");
+				event.preventDefault();
+			}
 			showPlaylistPopup(event);
 	    });
 		
