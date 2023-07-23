@@ -13,6 +13,7 @@
 		        t.like_count,
 		        t.artist_id,
 		        t.album_id,
+		        t.genre,
 		        a.artist,
 		        t.youtube_url,
 		        al.album_name,

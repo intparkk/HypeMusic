@@ -104,6 +104,10 @@ a:hover {
 .track_2:hover .caption_2 {
     opacity: 1;
 } 
+    #trackTable thead {
+        position: sticky;
+        top: 0;        
+    }
 </Style>
 <body>
 	<div id="nowmusic_body">
@@ -118,8 +122,9 @@ a:hover {
 	</section>
 
 		<section id="nowmusic_table">
-			<table>
-					<tr>
+		<div id ="trackTableWrapper">
+			<table id="trackTable">
+					<thead>
 					<th><input type="checkbox" name="check" id="checkbox">
                            <div class="checkmark"></div></th>
 					<th>
@@ -133,7 +138,7 @@ a:hover {
 					<th>앨범발매일</th>
 					<th>듣기</th>
 					<th>담기</th>
-		</tr>
+				</thead>
 		<c:forEach var="tracks" items="${nowTracks}" varStatus="loop">
 			<tr>
 					<td><input type="checkbox" name="check" id="checkbox">
@@ -153,71 +158,96 @@ a:hover {
 					</td>	
 					<td>
 					<P><a href="/music_info?track_id=${tracks.track_id}">${tracks.title }</a></P> 
-					<%-- <p>${dto.title }</p> --%>
-					<P>${tracks.artist }</P>
+					<P><a href="/artistinfo/${tracks.artist_id}">${tracks.artist }</a></p>
 					</td>
-					<td>${tracks.album_name }</td>
+					<td><a href="/albuminfo/${tracks.album_id}">${tracks.album_name }</a></td>
 					<td>${tracks.release_date }</td>
 					<td><a href="${tracks.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
-					<td><jsp:include page="addbutton.jsp"></jsp:include> </td>
+					<td></td>
 			</tr>
 		</c:forEach>
 		</table>
+		</div>
 		</section>
 	</div>
 	
-<!-- 최초 진입시 2023 -->
+<!-- 최초 진입 시 2023년 버튼이 클릭되도록 추가 -->
 <script>
-    var yearMap = {
-        "2023": "2023",
-        "2022": "2022",
-        "2021": "2021",
-        "2020": "2020",
-        "2019": "2019",
-        "2018": "2018",
-        "2017": "2017",
-        "2016": "2016",
-        "2015": "2015",
-        "2014": "2014",
-        "2013": "2013",
-        "2012": "2012",
-        "2011": "2011"
-    };
-
-    // 최초 진입 시 이벤트 리스너 추가
     /*window.onload = function() {
-        // "2023" 버튼을 클릭하는 함수 호출
-        clickYearButton("2023");
+        var year2023Button = document.querySelector('button[value="2023"]');
+        year2023Button.click(); // 2023년 버튼을 클릭하여 최초 데이터 출력
     };*/
+</script>
+<!-- 연도별 음악 -->
+<script>
+	// Ajax로 서버로부터 받은 데이터를 테이블에 출력하는 함수
+	function renderTracksTable(tracksData) {
+        var trackTable = document.getElementById("trackTable");
+        var trackTableWrapper = document.getElementById("trackTableWrapper");
 
+        // 테이블이 존재하지 않을 경우 예외 처리
+        if (!trackTable || !trackTableWrapper) {
+            console.error("테이블이 존재하지 않습니다.");
+            return;
+        }
+
+        trackTable.innerHTML = ""; // 기존의 내용을 지우고 시작
+	    for (var i = 0; i < tracksData.length; i++) {
+	        var track = tracksData[i];
+	
+	        // 테이블 새로운 행 추가
+	        var row = trackTable.insertRow(-1);
+	
+	        // 셀 생성 및 데이터 추가
+	        var cellCheckbox = row.insertCell(0);
+	        var cellIndex = row.insertCell(1);
+	        var cellGenre = row.insertCell(2);
+	        var cellMusicInfo = row.insertCell(3);
+	        var cellTrackInfo = row.insertCell(4);
+	        var cellAlbumName = row.insertCell(5);
+	        var cellReleaseDate = row.insertCell(6);
+	        var cellYoutube = row.insertCell(7);
+	        //var cellAddButton = row.insertCell(8);
+	
+        cellIndex.textContent = i + 1; // 인덱스 1부터 시작
+        cellGenre.textContent = track.genre || "장르 정보 없음"; // 장르 정보가 없을 경우 "장르 정보 없음" 표시
+        cellMusicInfo.innerHTML = '<a href="/music_info?track_id=' + track.track_id + '">' +
+            '<img src="/img/hjs_music_musicinfo.png" class="music_info_icon2"></a>'; // 음악 정보 링크
+        cellTrackInfo.innerHTML = '<div class="track_2">' +
+            '<img src="' + track.album_img + '" alt="album_img" style="width: 100px;height: 100px;">' +
+            '<div class="caption_2">' +
+            '<p>' + track.title + '</p>' +
+            '<p>' + track.artist + '</p>' +
+            '</div>' +
+            '</div>'; // 곡 정보 디자인
+        cellAlbumName.textContent = track.album_name || "앨범 이름 없음"; // 앨범 이름 정보가 없을 경우 "앨범 이름 없음" 표시
+        cellReleaseDate.textContent = track.release_date || "발매일 정보 없음"; // 발매일 정보가 없을 경우 "발매일 정보 없음" 표시
+        cellYoutube.innerHTML = '<a href="' + track.youtube_url + '">' +
+            '<img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a>'; // 유튜브 링크 아이콘
+	    }
+	}
     // 버튼 클릭 이벤트 리스너 등록
     var yearButtons = document.getElementsByClassName("yearButton");
-    console.log(yearButtons);
     for (var i = 0; i < yearButtons.length; i++) {
         yearButtons[i].addEventListener("click", function(event) {
-            var year = this.value;            
-            clickYearButton(year);
-        });
-    }
+            var year = this.value;
+            console.log("클릭한 연도:", year);
 
-    // 버튼 클릭 시 해당 년도를 컨트롤러에 전달하는 함수
-    function clickYearButton(year) {
-        // Ajax를 사용하여 서버로 년도 전송
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/getYearTracks', true);
-        xhr.setRequestHeader('Content-Type', 'application/json'); // 요청 헤더
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                console.log(response);
-                // 서버로부터 받은 데이터를 활용하여 원하는 기능 수행
-                // 예: 해당 년도의 음악 데이터를 출력하는 함수 호출 등
-                //rendernowmusic(response);
-        };
-        // 년도 값을 JSON 형식으로 변환하여 요청 본문에 설정하고 전송
-        xhr.send(JSON.stringify({ year: year }));
-        
-        console.log("전달된 년도:", year);
+            // Ajax를 사용하여 서버로 년도 전송
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/getYearTracks', true);
+            xhr.setRequestHeader('Content-Type', 'application/json'); // 요청 헤더
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    // 서버로부터 받은 데이터를 활용하여 원하는 기능 수행
+                    renderTracksTable(response);
+                    console.log("서버 응답:", response);
+                }
+            };
+            // 년도 값을 JSON 형식으로 변환하여 요청 본문에 설정하고 전송
+            xhr.send(JSON.stringify({ year: year }));
+        });
     }
 </script>
 

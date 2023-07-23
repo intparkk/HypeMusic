@@ -24,8 +24,11 @@ public class pjs_nowmusiccontroller
 	private pjs_nowmusicservice nowmusicService;
 	
 	@RequestMapping("/nowmusic")
-	public String nowMusic()
+	public String nowMusic(Model model)
 	{
+		List<trackinfoDTO> nowTracks = nowmusicService.getnowmusictracks();
+		model.addAttribute("nowTracks",nowTracks);
+		
 		return "pjs_nowmusic";
 	}
 	
@@ -38,8 +41,12 @@ public class pjs_nowmusiccontroller
 		
         List<trackinfoDTO> nowTracks = nowmusicService.getyearmusictracks(selectYear);
         
-        model.addAttribute("nowTracks",nowTracks);        
-     
+        model.addAttribute("nowTracks",nowTracks);
+        
+        // nowTracks의 모든 곡 제목 출력
+        for (trackinfoDTO track : nowTracks) {
+            System.out.println("곡 제목: " + track.getTitle());
+        }
         
 		return nowTracks;		
 	}
