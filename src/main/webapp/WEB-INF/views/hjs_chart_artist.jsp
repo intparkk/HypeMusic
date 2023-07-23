@@ -15,7 +15,7 @@
  <button type="submit">조회</button>
  </form>
 <br><br>
-<img id="chartImage" src="" alt="" style="width: 650px; height: 650px;">
+<img id="chartImage" src="" alt="" style="width: 500px; height: 500px;">
 
 <script>
   // 폼과 이미지 엘리먼트를 가져옵니다.

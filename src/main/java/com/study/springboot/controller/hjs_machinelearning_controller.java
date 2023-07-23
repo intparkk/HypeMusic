@@ -161,7 +161,7 @@ public class hjs_machinelearning_controller {
                     dataset                // 데이터셋
             );
 
-            // 그래프 스타일 설정 SansSerif
+            // 그래프 스타일 설정 
             chart.getTitle().setFont(new Font("Papyrus", Font.BOLD, 16));
             chart.getLegend().setItemFont(new Font("Papyrus", Font.PLAIN, 12));
             chart.getPlot().setBackgroundPaint(Color.WHITE);

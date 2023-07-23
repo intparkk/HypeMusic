@@ -84,8 +84,6 @@ public class hjs_musiccontroller {
 	public String music2() {
 		 // 엑셀파일 경로(각자의 PC환경에 맞게 바꾸셔야 합니다. 이미 아시겠지만요.~)	
 		 String filePath = "C:\\Users\\82109\\OneDrive\\바탕 화면\\HypeMusic\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
-		// 박정수 경로 오류날 시 제꺼 주석처리 후 사용 부탁드리겠습니다
-		// String filePath = "C:\\Users\\h\\Desktop\\HypeMusic_230712\\src\\main\\resources\\metadata\\MelonCrawling_2020.1~2023.4.xlsx";
 		 
 		 DataFormatter dataFormatter = new DataFormatter();
 		    // 엑셀 파일을 java로 불러오기
@@ -105,57 +103,6 @@ public class hjs_musiccontroller {
 	                    // 필요한 열의 데이터를 추출하여 DB에 저장
 	                    Cell cell = row.getCell(0);
 	                    double track_id2 = cell.getNumericCellValue();
-	                    
-	                    // 날짜형식 오류,long 타입오류
-	                    // track_id2 = 53969.0
-	                    // track_id2 = 31856628.0
-	                    // track_id2 = 31470006.0
-	                    // track_id2 = 46957.0
-	                    // track_id2 = 71581.0
-	                    // track_id2 = 37571.0
-	                    // track_id2 = 70602.0
-	                    // track_id2 = 33115806.0
-	                    // track_id2 = 91306.0
-	                    // track_id2 = 33133798.0
-	                    // track_id2 = 33129886.0
-	                    // track_id2 = 33552228.0
-	                    // track_id2 = 34331508.0
-	                    // track_id2 = 34144141.0
-	                    // track_id2 = 34366007.0
-	                    // track_id2 = 34366011.0
-	                    // track_id2 = 34431722.0
-	                    // track_id2 = 34699668.0
-	                    // track_id2 = 35849186.0
-	                    // track_id2 = 35913593.0
-	                    // track_id2 = 35535827.0
-	                    // track_id2 = 35825907.0
-	                    // track_id2 = 35825906.0
-	                    if ( track_id2 == 53969.0 
-	                    		|| Double.compare(track_id2, 3.1856628E7) == 0
-	                    		|| Double.compare(track_id2, 3.1470006E7) == 0
-	                    		|| track_id2 == 46957.0
-	                    		|| track_id2 == 71581.0 
-	                    		|| track_id2 == 37571.0
-	                    		|| track_id2 == 70602.0 
-	                    		|| Double.compare(track_id2, 3.3115806E7) == 0
-	                    		|| track_id2 == 91306.0
-	                    		|| Double.compare(track_id2, 3.3133798E7) == 0
-	                    		|| Double.compare(track_id2, 3.3129886E7) == 0
-	                    		|| Double.compare(track_id2, 3.3552228E7) == 0
-	                    		|| Double.compare(track_id2, 3.4331508E7) == 0
-	                    		|| Double.compare(track_id2, 3.4144141E7) == 0
-	                    		|| Double.compare(track_id2, 3.4366007E7) == 0
-	                    		|| Double.compare(track_id2, 3.4366011E7) == 0
-	                    		|| Double.compare(track_id2, 3.4431722E7) == 0
-	                    		|| Double.compare(track_id2, 3.4699668E7) == 0
-	                    		|| Double.compare(track_id2, 3.5849186E7) == 0
-	                    		|| Double.compare(track_id2, 3.5913593E7) == 0
-	                    		|| Double.compare(track_id2, 3.5535827E7) == 0
-	                    		|| Double.compare(track_id2, 3.5825907E7) == 0
-	                    		|| Double.compare(track_id2, 3.5825906E7) == 0
-	                       ) {
-	                    	continue;
-	                    }
 	                    
 	                    Cell cell1 = row.getCell(1);
 	                    double artist_id2 = cell1.getNumericCellValue();
@@ -184,14 +131,6 @@ public class hjs_musiccontroller {
 	                    
 	                    Cell cell7 = row.getCell(6);
 	                    String genre2 = cell7.getStringCellValue();
-
-	                    // release_date를 String으로 받았는데, 만약 String이 되지 않을 때에는 
-	                    // java 날짜형식으로 변환한 다음, sql날짜 형식으로 변환해서 담을 수도 있습니다. 
-	                    // 예시
-	                    // Cell cell8 = row.getCell(5);
-	                    // double release_date2 = cell8.getNumericCellValue();
-	                    // java.util.Date utilDate = DateUtil.getJavaDate(release_date2);
-	                    // java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 	                    Cell cell8 = row.getCell(5);
 	                    // Cell의 타입에 상관없이 값을 문자열로 변환
@@ -247,28 +186,23 @@ public class hjs_musiccontroller {
 		
 		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
 		HjsmusicDTO dto = musicDto;
-		
 		System.out.println("pageNum : "+ pageNum);
 		if(pageNum == null) {
 			pageNum = 1;
 		}
-//		int pageNum = 3; // 현재 페이지 번호
 		
 		String cpp = req.getParameter("countPerPage");
 		int countPerPage = 10;
+		
 		try {
-			
 			countPerPage = Integer.parseInt(cpp); // 한 페이지당 표시 수
-			
 		}catch (Exception e) {
-
 		//	e.printStackTrace();
 		}
 		
-
-		
 		int startNum = ((pageNum-1) * countPerPage) + 1;
 		int endNum = startNum + (countPerPage - 1);
+		
 		System.out.println("startNum : "+ startNum +", endNum : "+ endNum);
 		
 		musicDto.setStartNum(startNum);
@@ -278,13 +212,14 @@ public class hjs_musiccontroller {
 		model.addAttribute("countPerPage", countPerPage);
 		
 		Map map = hjsmusicService.list(musicDto);
-
 		List<HjsmusicDTO> list = (List<HjsmusicDTO>) map.get("list");
+		
 		model.addAttribute("list", list);
 		
 		System.out.println("list"+list);
 		
 		int total = (int) map.get("totalCount");
+		
 		req.setAttribute("total", total);
 		
 		return "hjs_music_top100";
@@ -466,13 +401,6 @@ public class hjs_musiccontroller {
 		return "redirect:/music_info?track_id="+track_id;
 	}
 	
-	
-	/*
-	 *장르 음악은 초기화면 로딩 속도가 느립니다. 
-	 *다른 페이지는 DB에서 100개의 데이터만 가져오는데, 
-	 *장르 음악은 모든 곡을 로딩해오기 때문인것 같습니다. 
-	 * 
-	 */
 	
 	@RequestMapping("/hjs_music_genre")
 	public String genrechoice(

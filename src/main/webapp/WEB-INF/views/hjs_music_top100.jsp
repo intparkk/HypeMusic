@@ -89,22 +89,13 @@
 					</td>
 					<td>
 					<div class="caption3">
-     				<p>${tracks.like_count }</p>
+     				<p><a href="/hjs_chart">${tracks.like_count }</a></p>
      				</div>
 					</td> 
 					<!-- target="_blank" -->
-					<td><a href="${tracks.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
+					<td><a href="${tracks.youtube_url }">
+					<img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
 					<td>
-					<!-- 담기 버튼 -->
-					 <%--    <c:if test="${rank == null || rank < 1}">
-				            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					    </c:if>
-					    <c:if test="${rank != null && rank >= 1}">
-					        <a href="#" onclick="addTrack('${trackInfo_like.track_id}')">
-					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
-					        </a>
-					    </c:if> --%>
-
 						<jsp:include page="addbutton.jsp"></jsp:include>
 
 					</td>

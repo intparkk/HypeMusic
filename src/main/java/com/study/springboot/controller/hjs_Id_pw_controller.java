@@ -51,7 +51,6 @@ public class hjs_Id_pw_controller {
 			System.out.println(email);
 			
 			System.out.println(userDTO1.getId());
-	//		model.addAttribute("id", userDTO1.getId());
 			String mes = "당신의 id는"+ userDTO1.getId()+"입니다";
 			model.addAttribute("message_1",mes);
 			return "hjs_music_findId";
