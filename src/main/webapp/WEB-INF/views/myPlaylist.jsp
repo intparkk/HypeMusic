@@ -111,8 +111,8 @@
 		const createNewPlaylist = (event) => {
 			const numberOfPlaylist = document.querySelector("#numberOfPlaylist").value.trim();
 			/* ajax 요청 보내기 */
-			if (numberOfPlaylist >= 23) {
-				alert("재생목록은 19개 까지 생성할 수 있습니다.");
+			if (numberOfPlaylist >= 21) {
+				alert("재생목록은 20개 까지 생성할 수 있습니다.");
 				event.preventDefault();
 			}
 			fetch("/myPlaylist/createNewPlaylist", {
