@@ -34,15 +34,15 @@ public class pjs_detailpagecontroller
 	
 	// 트랙 상세페이지(진서님꺼와 합침) 
     @GetMapping("/music_info")
-    public String getMusicInfo(@RequestParam("track_id") int trackId, Model model) {
+    public String getMusicInfo(@RequestParam("track_id") String trackId, Model model) {
     	
     	// 진서님 listDao 쓰기위해 String 형변환
-    	Integer track_id = trackId;
-    	String track_id_reply = track_id.toString();
-        
-    	// 진서님 listDao 호출
+    	//Integer track_id = trackId;
+    	//String track_id_reply = track_id.toString();
+    	
+     	// 진서님 listDao 호출
     	List<trackinfoDTO> trackInfo = detailpageService.musicinfo(trackId);
-        List<HjscommentDTO> replyAll = commentService.listDao(track_id_reply);
+        List<HjscommentDTO> replyAll = commentService.listDao(trackId);
         
         model.addAttribute("trackInfo", trackInfo);
         model.addAttribute("list",replyAll);

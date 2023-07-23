@@ -14,17 +14,18 @@
 		select count(*) from tb_music
 	</select>
 	
-	
-	<select id="selectHjsmusicDTO" 
+ 	 
+ 	 <select id="selectHjsmusicDTO" 
 			resultType="HjsmusicDTO" 
 			parameterType="com.study.springboot.dto.HjsmusicDTO">
 		select * from (
 			SELECT *
 			FROM ( 
 			 SELECT rownum AS rnum, a.* from(
-            select *
-			  FROM tb_music
-			  ORDER BY like_count DESC
+            select m.*, t.youtube_url
+			  FROM tb_music m, tracks t
+			  where m.track_id = t.track_id
+			  ORDER BY m.like_count DESC
 			)a
 	 		) 
 	 		WHERE rnum <![CDATA[<=]]> 100 
@@ -33,7 +34,7 @@
 		  AND rnum <![CDATA[ <= ]]> #{endNum}
 		
 	</select>
- 	
+ 	 
 	<select id="listDao" resultType="com.study.springboot.dto.HjsmusicDTO">
 		SELECT *
 		FROM (
@@ -43,6 +44,7 @@
  		) WHERE ROWNUM <![CDATA[<=]]> 100 
 	</select>
 
+	<!-- 관리자 곡추가 -->
 	<select id="listDao2" resultType="com.study.springboot.dto.HjsmusicDTO">
 		SELECT *
 		FROM (
@@ -53,7 +55,15 @@
 	</select>
 
 
-
+	<select id="youtubeDao" resultType="com.study.springboot.dto.HjsmusicDTO">
+		select youtube_url 
+		from( select * 
+		from tb_music m, tracks t
+		where m.track_id = t.track_id
+		order by m.like_count DESC
+		) WHERE ROWNUM <![CDATA[<=]]> 100 
+		
+	</select>
 
 	
 	<select id="viewDao" 
@@ -107,7 +117,6 @@
 		#{lyrics}  
 		)
 	</insert>
-<!-- 업데이트 test-->
    <!-- 관리자 음악 insert위해 생성 -->
 	<insert id="writeDao2" parameterType="com.study.springboot.dto.HjsmusicDTO">
 		insert into tb_music_test (
@@ -141,6 +150,10 @@
 		DELETE FROM tb_music WHERE track_id= #{track_id}
 	</delete>
 	
+	<delete id="deleteadminDao" parameterType="com.study.springboot.dto.HjsmusicDTO">
+	    delete from tb_music_test where track_id= #{track_id}
+	</delete>
+	
 	<update id="updateDao" parameterType="com.study.springboot.dto.HjsmusicDTO">
 		UPDATE 
 				tb_music
@@ -152,22 +165,36 @@
 		 		track_id= #{track_id}
 	</update>
 	
-	<!-- 추후 검색 기능을 위해 남겨둡니다.  -->
-  	
+	<!-- 원본 -->
+<!--   	
 	<select id="testIf"
 		parameterType="com.study.springboot.dto.HjsmusicDTO"
 		resultType="com.study.springboot.dto.HjsmusicDTO">
-		select * from tb_music
-<!-- 		<where>
+			select * from tb_music
+		<where>
 	 		<if test=" genre != null and genre !='' ">
 				AND genre LIKE '%'||#{genre}||'%'
 			</if>
  		</where>
- -->		
+		
  			where genre Like '%'||#{genre}||'%'
  			order by 
 			release_date desc
 	</select>
 
+ -->
 
+ 	<!-- 시간 단축을 위해 위의 코드를 아래의 코드로 수정했습니다.  -->
+ 	<select id="testIf"
+		parameterType="com.study.springboot.dto.HjsmusicDTO"
+		resultType="com.study.springboot.dto.HjsmusicDTO">
+			select  
+			track_id ,genre, album_img, title, artist, album_name, release_date 
+			from tb_music
+ 			where genre Like '%'||#{genre}||'%'
+ 			order by 
+			release_date desc
+	</select>
+
+ 
 </mapper>

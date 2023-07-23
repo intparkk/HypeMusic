@@ -8,7 +8,7 @@ import com.study.springboot.dto.UserDTO;
 
 public interface UserService {
 	
-	// id와 email이 모두 일치하는 계정의 수와 dto를 map에 각각 저장
+	// id와 pw가 모두 일치하는 계정의 수와 dto를 map에 각각 저장
 	Map login(UserDTO userDTO);
 	
 	// 회원가입
@@ -31,4 +31,15 @@ public interface UserService {
 	
 	// 이메일보기
 	UserDTO userEmail(UserDTO userDTO);
+
+	List<UserDTO> listDao(UserDTO userDTO);
+
+	//이용권 구매	
+	UserDTO buyticket(int user_id);
+	
+	// 이용권 해제
+	UserDTO sellticket(int user_id);
+	
+	// 이용권 업데이트(세션)
+	UserDTO updateticket(int user_id);
 }

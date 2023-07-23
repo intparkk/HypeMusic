@@ -6,12 +6,28 @@ public class HjscommentDTO {
 
 	private String track_id;
 	private String comment_id;
-	private String user_id;
+	private int user_id;
 	private String comment_content;
 	private LocalDateTime comment_time;
 	private String parent_id;
 	
+	private Integer rnum;
+	private String name;
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getRnum() {
+		return rnum;
+	}
+	public void setRnum(Integer rnum) {
+		this.rnum = rnum;
+	}
 	public String getTrack_id() {
 		return track_id;
 	}
@@ -24,10 +40,10 @@ public class HjscommentDTO {
 	public void setComment_id(String comment_id) {
 		this.comment_id = comment_id;
 	}
-	public String getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(String user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 	public String getComment_content() {
@@ -54,7 +70,12 @@ public class HjscommentDTO {
 	public String toString() {
 		return "HjscommentDTO [track_id=" + track_id + ", comment_id=" + comment_id + ", user_id=" + user_id
 				+ ", comment_content=" + comment_content + ", comment_time=" + comment_time + ", parent_id=" + parent_id
-				+ "]";
+				+ ", rnum=" + rnum + ", name=" + name + ", getName()=" + getName() + ", getRnum()=" + getRnum()
+				+ ", getTrack_id()=" + getTrack_id() + ", getComment_id()=" + getComment_id() + ", getUser_id()="
+				+ getUser_id() + ", getComment_content()=" + getComment_content() + ", getComment_time()="
+				+ getComment_time() + ", getParent_id()=" + getParent_id() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+	
 	
 }

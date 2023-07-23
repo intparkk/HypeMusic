@@ -59,8 +59,18 @@
 		WHERE
 			id = #{id} AND pw = #{pw}
 	</select>
-	
+
+	<!-- 비밀번호 찾기 (id와 email이 모두 일치하는 행 count하여 int로 반환)-->
+	<select id="findPwById" parameterType="UserDTO" resultType="int">
+		SELECT
+			COUNT(*) AS count
+		FROM
+			users
+		WHERE
+			id = #{id} AND email = #{email}
+	</select>
 	<!-- 유저 정보 선택 -->
+
 	<select id="selectUserInfo" parameterType="UserDTO" resultType="UserDTO">
 		SELECT
 			user_id,
@@ -112,6 +122,47 @@
 			resultType="UserDTO">
 	 select * from users where email = #{email}
 	
+	</select>
+	
+
+	<!-- userlist를 모두 조회하는 쿼리 -->
+	<select id="listDao" parameterType="UserDTO"
+			resultType="UserDTO">
+	select rownum as rnum, users.* from users order by user_id asc
+	</select>
+
+	<!--  박정수 : 이용권 구매 -->
+	<select id="buyticket" parameterType="UserDTO">
+	  UPDATE USERS
+	  SET rank = 'ticket'
+	  WHERE user_id = #{userId}
+	  AND rank = 'normal'
+	</select>
+	
+	<!--  박정수 : 이용권 해제 -->
+	<select id="sellticket" parameterType="UserDTO">
+	  UPDATE USERS
+	  SET rank = 'normal'
+	  WHERE user_id = #{userId}
+	  AND rank = 'ticket'
+	</select>
+	
+	<!--  박정수 : 구매,취소 유저정보 업데이트용 -->
+	<select id="updateticket" parameterType="UserDTO">
+		SELECT
+			user_id,
+			id,
+			pw,
+			name,
+			email,
+			profile_img,
+			rank,
+			join_date
+		FROM
+			users
+		WHERE
+			user_id = #{user_id}
+
 	</select>
 	
 </mapper>

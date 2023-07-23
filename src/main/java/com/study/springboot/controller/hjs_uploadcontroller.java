@@ -71,8 +71,6 @@ public class hjs_uploadcontroller {
 				
 				Map map = new HashMap();
 				map.put("name", tmpFile.getName());
-		//		map.put("size", tmpFile.length());
-		//		map.put("path", tmpFile.getPath());
 				
 				list.add( map );
 			}
@@ -194,7 +192,7 @@ public class hjs_uploadcontroller {
 //	    }
 //	}
 //
-//	
+	
 	
 }
 	

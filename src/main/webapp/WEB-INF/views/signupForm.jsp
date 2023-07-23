@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HYPE MUSIC 회원가입</title>
-</head>
+<title>:: HYPE MUSIC 회원가입 ::</title>
 <link rel="stylesheet" href="/signup.css">
+</head>
 <body>
 	<div id="wrap">
 		<!-- 헤더 -->

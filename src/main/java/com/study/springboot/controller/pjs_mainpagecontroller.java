@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.study.springboot.dto.UserDTO;
 import com.study.springboot.dto.trackinfoDTO;
+import com.study.springboot.service.UserService;
 import com.study.springboot.service.pjs_mainpage_service;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class pjs_mainpagecontroller
@@ -26,15 +30,21 @@ public class pjs_mainpagecontroller
 	{
 		this.mainpage_service = mainpage_service;
 	}
+	@Autowired
+	UserService userService;
 	
 	
 	@RequestMapping("/Mainpage")
-	public String mainpage(Model model) {
+	public String mainpage(Model model,HttpSession session) {
 	    List<trackinfoDTO> getTop10Tracks = mainpage_service.gettop10tracks();
 	    List<trackinfoDTO> getRandomArtists = mainpage_service.getrandomartists();
-	    	    
+	    
+	    UserDTO now_user = (UserDTO) session.getAttribute("userInfo");
+	    
 	    model.addAttribute("getTop10Tracks", getTop10Tracks);
 	    model.addAttribute("getRandomArtists", getRandomArtists);
+	    
+	    System.out.println("[/] UserDTO : " + now_user);
 	    
 	    return "/Mainpage";
 	}	

@@ -223,11 +223,13 @@
 </style>
 <body>
 <div id ="mainpage_body">
+	<!--  상단 부분 -->
 	<section id = "body_top_section">
 		<!-- 최신 음악 그리드 -->
 		<div id ="track_grid">
 			<h1 id = "blackword">HYPEMUSIC STUDIO</h1>
 				<div class="track_grid_container">
+					<!-- 컨트롤러 -->
 					<div class="grid_controller">
 						<span id="grid_states"></span>
 							<span id="grid_controller_button">
@@ -242,6 +244,7 @@
 								<button id="btn9" class="circle_button" alt="국내"></button>
 							</span>
 					</div>			
+					<!-- 전시된 것들 -->
 					<div class="track_grid_item">
 					  <c:forEach var="grid" items="${randomTracks}" begin="0" end="7">
 					    <div class="grid_img_wrapper">
@@ -274,7 +277,7 @@
 	
 	<!-- 중단 이용권 구매 -->
     <section id="body_middle_section" style="display: flex; justify-content: center; margin-top:50px;">
-        <a href = "#"><img src="/img/mainpage_ticket_logo.png" style="max-width: 100%;"></a>
+        <a href = "/pjs_ticket"><img src="/img/mainpage_ticket_logo.png" style="max-width: 100%;"></a>
     </section>
     
     <!--  하단 아티스트 항목 -->

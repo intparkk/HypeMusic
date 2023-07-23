@@ -9,46 +9,73 @@
 <meta charset="UTF-8">
 <title>관리자권한연습</title>
 <style>
+
+table {
+	margin: auto;
+}
+
  button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: rgb(204, 179, 166);
+			color: rgb(241, 241, 241);
             border: none;
             cursor: pointer;
-            width: 280px;
+            width: 390px;
         }
  #list-button {
  			padding: 0;
-            background-color: #4CAF50;
-            color: white;
+            background-color: rgb(204, 179, 166);
+			color: rgb(241, 241, 241);
             border: none;
             cursor: pointer;
-            width: 280px;
+            width: 390px;
             text-decoration: none;
  } 
  
  td {
  font-weight: bold;
+ font-size: 20px;
+ color: gray;
+ max-width: 300px;
  }      
  h1 {
- background-color: #4CAF50;
- color: white;
+ margin: auto;
+ background-color: rgb(204, 179, 166);
+ color: rgb(241, 241, 241);
  font-weight: bold;
  padding: 0 px;
  display: inline-bolck;
  margin: 0 px;
- width: 280px;
+ width: 380px;
  text-align: center;
  } 
+ 
+input[type="text"] {
+            width: 250px; /* 원하는 가로 크기로 지정 */
+            height: 22px; /* 원하는 세로 크기로 지정 */
+        	border: 2px solid lightgray;
+        }
+        
+#preference {
+width: 257px;
+height: 27px;
+border: 2px solid lightgray;
+color: gray;
+}    
+
+#admin_button {
+margin: 0 auto;
+}    
 </style>
 
 </head>
 <header>
-<jsp:include page="header.jsp"></jsp:include> 
+<jsp:include page="header.jsp"></jsp:include>
 </header>
 <body>
+<br>
 <h1>곡정보등록</h1>
-
+<br>
 <table>
 <form action="/hjs_music_admininsert" method="post">
         <tr>
@@ -125,16 +152,18 @@
             
             <div id="list-button">
     		
-        <button onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">목록으로</button>
+        <button onclick="location.href='/hjs_music_viewtest?track_id=${musicDto2.track_id }'" class="list-button">추가곡확인</button>
     		
 			</div>
             </td>
-      <!-- 업데이트 테스트 -->      
+           
         </tr>
          
 </form>
 </table>
-	
+<br>
+<div style="text-align:center">
+<a href="/hjs_music_admin" id="admin_button">관리자목록으로</a></div>	
 
 
 <br><br><br><br>

@@ -13,6 +13,8 @@ public interface HjsmusicService {
 	public abstract int writeDao(HjsmusicDTO musicDto);
 	abstract HjsmusicDTO viewDao(String track_id);
 	abstract int deleteDao(String track_id);
+	int deleteadminDao(String track_id);
+	
 	abstract int updateDao(HjsmusicDTO musicDto);
 
 	List<HjsmusicDTO> listDao(HjsmusicDTO musicDto);
@@ -21,4 +23,6 @@ public interface HjsmusicService {
 	List testIf(HjsmusicDTO musicDto);
 //	List testForeach(HjsmusicDTO musicDto);
 	Map list(HjsmusicDTO musicDto);
+	
+	List<HjsmusicDTO> youtubeDao(String youtube_url);
 }

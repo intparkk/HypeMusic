@@ -9,7 +9,16 @@
 		<result column="comment_id" property="comment_id" />
 </resultMap>
 <select id="listDao" resultType="com.study.springboot.dto.HjscommentDTO">
-	select * from tb_comment where track_id=#{track_id}
+	
+	select c.*, u.name from tb_comment c, users u
+	where c.user_id = u.user_id and c.track_id=#{param1}
+	order by comment_id asc
+	
+</select>
+ 
+ <select id="listDao2" resultType="com.study.springboot.dto.HjscommentDTO">
+	select rownum as rnum, tb_comment.* from tb_comment 
+	order by rnum asc
 </select>
  
  

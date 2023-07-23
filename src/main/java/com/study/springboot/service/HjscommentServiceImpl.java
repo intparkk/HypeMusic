@@ -44,6 +44,12 @@ public class HjscommentServiceImpl implements HjscommentService{
 		return list;
 	}
 
+	@Override
+	public List<HjscommentDTO> listDao2(HjscommentDTO hjscommentDTO) {
+		List<HjscommentDTO> list = hjscommentDAO.listDao2(hjscommentDTO);
+		return list;
+	}
+
 	// 업데이트 테스트
 
 }

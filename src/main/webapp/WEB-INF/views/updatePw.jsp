@@ -5,31 +5,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>update my info</title>
+<title>:: 비밀번호 변경 ::</title>
+<link rel="stylesheet" href="/login.css">
 </head>
 <body>
-	<h1>비밀번호 변경</h1>
-	<a href="/test-main">메인페이지</a>
-	<hr>
-	<c:choose>
-		<c:when test="${isLoggedIn ne 'ok'}">
-			<h2>로그인이 필요한 서비스입니다.</h2><br>
-			<a href="/login">로그인</a>
-		</c:when>
-		<c:otherwise>
-			<form id="boxes" method="POST" action=/doUpdatePw>
-				<input type="hidden" name="id" value="${dto.id}">
-				새 비밀번호 입력 : 
-				<input type="password" name="fpw" onkeyup="updatePw(this.value)">
-				<input type="hidden" name="pw" value="">
-				<br>
-				비밀번호 확인 : <input type="password" name="pw-confirm" id="pw-confirm">
-				<br>
-				<input type="submit" id="submit" value="변경하기">
-			</form>
-			<a href="/myInfo">취소</a>	
-		</c:otherwise>
-	</c:choose>
+	<div id="wrap">
+		<header class="pageHeader">
+			<a href="http://localhost:8081/Mainpage" class="logo">
+				<img width="180px" height="100px" src="/img/logo_ex.jpg">
+			</a>
+		</header>
+		<form id="boxes" method="post" action=/doUpdatePw>
+			<div id="inputGroup">
+				<div id="input">
+					<input type="hidden" name="id" value="${dto.id}">
+					<div class="label-wrapper">
+						<label for="pw" id="lb">새 비밀번호</label><br>
+					</div>
+					<input type="password" name="fpw" onkeyup="updatePw(this.value)"><br>
+					<input type="hidden" name="pw" value="">
+					<br>
+					<div class="label-wrapper">
+						<label for="pw" id="lb">비밀번호 확인</label><br>
+					</div>
+					<input type="password" name="pw-confirm" id="pw-confirm"><br>
+				</div>
+	   			<div id="input">
+					<input type="submit" id="submit" value="변경하기">
+				</div>
+			</div>
+		</form>      
+	</div>	
 	
 	<!-- SHA-256 알고리즘 cryptoJS 라이브러리 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>

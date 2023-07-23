@@ -4,19 +4,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>checkPw</title>
+<title>:: 비밀번호 확인 ::</title>
+<link rel="stylesheet" href="/login.css">
 </head>
 <body>
-	<h1>비밀번호 확인</h1><hr>
+	<div id="wrap">
+		<header class="pageHeader">
+			<a href="http://localhost:8081/test-main" class="logo">
+				<img width="180px" height="100px" src="/img/logo_ex.jpg">
+			</a>
+		</header>
 		<form id="boxes" method="post" action=/doCheckPw>
-		<input type="hidden" name="id" value="${dto.id }">
-		<p>
-			비밀번호 확인 : <input type="password" name="fpw" onkeyup="updatePw(this.value)"><br>
-						 <input type="hidden" name="pw" value="">
-		</p>
-		<input type="submit" id="submit" value="확인">
-	</form>
-	
+			<div id="inputGroup">
+				<div id="input">
+					<input type="hidden" name="id" value="${userInfo.id}">
+					<div class="label-wrapper">
+						<label for="pw" id="lb">비밀번호 확인</label><br>
+					</div>
+					<input type="password" name="fpw" value="1234" onkeyup="updatePw(this.value)"><br>
+					<input type="hidden" name="pw" value="1234">
+				</div>
+	   			<div id="input">
+					<input type="submit" id="submit" value="확인">
+				</div>
+			</div>
+		</form>      
+   </div>
+
 	<!-- SHA-256 알고리즘 cryptoJS 라이브러리 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 	<script>

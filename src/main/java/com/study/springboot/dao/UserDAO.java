@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.study.springboot.dto.HjsmusicDTO;
 import com.study.springboot.dto.UserDTO;
 
 @Mapper
@@ -29,6 +28,9 @@ public interface UserDAO {
 	// 비밀번호 변경 - 비밀번호 확인
 	int pwCheck(UserDTO userDTO);
 	
+	// 아이디로 비밀번호 찾기
+	int findPwById(UserDTO userDTO);
+	
 	// 비밀번호 변경 수행
 	int updatePw(UserDTO userDTO);
 	
@@ -38,4 +40,14 @@ public interface UserDAO {
 	// 이메일 보기
 	UserDTO userEmail(UserDTO userDTO);
 	
+	List<UserDTO> listDao(UserDTO userDTO);
+
+	// 이용권 구매	
+	UserDTO buyticket(int user_id);
+	
+	// 이용권 해제
+	UserDTO sellticket(int user_id);
+	
+	// 이용권 업데이트(세션)
+	UserDTO updateticket(int user_id);
 }

@@ -12,22 +12,44 @@
 table{
 	border-collapse:collapse;
 	margin: auto;
+	width: 85%;
 }
 table,th, td{
 	border: 1px solid lightgray;
-/* 	border-bottom: 1px solid lightgray;
-	border-top: 1px solid lightgray; */
+	text-align: center;
 }
+th {
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 8px;
+padding-bottom: 8px;
+background-color: rgb(204, 179, 166);
+color: rgb(241, 241, 241);
+max-width: 400px;
+}
+tr:hover {
+background-color:#f3f3f5; 
+}
+
 h1, h2{
 text-align: center;
+}
+.delete {
+color: red;
+font-weight: bold;
+}
+.delete:hover {
+color: #FFA7A7;
 }
 </Style>
 
 </head>
 <header>
-<jsp:include page="hjs_music_header2.jsp"></jsp:include> 
+<jsp:include page="header.jsp"></jsp:include> 
 </header>
 <body>
+<div style="text-align:right; padding-right:260px;"><a href="/hjs_music_admintest">곡추가</a></div><br>
+<div style="text-align:right; padding-right:260px;"><a href="/hjs_music_admin">관리자목록으로</a></div><br>
 <table>
 
 	<tr>
@@ -42,6 +64,7 @@ text-align: center;
 		<th>genre</th>
 		<th>release_date</th>
 		<th>lyrics</th>
+		<th>삭제</th>
 	</tr>
 <c:forEach var="dto" items="${list}" begin="0" end="200" varStatus="loop">
 	<tr>
@@ -56,10 +79,10 @@ text-align: center;
 		<td>${dto.genre }</td>
 		<td>${dto.release_date }</td>
 		<td>${dto.lyrics }</td>
+		<td><a href="/admin_delete?track_id=${dto.track_id }" class="delete">삭제</a></td>
 	</tr>
 </c:forEach>
-	<!-- 업데이트 테스트 -->
-	<!-- 업데이트 테스트 -->
+	
 </table>
 <br><br><br>
 </body>

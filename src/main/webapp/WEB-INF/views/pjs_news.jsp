@@ -143,7 +143,7 @@
         <div id="news-slider">
             <c:forEach var="news" items="${newsList}" varStatus="status">
                 <c:if test="${status.index < 10}">
-                    <div class="news-item" onclick="window.location.href='${news.news_url}'">
+                    <div class="news-item" onclick="window.open('${news.news_url}','_blank')">
                         <img src="${news.news_img}" alt="News Image">
                         <div>
                             <h3>${news.news_title}</h3>
