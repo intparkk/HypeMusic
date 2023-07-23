@@ -144,6 +144,7 @@ background-color:rgb(237, 233, 221);
                 </div>
             <!-- 트랙 상세정보 -->
                 <dl class="list">
+                	<input type="hidden" id="trackId" value="${trackInfo[0].track_id }"> 
                 	<strong id ="blackword">${trackInfo[0].title}</strong>
                 	<br>
                 	<br>
