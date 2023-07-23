@@ -116,7 +116,7 @@
 		        } else {
 		            alert("음악 추가에 실패했습니다. 다시 시도해주세요.");
 		        }
-		    })
+		    }) 
 		    .catch(error => {
 		        console.error("오류 발생:", error);
 		    });

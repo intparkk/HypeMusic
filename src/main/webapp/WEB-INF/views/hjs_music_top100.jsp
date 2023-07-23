@@ -104,7 +104,7 @@
 					            <img src="/img/hjs_music_put.png" alt="담기" style="border: none; width: 20px; height: 20px;">
 					        </a>
 					    </c:if> --%>
-
+ 
 							<button type="button" title="담기" class="add-btn"
 								data-track-id="${tracks.track_id }"
 								onclick="showPlaylistPopup(this)">
