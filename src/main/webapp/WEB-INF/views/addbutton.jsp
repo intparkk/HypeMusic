@@ -92,7 +92,12 @@
 		    });
 		};
 		
+		const userInfo = "${userInfo.user_id}";
 	    document.querySelector(".add-btn").addEventListener("click", (event) => {
+	    	if (userInfo == ""){
+	    		alert("로그인 후 이용가능한 서비스 입니다.");
+	    		event.preventDefault();
+	    	}
 			showPlaylistPopup(event);
 	    });
 		

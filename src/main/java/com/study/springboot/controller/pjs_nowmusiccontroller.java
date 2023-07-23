@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.study.springboot.dto.trackinfoDTO;
 import com.study.springboot.service.pjs_nowmusicservice;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class pjs_nowmusiccontroller
@@ -24,31 +27,23 @@ public class pjs_nowmusiccontroller
 	private pjs_nowmusicservice nowmusicService;
 	
 	@RequestMapping("/nowmusic")
-	public String nowMusic(Model model)
+	public String nowMusic(Model model,HttpServletRequest req)
 	{
-		List<trackinfoDTO> nowTracks = nowmusicService.getnowmusictracks();
-		model.addAttribute("nowTracks",nowTracks);
+		String selectYear = req.getParameter("yearButton");
+		
+		// 최초진입시 2023년 곡들만 표시
+		if(selectYear == null)
+		{
+			List<trackinfoDTO> nowTracks = nowmusicService.getyearmusictracks("2023");
+			model.addAttribute("nowTracks",nowTracks);
+		}
+		else
+		{
+			List<trackinfoDTO> nowTracks = nowmusicService.getyearmusictracks(selectYear);
+			model.addAttribute("nowTracks",nowTracks);
+		}
 		
 		return "pjs_nowmusic";
-	}
-	
-	@PostMapping("/getYearTracks")
-	@ResponseBody
-	public List<trackinfoDTO> nowmusic(@RequestBody Map<String, String> requestbody, Model model)	
-	{
-		String selectYear = requestbody.get("year");
-		System.out.println("선택 년도 :" +selectYear);
-		
-        List<trackinfoDTO> nowTracks = nowmusicService.getyearmusictracks(selectYear);
-        
-        model.addAttribute("nowTracks",nowTracks);
-        
-        // nowTracks의 모든 곡 제목 출력
-        for (trackinfoDTO track : nowTracks) {
-            System.out.println("곡 제목: " + track.getTitle());
-        }
-        
-		return nowTracks;		
-	}
+	}	
 	
 }

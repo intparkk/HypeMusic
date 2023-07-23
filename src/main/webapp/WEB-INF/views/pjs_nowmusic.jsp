@@ -104,10 +104,34 @@ a:hover {
 .track_2:hover .caption_2 {
     opacity: 1;
 } 
-    #trackTable thead {
-        position: sticky;
-        top: 0;        
-    }
+.add-btn {
+    display: inline-block;
+    padding: 5px;
+    background-color: transparent;
+    border: none; 
+    outline: none;
+    cursor: pointer;
+	}
+	
+.add-btn:hover {
+transform: scale(1.3);
+}
+
+#yearForm {
+  text-align: center;
+}
+#year_select_button {
+  margin: 0 auto;
+  width: 60px;
+  height: 35px;
+  border: 2px solid rgb(163, 121, 103);;
+  color: rgb(163, 121, 103);;
+}
+
+#year_select_button:hover {
+	 font-weight: bold;
+}
+
 </Style>
 <body>
 	<div id="nowmusic_body">
@@ -115,10 +139,12 @@ a:hover {
 		<img src="/img/hjs_music_newalbum_logo.png">
 	</div>
 	<section id ="nowmusic_selector">
-        <%-- 여기에 최신 연도부터 2011년까지의 버튼을 생성합니다 --%>
+		<form id="yearForm" action="/nowmusic">
+	   <%-- 여기에 최신 연도부터 2011년까지의 버튼을 생성합니다 --%>
         <% for (int year = 2023; year >= 2011; year--) { %>
-            <button type="submit" class="yearButton" value="<%= year %>"><%= year %></button>
-        <% } %>    
+            <button type="submit" id="year_select_button" name="yearButton" value="<%= year %>"><%= year %></button>
+        <% } %> 
+        </form>   
 	</section>
 
 		<section id="nowmusic_table">
@@ -139,6 +165,7 @@ a:hover {
 					<th>듣기</th>
 					<th>담기</th>
 				</thead>
+
 		<c:forEach var="tracks" items="${nowTracks}" varStatus="loop">
 			<tr>
 					<td><input type="checkbox" name="check" id="checkbox">
@@ -162,8 +189,15 @@ a:hover {
 					</td>
 					<td><a href="/albuminfo/${tracks.album_id}">${tracks.album_name }</a></td>
 					<td>${tracks.release_date }</td>
-					<td><a href="${tracks.youtube_url }"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
-					<td></td>
+					<td><a href="${tracks.youtube_url }" target="_blank"><img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a></td>
+					<td>		
+					<button type="button" title="담기" class="add-btn"
+					data-track-id="${tracks.track_id }"
+					onclick="showPlaylistPopup(this)">
+					<img src="/img/hjs_music_put.png" alt="담기"
+						style="width: 20px; height: 20px;">
+					</button>
+							</td>
 			</tr>
 		</c:forEach>
 		</table>
@@ -173,82 +207,109 @@ a:hover {
 	
 <!-- 최초 진입 시 2023년 버튼이 클릭되도록 추가 -->
 <script>
-    /*window.onload = function() {
-        var year2023Button = document.querySelector('button[value="2023"]');
-        year2023Button.click(); // 2023년 버튼을 클릭하여 최초 데이터 출력
-    };*/
+function submitForm(){
+	document.getElementById("yearForm").submit();
+}
+// 최초 진입 시 2023 버튼 클릭
+/*window.onload = function() {
+    submitForm();
+};*/
 </script>
-<!-- 연도별 음악 -->
-<script>
-	// Ajax로 서버로부터 받은 데이터를 테이블에 출력하는 함수
-	function renderTracksTable(tracksData) {
-        var trackTable = document.getElementById("trackTable");
-        var trackTableWrapper = document.getElementById("trackTableWrapper");
+    
+	<!-- 담기 버튼의 스크립트 입니다 -->
+	<script>	
+	const showPlaylistPopup = (element) => {
+		const trackId = element.dataset.trackId;
+		
+		const popup = document.createElement("div");
+		popup.id = "playlistPopup";
+		popup.style.position = "fixed";
+		
+		popup.style.top = event.clientY + "px";
+		popup.style.left = event.clientX + "px";
+		
+		popup.style.backgroundColor = "white";
+		popup.style.padding = "20px";
+		popup.style.border = "1px solid #ccc";
 
-        // 테이블이 존재하지 않을 경우 예외 처리
-        if (!trackTable || !trackTableWrapper) {
-            console.error("테이블이 존재하지 않습니다.");
-            return;
-        }
-
-        trackTable.innerHTML = ""; // 기존의 내용을 지우고 시작
-	    for (var i = 0; i < tracksData.length; i++) {
-	        var track = tracksData[i];
-	
-	        // 테이블 새로운 행 추가
-	        var row = trackTable.insertRow(-1);
-	
-	        // 셀 생성 및 데이터 추가
-	        var cellCheckbox = row.insertCell(0);
-	        var cellIndex = row.insertCell(1);
-	        var cellGenre = row.insertCell(2);
-	        var cellMusicInfo = row.insertCell(3);
-	        var cellTrackInfo = row.insertCell(4);
-	        var cellAlbumName = row.insertCell(5);
-	        var cellReleaseDate = row.insertCell(6);
-	        var cellYoutube = row.insertCell(7);
-	        //var cellAddButton = row.insertCell(8);
-	
-        cellIndex.textContent = i + 1; // 인덱스 1부터 시작
-        cellGenre.textContent = track.genre || "장르 정보 없음"; // 장르 정보가 없을 경우 "장르 정보 없음" 표시
-        cellMusicInfo.innerHTML = '<a href="/music_info?track_id=' + track.track_id + '">' +
-            '<img src="/img/hjs_music_musicinfo.png" class="music_info_icon2"></a>'; // 음악 정보 링크
-        cellTrackInfo.innerHTML = '<div class="track_2">' +
-            '<img src="' + track.album_img + '" alt="album_img" style="width: 100px;height: 100px;">' +
-            '<div class="caption_2">' +
-            '<p>' + track.title + '</p>' +
-            '<p>' + track.artist + '</p>' +
-            '</div>' +
-            '</div>'; // 곡 정보 디자인
-        cellAlbumName.textContent = track.album_name || "앨범 이름 없음"; // 앨범 이름 정보가 없을 경우 "앨범 이름 없음" 표시
-        cellReleaseDate.textContent = track.release_date || "발매일 정보 없음"; // 발매일 정보가 없을 경우 "발매일 정보 없음" 표시
-        cellYoutube.innerHTML = '<a href="' + track.youtube_url + '">' +
-            '<img src="img/hjs_music_play.png" class="logo1" style="border: none; width: 17px; height: 15px;"></a>'; // 유튜브 링크 아이콘
-	    }
-	}
-    // 버튼 클릭 이벤트 리스너 등록
-    var yearButtons = document.getElementsByClassName("yearButton");
-    for (var i = 0; i < yearButtons.length; i++) {
-        yearButtons[i].addEventListener("click", function(event) {
-            var year = this.value;
-            console.log("클릭한 연도:", year);
-
-            // Ajax를 사용하여 서버로 년도 전송
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/getYearTracks', true);
-            xhr.setRequestHeader('Content-Type', 'application/json'); // 요청 헤더
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    // 서버로부터 받은 데이터를 활용하여 원하는 기능 수행
-                    renderTracksTable(response);
-                    console.log("서버 응답:", response);
-                }
-            };
-            // 년도 값을 JSON 형식으로 변환하여 요청 본문에 설정하고 전송
-            xhr.send(JSON.stringify({ year: year }));
-        });
-    }
+		/* 팝업 내용을 구성하고 표시하는 코드 추가 */
+		fetch("/myPlaylist/loadPlaylist")
+			.then(
+				response => response.json()
+			)
+			.then(playlists => {
+				console.log(playlists);
+				const playlistSelect = document.createElement("select");
+				playlistSelect.id = "playlistSelect";
+			
+			   	/* 내가 가지고 있는 재생목록을 선택 */
+				playlists.forEach(playlists => {
+					const option = document.createElement("option");
+					option.value = playlists.playList_id;
+					option.textContent = playlists.playList_name;
+					playlistSelect.appendChild(option);
+				});
+				
+				const addButton = document.createElement("button");
+				addButton.textContent = "추가";
+				addButton.addEventListener("click", () => {
+					const selectedPlaylistId = playlistSelect.value;
+					const selectedTrackId = trackId;
+					addToPlaylist(selectedPlaylistId, selectedTrackId);
+					popup.remove();
+				});
+				
+				const closeButton = document.createElement("button");
+				closeButton.textContent = "닫기";
+				closeButton.addEventListener("click", () => {
+					popup.remove();
+				});
+				
+				popup.appendChild(playlistSelect);
+				popup.appendChild(addButton);
+				popup.appendChild(closeButton);
+				
+				document.body.appendChild(popup);
+			    })
+		    .catch(error => {
+				console.error("팝업 내용을 가져오는 중 오류가 발생했습니다:", error);
+		    });
+		};
+		
+    	const userInfo = "${userInfo.user_id}";
+	    document.querySelector(".add-btn").addEventListener("click", (event) => {
+			if (userInfo == ""){
+				alert("로그인 후 이용 가능한 서비스입니다.");
+				event.preventDefault();
+			}
+			showPlaylistPopup(event);
+	    });
+		
+		/* 재생목록에 추가 */
+		const addToPlaylist = (playlistId, trackId) => {
+		    const data = {
+		        playlist_id: playlistId,
+		        track_id: trackId
+		    };
+		
+		    fetch("/myPlaylist/addToPlaylist", {
+		        method: "POST",
+		        headers: {
+		            "Content-Type": "application/json"
+		        },
+		        body: JSON.stringify(data)
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		            alert("음악이 재생목록에 추가되었습니다.");
+		        } else {
+		            alert("음악 추가에 실패했습니다. 다시 시도해주세요.");
+		        }
+		    })
+		    .catch(error => {
+		        console.error("오류 발생:", error);
+		    });
+		};
 </script>
 
 <!-- 재생 버튼의 스크립트입니다 -->

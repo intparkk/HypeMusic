@@ -247,6 +247,10 @@ public class hjs_musiccontroller {
 		
 		// HjsmusicDTO 객체를 적절하게 초기화하고 값을 설정해야 합니다.
 		HjsmusicDTO dto = musicDto;
+		HttpSession session = req.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+		model.addAttribute("userInfo", userDTO);
+		System.out.println("userInfo : " + userDTO);
 		
 		System.out.println("pageNum : "+ pageNum);
 		if(pageNum == null) {
